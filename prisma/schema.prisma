@@ -8,6 +8,40 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Post {
+  id        String   @id @default(uuid())
+  type      PostType
+  content   String
+  likes     Like[]
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([createdAt, id])
+  @@index([userId])
+}
+
+enum PostType {
+  thought
+  question
+  project
+  job
+  event
+  bounty
+}
+
+model Like {
+  userId   String
+  postId   String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Post     Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  bountyId String?
+
+  @@id([userId, postId])
+  @@index([userId])
+  @@index([postId])
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
@@ -47,6 +81,21 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+
+  // Non Next Auth
+  phone     String?
+  role      UserType?
+  dob       DateTime?
+  gender    String?
+  posts     Post[]
+  followers User[]    @relation(name: "Followers")
+  follows   User[]    @relation(name: "Followers")
+  Like      Like[]
+}
+
+enum UserType {
+  student
+  recruiter
 }
 
 model VerificationToken {

@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const UserAuthFormSchema = z.object({
   email: z.string({ required_error: 'Please enter your email address' }).email({
@@ -32,29 +33,35 @@ type UserAuthFormValues = z.infer<typeof UserAuthFormSchema>;
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 
 const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
+  const router = useRouter();
   const form = useForm<UserAuthFormValues>({
     resolver: zodResolver(UserAuthFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
+
   const [loading, setLoading] = useState(false);
   const { handleSubmit, formState, control } = form;
   const isValid = formState.isValid;
-
   function onSubmit(data: UserAuthFormValues) {
     setLoading(true);
+
     signIn('credentials', {
       email: data.email,
       password: data.password,
-      callbackUrl: '/',
-    })
-      .then((res) => {
-        if (!res?.ok) {
-          toast.error('Invalid credentials');
-        }
-        setLoading(false);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      redirect: false,
+    }).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error);
+      } else {
+        toast.success('Signed in successfully');
+        router.push('/');
+      }
+    });
+
+    setLoading(false);
   }
 
   return (

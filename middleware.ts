@@ -10,8 +10,8 @@ export default async function middleware(req: NextRequest) {
   });
 
   if (!session && path === '/') {
-    return NextResponse.redirect(new URL('/api/auth/signin', req.url));
-  } else if (session && path === '/api/auth/signin') {
+    return NextResponse.redirect(new URL('/authentication', req.url));
+  } else if (session && path === '/authentication') {
     return NextResponse.redirect(new URL('/', req.url));
   }
   return NextResponse.next();

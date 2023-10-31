@@ -29,14 +29,20 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
-        if (!user) return null;
+        if (!user) {
+          throw new Error('Invalid Credentials');
+        }
 
         const passwordsMatch = await compare(
           credentials.password,
           user.password!
         );
 
-        return passwordsMatch ? user : null;
+        if (passwordsMatch) {
+          return user;
+        } else {
+          throw new Error('Invalid Credentials');
+        }
       },
     }),
     GoogleProvider({

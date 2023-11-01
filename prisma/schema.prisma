@@ -31,11 +31,10 @@ enum PostType {
 }
 
 model Like {
-  userId   String
-  postId   String
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Post     Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  bountyId String?
+  userId String
+  postId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([userId, postId])
   @@index([userId])
@@ -91,6 +90,8 @@ model User {
   followers User[]    @relation(name: "Followers")
   follows   User[]    @relation(name: "Followers")
   Like      Like[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 enum UserType {

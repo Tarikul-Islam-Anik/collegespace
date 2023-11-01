@@ -6,7 +6,7 @@ const PremiumFeatures = () => {
     <Flex direction='column' className='space-y-5'>
       <MediaObject
         heading='A verified badge'
-        content="Your audience can trust that you're a real person sharing your real stories."
+        content="Your audience can trust that you're a real person."
       >
         <Verify className='h-7 w-7 text-muted-foreground' />
       </MediaObject>

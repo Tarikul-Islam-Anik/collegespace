@@ -16,7 +16,7 @@ model Post {
   userId    String
   likes     Like[]
   Bounty    Bounty[]
-  Jobs      Jobs[]
+  job       Job[]
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([createdAt, id])
@@ -65,7 +65,7 @@ model Company {
   phone     String?   @db.VarChar(15)
   website   String?   @db.VarChar(100)
   logo      String?   @db.Text
-  Jobs      Jobs[]
+  job       Job[]
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   ownerId   String
@@ -74,7 +74,7 @@ model Company {
   @@index([ownerId])
 }
 
-model Jobs {
+model Job {
   title     String  @db.VarChar(51)
   type      JobType
   salary    Int
@@ -187,7 +187,7 @@ model User {
   Like                   Like[]
   Bounty                 Bounty[]
   Company                Company[]
-  Jobs                   Jobs[]
+  job                    Job[]
   StudentDetails         StudentDetails[]
   EducationalInformation EducationalInformation[]
   createdAt              DateTime                 @default(now())

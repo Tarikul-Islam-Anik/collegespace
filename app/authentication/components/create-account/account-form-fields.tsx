@@ -1,7 +1,7 @@
 import z from 'zod';
 import Link from 'next/link';
 import { Loader2 } from 'lucide-react';
-import { Box, Flex, Text } from '@radix-ui/themes';
+import { Box, Text } from '@radix-ui/themes';
 import { UseFormReturn } from 'react-hook-form';
 import {
   FormLabel,
@@ -12,8 +12,6 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import DobSelect from '@/components/shared/common-form-fields/dob-select';
-import GenderSelect from '@/components/shared/common-form-fields/gender-select';
 import { CreateAccountFormSchema, CreateAccountFormValues } from '@/lib/type';
 
 const AccountFormFields = ({
@@ -44,10 +42,6 @@ const AccountFormFields = ({
           />
         </Box>
       ))}
-      <Flex width='100%' align='center'>
-        <DobSelect form={form} />
-        <GenderSelect form={form} />
-      </Flex>
       <Button disabled={!isValid || isLoading} type='submit'>
         {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
         Sign up

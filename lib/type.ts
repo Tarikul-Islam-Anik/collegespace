@@ -11,8 +11,6 @@ export const CreateAccountFormSchema = z.object({
     .string()
     .min(8, { message: 'Password must be at least 8 characters long' }),
   role: z.enum(['student', 'recruiter']),
-  dob: z.date(),
-  gender: z.enum(['male', 'female']),
 });
 
 export type CreateAccountFormValues = z.infer<typeof CreateAccountFormSchema>;

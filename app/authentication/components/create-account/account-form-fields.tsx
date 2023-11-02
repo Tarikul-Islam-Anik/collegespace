@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CreateAccountFormSchema, CreateAccountFormValues } from '@/lib/type';
+import { CreateAccountFormSchema, CreateAccountFormValues } from './schema';
 
 const AccountFormFields = ({
   form,

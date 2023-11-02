@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Form } from '@/components/ui/form';
 import AccountFormFields from './account-form-fields';
 import SelectAccountRole from './select-account-role';
-import { CreateAccountFormSchema, CreateAccountFormValues } from '@/lib/type';
+import { CreateAccountFormSchema, CreateAccountFormValues } from './schema';
 
 interface CreateAccountFormProps extends React.HTMLAttributes<HTMLFormElement> {
   steps: number;

@@ -167,6 +167,7 @@ model User {
 
   // Non Next Auth
   bio                    String?                  @db.VarChar(101)
+  coverImage             String?                  @db.Text
   phone                  String?                  @db.VarChar(15)
   role                   UserType?
   completedProfile       Boolean?                 @default(false)

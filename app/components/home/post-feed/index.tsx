@@ -1,7 +1,8 @@
 import { Flex } from '@radix-ui/themes';
 import CreatePost from './posts/create-post';
 import Posts from './posts';
-const MiddleColumn = () => {
+
+const PostFeed = () => {
   return (
     <Flex direction='column' gap='4'>
       <CreatePost />
@@ -10,5 +11,5 @@ const MiddleColumn = () => {
   );
 };
 
-MiddleColumn.displayName = 'MiddleColumn';
-export default MiddleColumn;
+PostFeed.displayName = 'PostFeed';
+export default PostFeed;

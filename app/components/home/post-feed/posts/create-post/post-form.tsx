@@ -10,11 +10,11 @@ import { useSession } from 'next-auth/react';
 import { Flex, Box, Text } from '@radix-ui/themes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import PostAddons from './post-addons';
 import PostType from './post-type';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import UserAvatar from '@/components/shared/user-avatar';
+import PostContentField from './post-content-field';
 
 export const postFormSchema = z.object({
   content: z.string().trim().min(1).max(256),
@@ -48,30 +48,14 @@ const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
         <Flex>
           <UserAvatar name={session?.user?.name} image={session?.user?.image} />
           <Flex direction='column' className='ml-4 w-full'>
             <Text as='p' className='font-medium'>
               {session?.user?.name}
             </Text>
-            <FormField
-              control={form.control}
-              name='content'
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder='Write something...'
-                      className='resize-none border-0 pl-0 pt-1 shadow-none focus-visible:ring-transparent'
-                      rows={6}
-                      maxLength={256}
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            <PostContentField form={form} />
           </Flex>
         </Flex>
         <Flex align='center' justify='between'>

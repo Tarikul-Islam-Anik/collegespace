@@ -1,6 +1,5 @@
 'use client';
 import z from 'zod';
-import { useSession } from 'next-auth/react';
 import { UseFormReturn } from 'react-hook-form';
 import { postFormSchema } from './post-form';
 import {
@@ -10,21 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Box,
-  LampOn,
-  MessageQuestion,
-  WalletMoney,
-  DocumentText,
-} from 'iconsax-react';
+import { Box, LampOn, MessageQuestion, DocumentText } from 'iconsax-react';
 import { Flex, Text } from '@radix-ui/themes';
 
 const PostTypeIcon = ({ type }: { type: string }) => {
   switch (type) {
     case 'question':
       return <MessageQuestion className='text-muted-foreground' size={20} />;
-    case 'bounty':
-      return <WalletMoney className='text-muted-foreground' size={20} />;
     case 'job':
       return <DocumentText className='text-muted-foreground' size={20} />;
     case 'project':
@@ -39,10 +30,6 @@ const PostType = ({
 }: {
   form: UseFormReturn<z.infer<typeof postFormSchema>>;
 }) => {
-  const { data: session } = useSession();
-  //@ts-ignore
-  const role = session?.user?.role;
-
   return (
     <Select
       defaultValue='thought'
@@ -55,34 +42,14 @@ const PostType = ({
         <SelectValue />
       </SelectTrigger>
       <SelectContent className='min-w-[120px]'>
-        {postFormSchema._def.shape().type._def.values.map(
-          (type) =>
-            type !== 'bounty' &&
-            type !== 'job' && (
-              <SelectItem key={type} value={type} className='capitalize'>
-                <Flex align='center' className='space-x-2'>
-                  <PostTypeIcon type={type} />
-                  <Text>{type}</Text>
-                </Flex>
-              </SelectItem>
-            )
-        )}
-        {role === 'student' && (
-          <SelectItem value='bounty' className='capitalize'>
+        {postFormSchema._def.shape().type._def.values.map((type) => (
+          <SelectItem key={type} value={type} className='capitalize'>
             <Flex align='center' className='space-x-2'>
-              <PostTypeIcon type='bounty' />
-              <Text>Bounty</Text>
+              <PostTypeIcon type={type} />
+              <Text>{type}</Text>
             </Flex>
           </SelectItem>
-        )}
-        {role === 'recuiter' && (
-          <SelectItem value='job' className='capitalize'>
-            <Flex align='center' className='space-x-2'>
-              <PostTypeIcon type='job' />
-              <Text>Job</Text>
-            </Flex>
-          </SelectItem>
-        )}
+        ))}
       </SelectContent>
     </Select>
   );

@@ -15,8 +15,6 @@ model Post {
   createdAt DateTime @default(now())
   userId    String
   likes     Like[]
-  Bounty    Bounty[]
-  job       Job[]
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([createdAt, id])
@@ -27,9 +25,6 @@ enum PostType {
   thought
   question
   project
-  job
-  event
-  bounty
 }
 
 model Like {
@@ -45,16 +40,13 @@ model Like {
 
 model Bounty {
   title    String   @db.VarChar(51)
-  price    Int
+  reward   Int
   deadline DateTime
   userId   String
-  postId   String
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  @@id([userId, postId])
+  @@id([userId])
   @@index([userId])
-  @@index([postId])
 }
 
 model Company {
@@ -81,14 +73,11 @@ model Job {
   location  String? @db.VarChar(51)
   userId    String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postId    String
-  post      Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   companyId String
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
-  @@id([userId, postId, companyId])
+  @@id([userId, companyId])
   @@index([companyId])
-  @@index([postId])
   @@index([userId])
 }
 

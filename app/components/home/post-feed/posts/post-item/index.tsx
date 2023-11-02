@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { PostType } from '@/lib/type';
 import { Flex, Text } from '@radix-ui/themes';
@@ -7,12 +8,18 @@ import PostOptions from './item-options';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import UserAvatar from '@/components/shared/user-avatar';
 
+const ProfileHoverCard = dynamic(
+  () => import('@/components/shared/profile-hover-card'),
+  { ssr: false }
+);
+
 const PostItem = ({ id, type, content, user, likes, createdAt }: PostType) => {
   const postedAt = useMemo(() => {
     return formatDistanceToNowStrict(new Date(createdAt), {
       addSuffix: true,
     });
   }, [createdAt]);
+  
   return (
     <Card className='rounded-none border-none pt-5 shadow-none'>
       <CardContent className='pb-2 pl-0'>
@@ -21,7 +28,9 @@ const PostItem = ({ id, type, content, user, likes, createdAt }: PostType) => {
           <Flex direction='column' mt='-3' width='100%'>
             <Flex align='center' justify='between'>
               <Text as='p'>
-                <Text className='font-semibold'>{user?.name}</Text>
+                <ProfileHoverCard {...user}>
+                  <Text className='font-semibold'>{user?.name}</Text>
+                </ProfileHoverCard>
                 <Text mx='2'>&middot;</Text>
                 <time
                   dateTime={new Date(createdAt).toISOString()}

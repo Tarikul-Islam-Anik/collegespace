@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
           id: true,
           name: true,
           image: true,
+          createdAt: true,
         },
       },
       likes: {

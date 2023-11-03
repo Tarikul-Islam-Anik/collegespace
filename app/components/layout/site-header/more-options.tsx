@@ -1,7 +1,6 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { Text } from '@radix-ui/themes';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import {

@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Heading, Box, Flex } from '@radix-ui/themes';
 import Navbar from '../navbar';
 import MoreOptions from './more-options';
 

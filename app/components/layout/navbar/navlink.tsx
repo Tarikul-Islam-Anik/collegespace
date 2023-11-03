@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-import { Text } from '@radix-ui/themes';
 import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,

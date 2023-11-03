@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { Flex, Text, Box } from '@radix-ui/themes';
 import { Calendar } from 'iconsax-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -9,6 +8,9 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { Box } from '@/components/layout/box';
+import { Flex } from '@/components/layout/flex';
+import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 
 interface ProfileHoverCardProps {
@@ -38,13 +40,13 @@ const ProfileHoverCard = ({
         </Button>
       </HoverCardTrigger>
       <HoverCardContent className={cn(className, 'w-80')}>
-        <Flex direction='column' gap='4'>
-          <Flex gap='4' justify='between'>
+        <Flex direction='column' gap={4}>
+          <Flex gap={4} justify='between'>
             <UserAvatar name={name} image={image} />
             <Box className='min-w-[230px] space-y-1'>
               <h4 className='text-sm font-semibold'>{name}</h4>
               <Text
-                size='1'
+                size='xs'
                 className={cn(
                   !bio && 'italic text-muted-foreground',
                   'line-clamp-3'
@@ -52,7 +54,7 @@ const ProfileHoverCard = ({
               >
                 {bio ? bio : 'No bio provided'}
               </Text>
-              <Flex align='center' pt='2'>
+              <Flex align='center' pt={2}>
                 <Calendar className='mr-2 h-4 w-4 opacity-70' />{' '}
                 <Text className='text-xs text-muted-foreground'>
                   Joined{' '}

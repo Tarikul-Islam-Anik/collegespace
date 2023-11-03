@@ -1,9 +1,6 @@
-'use client'
+'use client';
 
-import '@radix-ui/themes/styles.css';
-import './radix-theme-config.css';
 import { Provider } from 'jotai';
-import { Theme } from '@radix-ui/themes';
 import AuthProvider from './auth-context';
 import { ThemeProvider } from './theme-provider';
 
@@ -17,7 +14,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           enableSystem
           disableTransitionOnChange
         >
-          <Theme>{children}</Theme>
+          {children}
         </ThemeProvider>
       </Provider>
     </AuthProvider>

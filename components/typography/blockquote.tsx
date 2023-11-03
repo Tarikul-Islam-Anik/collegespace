@@ -18,7 +18,7 @@ const Blockquote = React.forwardRef<BlockquoteElement, BlockquoteProps>(
         {...blockquoteProps}
         ref={forwardedRef}
         className={cn(
-          'border-l-8 border-muted-foreground pl-4 font-serif text-lg',
+          'border-l-8 border-primary/25 pl-4 text-lg',
           className
         )}
       >

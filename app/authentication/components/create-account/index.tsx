@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Text } from '@radix-ui/themes';
 import { ArrowLeft } from 'iconsax-react';
 import {
   Dialog,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/shared/loader';
+import { Text } from '@/components/typography/text';
 
 const CreateAccountForm = dynamic(() => import('./create-account-form'), {
   ssr: false,

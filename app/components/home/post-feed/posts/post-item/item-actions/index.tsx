@@ -1,8 +1,8 @@
-import { Flex } from '@radix-ui/themes';
-import ToolTipParent from '@/components/shared/tooltip-parent';
 import HandleLike from './handleLike';
 import HandleRepost from './handleRepost';
 import HandleComment from './handleComment';
+import { Flex } from '@/components/layout/flex';
+import ToolTipParent from '@/components/shared/tooltip-parent';
 
 const actions = [
   {

@@ -10,7 +10,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Box, LampOn, MessageQuestion, DocumentText } from 'iconsax-react';
-import { Flex, Text } from '@radix-ui/themes';
+import { Flex } from '@/components/layout/flex';
+import { Text } from '@/components/typography/text';
+
 
 const PostTypeIcon = ({ type }: { type: string }) => {
   switch (type) {

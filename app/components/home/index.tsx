@@ -1,10 +1,11 @@
-import { Grid, Box } from '@radix-ui/themes';
 import PostFeed from './post-feed';
+import { Box } from '@/components/layout/box';
+import { Grid } from '@/components/layout/grid';
 
 const Home = () => {
   return (
-    <Grid columns='1' className='container mt-4' gap='4'>
-      <Box className='col-span-2'>
+    <Grid cols={1} className='container' mt={8} mx='auto' gap={4}>
+      <Box>
         <PostFeed />
       </Box>
     </Grid>

@@ -14,7 +14,7 @@ const Posts = () => {
   else {
     setPosts(data);
     return (
-      <ul className='container'>
+      <ul>
         {posts?.map((post) => (
           <li key={post.id}>
             <PostItem {...post} />

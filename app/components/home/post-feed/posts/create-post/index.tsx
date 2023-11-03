@@ -1,9 +1,10 @@
 'use client';
-import { Flex, Box } from '@radix-ui/themes';
-import { Button } from '@/components/ui/button';
 import PostDialog from './post-dialog';
-import UserAvatar from '@/components/shared/user-avatar';
 import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { Box } from '@/components/layout/box';
+import { Flex } from '@/components/layout/flex';
+import UserAvatar from '@/components/shared/user-avatar';
 
 const CreatePost = () => {
   const { data: session } = useSession();

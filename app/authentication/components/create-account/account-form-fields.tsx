@@ -1,7 +1,6 @@
 import z from 'zod';
 import Link from 'next/link';
 import { Loader2 } from 'lucide-react';
-import { Box, Text } from '@radix-ui/themes';
 import { UseFormReturn } from 'react-hook-form';
 import {
   FormLabel,
@@ -10,8 +9,10 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
+import { Box } from '@/components/layout/box';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/typography/text';
 import { CreateAccountFormSchema, CreateAccountFormValues } from './schema';
 
 const AccountFormFields = ({
@@ -46,7 +47,7 @@ const AccountFormFields = ({
         {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
         Sign up
       </Button>{' '}
-      <Text className='text-center text-xs text-muted-foreground'>
+      <Text color='muted-foreground' size='xs' align='center'>
         By clicking Sign Up, you agree to our{' '}
         <Link href='#' className='underline underline-offset-2'>
           Terms

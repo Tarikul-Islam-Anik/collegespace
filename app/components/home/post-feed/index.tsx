@@ -1,13 +1,16 @@
-import { Flex } from '@radix-ui/themes';
-import CreatePost from './posts/create-post';
+import { Container } from '@/components/layout/container';
 import Posts from './posts';
+import CreatePost from './posts/create-post';
+import { Flex } from '@/components/layout/flex';
 
 const PostFeed = () => {
   return (
-    <Flex direction='column' gap='4'>
-      <CreatePost />
-      <Posts />
-    </Flex>
+    <Container>
+      <Flex direction='column' gap={4}>
+        <CreatePost />
+        <Posts />
+      </Flex>
+    </Container>
   );
 };
 

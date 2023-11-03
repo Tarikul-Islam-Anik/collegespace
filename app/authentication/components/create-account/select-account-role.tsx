@@ -1,6 +1,5 @@
 import * as z from 'zod';
 import { UseFormReturn } from 'react-hook-form';
-import { Text, Box } from '@radix-ui/themes';
 import {
   FormLabel,
   FormControl,
@@ -10,8 +9,10 @@ import {
   FormDescription,
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import { CreateAccountFormSchema } from '@/lib/type';
+import { CreateAccountFormSchema } from './schema';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Text } from '@/components/typography/text';
+import { Box } from '@/components/layout/box';
 
 interface SelectAccountRoleProps {
   form: UseFormReturn<z.infer<typeof CreateAccountFormSchema>>;
@@ -60,13 +61,14 @@ const SelectAccountRole = ({ form, setSteps }: SelectAccountRoleProps) => {
                       <RadioGroupItem value={role.name} className='sr-only' />
                     </FormControl>
                     <Text
-                      className='block w-full p-2 capitalize'
+                      transform='capitalize'
+                      className='block w-full p-2'
                       align='center'
                       weight='medium'
                     >
                       {role.name}
                     </Text>
-                    <Box className='items-center rounded-md border-2 border-muted p-4 hover:border-accent'>
+                    <Box p={4} className='items-center rounded-md border-2 border-muted hover:border-accent'>
                       <ul className='flex list-inside list-disc flex-col space-y-2 text-xs marker:text-primary'>
                         {role.description.map((item) => (
                           <li key={item}>{item}</li>

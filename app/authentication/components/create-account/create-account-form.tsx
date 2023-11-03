@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,17 +27,27 @@ const CreateAccountForm = ({
   function onSubmit(data: CreateAccountFormValues) {
     setOpen(false);
     setSteps(1);
-    toast.promise(axios.post('/api/auth/register', data), {
-      loading: 'Creating your account...',
-      success: 'Your account has been created successfully. You can login now.',
-      error: (err) => {
-        if (err.response.status === 400) {
-          return err.response.data.error;
-        } else {
-          return 'Something went wrong. Please try again later.';
-        }
-      },
-    });
+    toast.promise(
+      fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }),
+      {
+        loading: 'Creating your account...',
+        success:
+          'Your account has been created successfully. You can login now.',
+        error: (err) => {
+          if (err.response.status === 400) {
+            return err.response.data.error;
+          } else {
+            return 'Something went wrong. Please try again later.';
+          }
+        },
+      }
+    );
   }
 
   return (

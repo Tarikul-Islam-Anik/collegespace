@@ -21,6 +21,7 @@ import {
   LogoutCurve,
 } from 'iconsax-react';
 import { Button } from '@/components/ui/button';
+import { Text } from '@/components/typography/text';
 import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 const links = [

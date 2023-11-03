@@ -2,13 +2,12 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 import { cn } from '@/lib/utils';
-import { Flex } from '@radix-ui/themes';
 import { Inter as FontSans } from 'next/font/google';
 import { siteConfig } from '@/config/site';
-import Providers from '../context/providers';
-import SiteHeader from '@/components/layout/site-header';
-import SiteFooter from '@/components/layout/site-footer';
-import Main from './components/main';
+import Providers from '@/context/providers';
+import { Flex } from '@/components/layout/flex';
+import SiteHeader from '@/app/components/layout/site-header';
+import SiteFooter from '@/app/components/layout/site-footer';
 
 export const fontSans = FontSans({
   subsets: ['latin'],
@@ -35,10 +34,10 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <Flex direction='column' className='relative min-h-screen'>
+          <Flex position='relative' direction='column' className='min-h-screen'>
             <SiteHeader />
-            <Main>{children}</Main>
-            <SiteFooter />
+          <main className='flex-1'>{children}</main>
+          <SiteFooter />
           </Flex>
           <Toaster position='bottom-left' />
         </Providers>

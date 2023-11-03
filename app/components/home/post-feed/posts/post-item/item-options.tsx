@@ -7,7 +7,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const PostOptions = ({ postId }: { postId: string }) => {
   return (
@@ -19,9 +18,15 @@ const PostOptions = ({ postId }: { postId: string }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Unfollow</DropdownMenuItem>
-        <CopyToClipboard text={`${window.location.origin}/posts/${postId}`}>
-          <DropdownMenuItem>Copy link</DropdownMenuItem>
-        </CopyToClipboard>
+        <DropdownMenuItem
+          onSelect={() => {
+            navigator.clipboard.writeText(
+              `${window.location.origin}/post/${postId}`
+            );
+          }}
+        >
+          Copy link
+        </DropdownMenuItem>
         <DropdownMenuItem>Mute</DropdownMenuItem>
         <DropdownMenuItem>Hide</DropdownMenuItem>
         <DropdownMenuSeparator />

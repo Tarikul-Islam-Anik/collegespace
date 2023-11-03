@@ -1,4 +1,4 @@
-import { Flex } from '@radix-ui/themes';
+import { Flex } from '@/components/layout/flex';
 import BountyItem from './bounty-item';
 
 const BountyList = () => {

@@ -1,20 +1,21 @@
 'use client';
 
-import * as z from 'zod';
-import axios from 'axios';
+import z from 'zod';
 import { toast } from 'sonner';
 import { useAtom } from 'jotai/react';
 import { PostsAtom } from '@/lib/atom';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
-import { Flex, Box, Text } from '@radix-ui/themes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import PostAddons from './post-addons';
 import PostType from './post-type';
+import PostAddons from './post-addons';
 import { Form } from '@/components/ui/form';
-import UserAvatar from '@/components/shared/user-avatar';
+import { Box } from '@/components/layout/box';
+import { Flex } from '@/components/layout/flex';
+import { Button } from '@/components/ui/button';
 import PostContentField from './post-content-field';
+import { Text } from '@/components/typography/text';
+import UserAvatar from '@/components/shared/user-avatar';
 
 export const postFormSchema = z.object({
   content: z.string().trim().min(1).max(256),
@@ -34,10 +35,14 @@ const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
   function onSubmit(data: z.infer<typeof postFormSchema>) {
     setOpen(false);
     toast.promise(
-      axios.post('/api/posts/new', data).then((res) => {
-        setPosts([res.data, ...posts!]);
-        form.reset();
+      fetch('/api/posts/new', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       }),
+
       {
         loading: `Posting ${data.type}...`,
         success: 'Status posted!',
@@ -51,8 +56,8 @@ const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
         <Flex>
           <UserAvatar name={session?.user?.name} image={session?.user?.image} />
-          <Flex direction='column' className='ml-4 w-full'>
-            <Text as='p' className='font-medium'>
+          <Flex direction='column' ml={4} width='full'>
+            <Text weight='medium' as='p'>
               {session?.user?.name}
             </Text>
             <PostContentField form={form} />
@@ -61,7 +66,7 @@ const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
         <Flex align='center' justify='between'>
           <Flex align='center'>
             <PostType form={form} />
-            <Box className='ml-2 h-6 border-l-2 border-muted' />
+            <Box ml={2} className='h-6 border-l-2 border-muted' />
             <PostAddons />
           </Flex>
           <Flex align='center' className='space-x-2'>

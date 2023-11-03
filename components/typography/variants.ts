@@ -7,6 +7,8 @@ export const typographyVariants = cva(
     variants: {
       weight: {
         bold: 'font-bold',
+        semibold: 'font-semibold',
+        medium: 'font-medium',
         normal: 'font-normal',
         light: 'font-light',
         thin: 'font-thin',

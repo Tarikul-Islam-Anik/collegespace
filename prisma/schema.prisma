@@ -166,6 +166,7 @@ model User {
   sessions      Session[]
 
   // Non Next Auth
+  username               String?                  @unique @db.VarChar(30)
   bio                    String?                  @db.VarChar(101)
   coverImage             String?                  @db.Text
   phone                  String?                  @db.VarChar(15)

@@ -17,7 +17,7 @@ export async function GET(
   return NextResponse.json(excludePassword);
 }
 
-export async function PUT(
+export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
@@ -33,12 +33,16 @@ export async function PUT(
   const updatedUser = await prisma.user.update({
     where: { id: user.id },
     data: {
-      name: body.name,
-      email: body.email,
+      ...body,
     },
   });
 
-  return NextResponse.json(updatedUser);
+  const excludePassword = updatedUser && {
+    ...updatedUser,
+    password: undefined,
+  };
+  
+  return NextResponse.json(excludePassword);
 }
 
 export async function DELETE(

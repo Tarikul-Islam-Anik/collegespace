@@ -1,5 +1,5 @@
 import { MedalStar } from 'iconsax-react';
-import { Flex, Text } from '@radix-ui/themes';
+
 import {
   Dialog,
   DialogContent,
@@ -10,18 +10,20 @@ import {
 } from '@/components/ui/dialog';
 import PremiumFeatures from './premium-features';
 import { Button } from '@/components/ui/button';
+import { Flex } from '@/components/layout/flex';
+import { Text } from '@/components/typography/text';
 
 const UpgradeToPremium = () => {
   return (
-    <Flex direction='column' gap='2' px='4'>
-      <Text className='text-muted-foreground' size='1' as='p'>
+    <Flex direction='column' gap={2} px={4}>
+      <Text color='muted-foreground' size='xs' as='p'>
         Access exclusive tools & insights
       </Text>
       <Dialog>
         <DialogTrigger>
-          <Flex align='center' gap='2'>
+          <Flex align='center' gap={2}>
             <MedalStar className='h-5 w-5 text-muted-foreground' />
-            <Text size='1' className='ml-2 underline underline-offset-4'>
+            <Text size='xs' className='ml-2 underline underline-offset-4'>
               Upgrade to Premium
             </Text>
           </Flex>

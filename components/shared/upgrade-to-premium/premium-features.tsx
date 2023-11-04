@@ -1,6 +1,7 @@
-import { Flex } from '@radix-ui/themes';
+import { Flex } from '@/components/layout/flex';
 import MediaObject from '../media-objects';
-import { Verify, Shield, FavoriteChart, TicketStar } from 'iconsax-react';
+import { SecurityUser, Shield, FavoriteChart, TicketStar } from 'iconsax-react';
+
 const PremiumFeatures = () => {
   return (
     <Flex direction='column' className='space-y-5'>
@@ -8,7 +9,7 @@ const PremiumFeatures = () => {
         heading='A verified badge'
         content="Your audience can trust that you're a real person."
       >
-        <Verify className='h-7 w-7 text-muted-foreground' />
+        <SecurityUser className='h-7 w-7 text-muted-foreground' />
       </MediaObject>
       <MediaObject
         heading='Increased account protection'

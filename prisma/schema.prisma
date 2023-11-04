@@ -24,7 +24,6 @@ model Post {
 enum PostType {
   thought
   question
-  project
 }
 
 model Like {
@@ -125,6 +124,19 @@ model EducationalInformation {
   @@index([studentDetailsUserId])
 }
 
+model Project {
+  title       String   @db.VarChar(101)
+  description String   @db.Text
+  website     String?  @db.VarChar(100)
+  startDate   DateTime
+  endDate     DateTime
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId])
+  @@index([userId])
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
@@ -181,6 +193,7 @@ model User {
   job                    Job[]
   StudentDetails         StudentDetails[]
   EducationalInformation EducationalInformation[]
+  Project                Project[]
   createdAt              DateTime                 @default(now())
   updatedAt              DateTime?                @updatedAt
 }

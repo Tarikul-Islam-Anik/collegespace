@@ -22,6 +22,7 @@ const CreateAccountForm = ({
 }: CreateAccountFormProps) => {
   const form = useForm<CreateAccountFormValues>({
     resolver: zodResolver(CreateAccountFormSchema),
+    mode: 'onBlur',
   });
 
   function onSubmit(data: CreateAccountFormValues) {

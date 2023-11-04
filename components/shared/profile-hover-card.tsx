@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { User } from '@/lib/type';
 import { Calendar } from 'iconsax-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -12,13 +13,9 @@ import { Box } from '@/components/layout/box';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
+import { Heading } from '@/components/typography/heading';
 
-interface ProfileHoverCardProps {
-  id: string;
-  name: string | null;
-  image: string | null;
-  bio?: string | null;
-  createdAt: Date | null;
+interface ProfileHoverCardProps extends User {
   children: React.ReactNode;
   className?: string;
 }
@@ -28,6 +25,7 @@ const ProfileHoverCard = ({
   name,
   image,
   bio,
+  username,
   createdAt,
   children,
   className,
@@ -44,7 +42,22 @@ const ProfileHoverCard = ({
           <Flex gap={4} justify='between'>
             <UserAvatar name={name} image={image} />
             <Box className='min-w-[230px] space-y-1'>
-              <h4 className='text-sm font-semibold'>{name}</h4>
+              <Flex className='gap-1.5' mb={2} align='center'>
+                <Heading as='h4' size='sm' weight='semibold'>
+                  {name}
+                </Heading>
+                <Text
+                  className={cn(
+                    buttonVariants({
+                      variant: 'secondary',
+                      size: 'sm',
+                    }),
+                    'h-6 rounded px-1'
+                  )}
+                  size='xs'
+                >{`@${username}`}</Text>
+              </Flex>
+
               <Text
                 size='xs'
                 className={cn(
@@ -56,7 +69,7 @@ const ProfileHoverCard = ({
               </Text>
               <Flex align='center' pt={2}>
                 <Calendar className='mr-2 h-4 w-4 opacity-70' />{' '}
-                <Text className='text-xs text-muted-foreground'>
+                <Text size='xs' color='muted-foreground'>
                   Joined{' '}
                   {createdAt && format(new Date(createdAt), 'dd, MMMM yyyy')}
                 </Text>
@@ -64,7 +77,7 @@ const ProfileHoverCard = ({
             </Box>
           </Flex>
           <Link
-            href={`user/${id}`}
+            href={`/user/${id}`}
             className={cn(buttonVariants({ variant: 'default' }), 'w-full')}
           >
             View profile

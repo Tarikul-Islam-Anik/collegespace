@@ -19,7 +19,7 @@ import UserAvatar from '@/components/shared/user-avatar';
 
 export const postFormSchema = z.object({
   content: z.string().trim().min(1).max(256),
-  type: z.enum(['thought', 'question', 'project']),
+  type: z.enum(['thought', 'question']),
 });
 
 const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {

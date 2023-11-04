@@ -26,7 +26,7 @@ const AccountFormFields = ({
 
   return (
     <>
-      {['name', 'email', 'phone', 'password'].map((item) => (
+      {['name', 'username', 'email', 'phone', 'password'].map((item) => (
         <Box key={item}>
           <FormField
             control={form.control}

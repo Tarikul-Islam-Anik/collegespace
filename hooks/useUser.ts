@@ -27,7 +27,7 @@ const useUser = (userId?: string) => {
       mutate,
     } = useSWR<User>(
       // @ts-ignore
-      `/api/users/${session?.user?.id}`,
+      `/api/users/${session?.user?.email}`,
       fetcher
     );
     return {

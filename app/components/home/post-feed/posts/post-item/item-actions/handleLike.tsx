@@ -14,7 +14,6 @@ const HandleLike = ({ postId }: { postId: string }) => {
   const [posts, setPosts] = useAtom(PostsAtom);
   const { currentUser } = useCurrentUser();
 
-  // @ts-ignore
   const userId = currentUser?.id;
   const post = posts?.find((post) => post.id === postId);
 

@@ -29,7 +29,7 @@ export async function PATCH(
   const body = await request.json();
 
   const user = await prisma.user.findUnique({
-    where: { id: params.id },
+    where: { email: params.id },
   });
 
   if (!user)
@@ -55,7 +55,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const user = await prisma.user.findUnique({
-    where: { id: params.id },
+    where: { email: params.id },
   });
 
   if (!user)

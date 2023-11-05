@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { useAtom } from 'jotai/react';
 import { PostsAtom } from '@/lib/atom';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
+import useCurrentUser from '@/hooks/useCurrentUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import PostType from './post-type';
 import PostAddons from './post-addons';
@@ -23,7 +23,7 @@ export const postFormSchema = z.object({
 });
 
 const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
-  const { data: session } = useSession();
+  const { currentUser } = useCurrentUser();
   const [posts, setPosts] = useAtom(PostsAtom);
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
@@ -55,10 +55,10 @@ const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='w-full'>
         <Flex>
-          <UserAvatar name={session?.user?.name} image={session?.user?.image} />
+          <UserAvatar name={currentUser?.name} image={currentUser?.image} />
           <Flex direction='column' ml={4} width='full'>
             <Text weight='medium' as='p'>
-              {session?.user?.name}
+              {currentUser?.name}
             </Text>
             <PostContentField form={form} />
           </Flex>

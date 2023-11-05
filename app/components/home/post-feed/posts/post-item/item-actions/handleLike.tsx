@@ -5,17 +5,17 @@ import { useAtom } from 'jotai';
 import { Heart } from 'iconsax-react';
 import { PostsAtom } from '@/lib/atom';
 import useLike from '@/hooks/useLike';
-import { useSession } from 'next-auth/react';
+import useCurrentUser from '@/hooks/useCurrentUser';
 import { Button } from '@/components/ui/button';
 import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 const HandleLike = ({ postId }: { postId: string }) => {
   const { toggleLike } = useLike(postId);
   const [posts, setPosts] = useAtom(PostsAtom);
-  const { data: session } = useSession();
+  const { currentUser } = useCurrentUser();
 
   // @ts-ignore
-  const userId = session?.user?.id;
+  const userId = currentUser?.id;
   const post = posts?.find((post) => post.id === postId);
 
   const [liked, setLiked] = useState(

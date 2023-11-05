@@ -7,6 +7,11 @@ export async function GET(
 ) {
   const user = await prisma.user.findUnique({
     where: { id: params.id },
+    include: {
+      StudentDetails: true,
+      EducationalInformation: true,
+      Project: true,
+    },
   });
 
   const excludePassword = user && { ...user, password: undefined };
@@ -41,7 +46,7 @@ export async function PATCH(
     ...updatedUser,
     password: undefined,
   };
-  
+
   return NextResponse.json(excludePassword);
 }
 

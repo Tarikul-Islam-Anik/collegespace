@@ -1,10 +1,10 @@
 'use client';
+import Image from 'next/legacy/image';
 import { UseFormReturn } from 'react-hook-form';
 import { GalleryAdd } from 'iconsax-react';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +16,7 @@ import { Box } from '@/components/layout/box';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
   return (
@@ -28,7 +29,11 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
           <FormControl>
             <Flex
               justify='center'
-              className='mt-2 rounded-lg border border-dashed border-muted-foreground/50 px-6 py-9'
+              className={cn(
+                form.getValues('coverImage') === '' &&
+                  'border-muted-2 border-2 border-dashed',
+                'relative h-60 overflow-hidden rounded-xl'
+              )}
             >
               {form.getValues('coverImage') === '' ? (
                 <Box className='text-center'>
@@ -40,6 +45,7 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
                   <Flex
                     mt={4}
                     align='center'
+                    justify='center'
                     gap={4}
                     className='text-sm leading-6 text-muted-foreground'
                   >
@@ -68,15 +74,20 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
                   </Text>
                 </Box>
               ) : (
-                <img
-                  src={
-                    typeof value === 'object'
-                      ? URL.createObjectURL(value)
-                      : value
-                  }
-                  alt='Cover photo'
-                  className='w-full rounded-lg'
-                />
+                <Box className='h-[500px] w-[1500px]'>
+                  <Image
+                    src={
+                      (typeof value === 'object'
+                        ? URL.createObjectURL(value)
+                        : value) ?? ''
+                    }
+                    alt='Cover photo'
+                    width={1500}
+                    height={500}
+                    layout='responsive'
+                    className='w-full rounded-xl'
+                  />
+                </Box>
               )}
             </Flex>
           </FormControl>

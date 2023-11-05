@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const user = await prisma.user.findUnique({
-    where: { id: params.id },
+    where: { email: params.id },
     include: {
       StudentDetails: true,
       EducationalInformation: true,

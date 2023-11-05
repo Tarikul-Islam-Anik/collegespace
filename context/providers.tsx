@@ -1,20 +1,22 @@
-import '@radix-ui/themes/styles.css';
-import './radix-theme-config.css';
-import { Theme } from '@radix-ui/themes';
+'use client';
+
+import { Provider } from 'jotai';
 import AuthProvider from './auth-context';
 import { ThemeProvider } from './theme-provider';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthProvider>
-      <ThemeProvider
-        attribute='class'
-        defaultTheme='system'
-        enableSystem
-        disableTransitionOnChange
-      >
-        <Theme>{children}</Theme>
-      </ThemeProvider>
+      <Provider>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </Provider>
     </AuthProvider>
   );
 };

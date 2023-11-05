@@ -1,9 +1,8 @@
 'use client';
 
-import * as z from 'zod';
+import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Grid } from '@radix-ui/themes';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import {
@@ -19,6 +18,7 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { Grid } from '@/components/layout/grid';
 
 const UserAuthFormSchema = z.object({
   email: z.string({ required_error: 'Please enter your email address' }).email({
@@ -71,8 +71,8 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
         className={cn('grid gap-6', className)}
         {...props}
       >
-        <Grid gap='3'>
-          <Grid gap='2'>
+        <Grid gap={4}>
+          <Grid gap={2}>
             <FormField
               control={control}
               name='email'

@@ -1,11 +1,11 @@
 import { compare } from 'bcryptjs';
 import prisma from './prisma';
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, AuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -53,4 +53,20 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
-};
+  callbacks: {
+    session: async ({ session, token }: any) => {
+      if (session?.user) {
+        session.user.id = token.uid;
+        session.user.role = token.role;
+      }
+      return session;
+    },
+    jwt: async ({ user, token }: any) => {
+      if (user) {
+        token.uid = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+  },
+} satisfies NextAuthOptions;

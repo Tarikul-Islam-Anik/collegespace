@@ -1,11 +1,11 @@
 import NextLink from 'next/link';
-import { Text } from '@radix-ui/themes';
 import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 import { cn } from '@/lib/utils';
+import { Text } from '@/components/typography/text';
+import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 const NavLink = ({
   href,

@@ -1,18 +1,21 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-const UserAvatar = ({ className }: { className?: string }) => {
-  const { data: session } = useSession();
+const UserAvatar = ({
+  name,
+  image,
+  className,
+}: {
+  name: string | null | undefined;
+  image: string | null | undefined;
+  className?: string;
+}) => {
   return (
     <Avatar className={className}>
-      <AvatarImage
-        src={session?.user?.image ?? ''}
-        alt={session?.user?.name ?? ''}
-      />
+      <AvatarImage src={image ?? ''} alt={name ?? ''} />
       <AvatarFallback>
-        {session?.user?.name
+        {name
           ?.split(' ')
           .map((name: string) => name[0])
           .join('')

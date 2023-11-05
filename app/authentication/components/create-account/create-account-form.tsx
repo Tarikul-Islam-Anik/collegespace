@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -6,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Form } from '@/components/ui/form';
 import AccountFormFields from './account-form-fields';
 import SelectAccountRole from './select-account-role';
-import { CreateAccountFormSchema, CreateAccountFormValues } from '@/lib/type';
+import { CreateAccountFormSchema, CreateAccountFormValues } from './schema';
 
 interface CreateAccountFormProps extends React.HTMLAttributes<HTMLFormElement> {
   steps: number;
@@ -23,22 +22,33 @@ const CreateAccountForm = ({
 }: CreateAccountFormProps) => {
   const form = useForm<CreateAccountFormValues>({
     resolver: zodResolver(CreateAccountFormSchema),
+    mode: 'onBlur',
   });
 
   function onSubmit(data: CreateAccountFormValues) {
     setOpen(false);
     setSteps(1);
-    toast.promise(axios.post('/api/auth/register', data), {
-      loading: 'Creating your account...',
-      success: 'Your account has been created successfully. You can login now.',
-      error: (err) => {
-        if (err.response.status === 400) {
-          return err.response.data.error;
-        } else {
-          return 'Something went wrong. Please try again later.';
-        }
-      },
-    });
+    toast.promise(
+      fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }),
+      {
+        loading: 'Creating your account...',
+        success:
+          'Your account has been created successfully. You can login now.',
+        error: (err) => {
+          if (err.response.status === 400) {
+            return err.response.data.error;
+          } else {
+            return 'Something went wrong. Please try again later.';
+          }
+        },
+      }
+    );
   }
 
   return (

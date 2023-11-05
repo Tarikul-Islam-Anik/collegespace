@@ -1,13 +1,17 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Box, Flex, Text, Heading } from '@radix-ui/themes';
 import { Command } from 'iconsax-react';
 import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 import Quote from './components/quote';
-import { buttonVariants } from '@/components/ui/button';
-import UserAuthForm from './components/user-auth-form';
+import { Box } from '@/components/layout/box';
+import { Flex } from '@/components/layout/flex';
+import { Text } from '@/components/typography/text';
 import ContinueWith from './components/continue-with';
+import UserAuthForm from './components/user-auth-form';
+import { buttonVariants } from '@/components/ui/button';
+import { Heading } from '@/components/typography/heading';
+
 
 export const metadata: Metadata = {
   title: 'Authentication | ' + siteConfig.name,
@@ -32,35 +36,36 @@ export default function AuthenticationPage() {
         </div>
         <Quote />
       </div>
-      <Box className='my-auto lg:p-8'>
+      <Box my='auto' className='lg:p-8'>
         <Flex
           direction='column'
           justify='center'
-          gap='6'
+          gap={4}
           mx='auto'
-          className='w-full sm:w-[350px]'
+          width='full'
+          className='sm:w-[350px]'
         >
-          <Flex direction='column' gap='2' className='text-center'>
-            <Heading size='6' className='font-semibold tracking-tight'>
+          <Flex direction='column' gap={2} className='text-center'>
+            <Heading size='3xl' weight='semibold' className='tracking-tight'>
               Sign in to your account
             </Heading>
-            <Text size='2' className='text-muted-foreground'>
+            <Text size='sm' className='text-muted-foreground'>
               Enter your email and password to continue
             </Text>
           </Flex>
           <UserAuthForm />
           <ContinueWith />
-          <Text size='2' className='px-8 text-center text-muted-foreground'>
+          <Text size='xs' className='px-8 text-center text-muted-foreground'>
             By clicking continue, you agree to our{' '}
             <Link
-              href='/terms'
+              href='#'
               className='underline underline-offset-4 hover:text-primary'
             >
               Terms of Service
             </Link>{' '}
             and{' '}
             <Link
-              href='/privacy'
+              href='#'
               className='underline underline-offset-4 hover:text-primary'
             >
               Privacy Policy

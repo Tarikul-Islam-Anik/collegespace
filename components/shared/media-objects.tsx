@@ -1,4 +1,7 @@
-import { Flex, Text, Box } from '@radix-ui/themes';
+import { Box } from '../layout/box';
+import { Flex } from '../layout/flex';
+import { Heading } from '../typography/heading';
+import { Text } from '../typography/text';
 
 interface MediaObjectProps {
   children: React.ReactNode;
@@ -8,11 +11,18 @@ interface MediaObjectProps {
 
 const MediaObject = ({ heading, content, children }: MediaObjectProps) => {
   return (
-    <Flex className='flex'>
-      <Box className='mr-4 flex-shrink-0'>{children}</Box>
+    <Flex>
+      <Box mr={4} className='flex-shrink-0'>
+        {children}
+      </Box>
       <Box>
-        <h4 className='font-medium'>{heading}</h4>
-        <Text as='p' className='mt-1 text-sm text-muted-foreground'>
+        <Heading weight='medium'>{heading}</Heading>
+        <Text
+          size='sm'
+          color='muted-foreground'
+          as='p'
+          className='mt-1'
+        >
           {content}
         </Text>
       </Box>

@@ -1,7 +1,10 @@
 'use client';
-import axios from 'axios';
-import { Box, Blockquote, Text } from '@radix-ui/themes';
+import { Box } from '@/components/layout/box';
+import { Text } from '@/components/typography/text';
+import { Blockquote } from '@/components/typography/blockquote';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 
 type QuoteResponseType = {
   _id: string;
@@ -12,27 +15,21 @@ type QuoteResponseType = {
   tags: string[];
 };
 
+const endpoint = 'https://api.quotable.io/quotes/random?tags=technology';
+
 const Quote = () => {
-  const [quote, setQuote] = useState<QuoteResponseType>();
+  const { data: quote } = useSWR<QuoteResponseType[]>(endpoint, fetcher);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get<QuoteResponseType[]>(
-        'https://api.quotable.io/quotes/random?tags=technology,famous-quotes'
-      );
-      setQuote(result.data[0]);
-    };
-    fetchData();
-  }, []);
-
-  return (
-    <Box className='relative z-20 mt-auto'>
+  return quote ? (
+    <Box position='relative' className='z-20 mt-auto'>
       <Blockquote className='space-y-2'>
-        <Text size='4'>{quote?.content}</Text>
-        <footer className='text-sm'>{quote?.author}</footer>
+        &ldquo;
+        <Text>{quote[0]?.content}</Text>
+        &rdquo;
+        <footer className='text-sm'>{quote[0]?.author}</footer>
       </Blockquote>
     </Box>
-  );
+  ) : null;
 };
 
 Quote.displayName = 'Quote';

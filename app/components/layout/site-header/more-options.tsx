@@ -1,7 +1,6 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { Text } from '@radix-ui/themes';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import {
@@ -22,6 +21,7 @@ import {
   LogoutCurve,
 } from 'iconsax-react';
 import { Button } from '@/components/ui/button';
+import { Text } from '@/components/typography/text';
 import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 const links = [

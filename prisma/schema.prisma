@@ -107,7 +107,7 @@ enum GenderType {
 }
 
 model EducationalInformation {
-  school    String    @db.VarChar(51)
+  school    String    @db.VarChar(101)
   degree    String    @db.VarChar(51)
   field     String    @db.VarChar(51)
   startDate DateTime?

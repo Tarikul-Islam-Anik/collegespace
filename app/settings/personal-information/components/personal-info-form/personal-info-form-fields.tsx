@@ -8,19 +8,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-
 import { PersonalInfoFormValues } from './schema';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-
-import { Calendar as CalenderIcon } from 'iconsax-react';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import SelectDateField from '@/components/shared/select-date-field';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const PersonalInfoFormFields = ({
@@ -62,50 +51,7 @@ const PersonalInfoFormFields = ({
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name='dob'
-        render={({ field }) => (
-          <FormItem className='flex flex-col'>
-            <FormLabel>Date of birth</FormLabel>
-            <Popover>
-              <PopoverTrigger asChild>
-                <FormControl>
-                  <Button
-                    variant={'outline'}
-                    className={cn(
-                      'w-[240px] pl-3 text-left font-normal',
-                      !field.value && 'text-muted-foreground'
-                    )}
-                  >
-                    {field.value ? (
-                      format(new Date(field.value), 'PPP')
-                    ) : (
-                      <span>Pick a date</span>
-                    )}
-                    <CalenderIcon className='ml-auto h-4 w-4 opacity-50' />
-                  </Button>
-                </FormControl>
-              </PopoverTrigger>
-              <PopoverContent className='w-auto p-0' align='start'>
-                <Calendar
-                  mode='single'
-                  selected={new Date(field.value ?? '')}
-                  onSelect={field.onChange}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date('1900-01-01')
-                  }
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-            <FormDescription>
-              This won’t be part of your public profile.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <SelectDateField form={form} name='dob' label='Date of birth' />
       <FormField
         control={form.control}
         name='gender'

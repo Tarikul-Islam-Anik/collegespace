@@ -114,14 +114,14 @@ model EducationalInformation {
   endDate   DateTime?
   grade     Float
 
-  user                 User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId               String
-  studentDetailsUserId String?
-  StudentDetails       StudentDetails? @relation(fields: [studentDetailsUserId], references: [userId])
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  studentId      String?
+  StudentDetails StudentDetails? @relation(fields: [studentId], references: [userId])
 
   @@id([userId])
   @@index([userId])
-  @@index([studentDetailsUserId])
+  @@index([studentId])
 }
 
 model Project {

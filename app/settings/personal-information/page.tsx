@@ -1,4 +1,3 @@
-'use client';
 import { Box } from '@/components/layout/box';
 import { Text } from '@/components/typography/text';
 import { Separator } from '@/components/ui/separator';

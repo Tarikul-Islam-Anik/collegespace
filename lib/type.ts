@@ -13,6 +13,14 @@ export type PostType = Post & {
   user: User;
 };
 
+export type UserType = User & {
+  posts: PostType[];
+  jobs: Job[];
+  studentDetails: StudentDetails;
+  educationalInformation: EducationalInformation;
+  projects: Project[];
+};
+
 export type {
   User,
   Post,

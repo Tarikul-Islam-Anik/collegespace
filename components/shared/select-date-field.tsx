@@ -21,9 +21,15 @@ interface SelectDateFieldProps {
   form: any;
   name: string;
   label: string;
+  description?: string;
 }
 
-const SelectDateField = ({ form, name, label }: SelectDateFieldProps) => {
+const SelectDateField = ({
+  form,
+  name,
+  label,
+  description,
+}: SelectDateFieldProps) => {
   return (
     <FormField
       control={form.control}
@@ -62,9 +68,7 @@ const SelectDateField = ({ form, name, label }: SelectDateFieldProps) => {
               />
             </PopoverContent>
           </Popover>
-          <FormDescription>
-            This won’t be part of your public profile.
-          </FormDescription>
+          {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>
       )}

@@ -51,7 +51,12 @@ const PersonalInfoFormFields = ({
           </FormItem>
         )}
       />
-      <SelectDateField form={form} name='dob' label='Date of birth' />
+      <SelectDateField
+        form={form}
+        name='dob'
+        label='Date of birth'
+        description='This won’t be part of your public profile.'
+      />
       <FormField
         control={form.control}
         name='gender'

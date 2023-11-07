@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) {
   const user = await prisma.user.findUnique({
-    where: { email: params.id },
+    where: { email: params.email },
     include: {
       StudentDetails: true,
       EducationalInformation: true,
@@ -24,12 +24,12 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) {
   const body = await request.json();
 
   const user = await prisma.user.findUnique({
-    where: { email: params.id },
+    where: { email: params.email },
   });
 
   if (!user)
@@ -52,10 +52,10 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) {
   const user = await prisma.user.findUnique({
-    where: { email: params.id },
+    where: { email: params.email },
   });
 
   if (!user)
@@ -65,5 +65,5 @@ export async function DELETE(
     where: { id: user.id },
   });
 
-  return NextResponse.json({});
+  return NextResponse.json({}, { status: 200 });
 }

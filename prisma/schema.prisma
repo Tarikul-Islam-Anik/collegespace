@@ -114,13 +114,10 @@ model EducationalInformation {
   endDate   DateTime
   grade     Float
 
-  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId         String
-  studentId      String?
+  studentId      String
   StudentDetails StudentDetails? @relation(fields: [studentId], references: [userId])
 
-  @@id([userId])
-  @@index([userId])
+  @@unique([studentId, school, degree, field])
   @@index([studentId])
 }
 
@@ -133,7 +130,7 @@ model Project {
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([userId])
+  @@unique([userId, title])
   @@index([userId])
 }
 
@@ -178,24 +175,23 @@ model User {
   sessions      Session[]
 
   // Non Next Auth
-  username               String?                  @unique @db.VarChar(30)
-  bio                    String?                  @db.VarChar(101)
-  coverImage             String?                  @db.Text
-  phone                  String?                  @db.VarChar(15)
-  role                   UserType?
-  completedProfile       Boolean?                 @default(false)
-  posts                  Post[]
-  followers              User[]                   @relation(name: "Followers")
-  follows                User[]                   @relation(name: "Followers")
-  Like                   Like[]
-  Bounty                 Bounty[]
-  Company                Company[]
-  job                    Job[]
-  StudentDetails         StudentDetails[]
-  EducationalInformation EducationalInformation[]
-  Project                Project[]
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime?                @updatedAt
+  username         String?          @unique @db.VarChar(30)
+  bio              String?          @db.VarChar(101)
+  coverImage       String?          @db.Text
+  phone            String?          @db.VarChar(15)
+  role             UserType?
+  completedProfile Boolean?         @default(false)
+  posts            Post[]
+  followers        User[]           @relation(name: "Followers")
+  follows          User[]           @relation(name: "Followers")
+  Like             Like[]
+  Bounty           Bounty[]
+  Company          Company[]
+  job              Job[]
+  StudentDetails   StudentDetails[]
+  Project          Project[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime?        @updatedAt
 }
 
 enum UserType {

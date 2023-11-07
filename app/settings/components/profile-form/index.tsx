@@ -85,7 +85,7 @@ const ProfileForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 p-2'>
         <ProfileFormFields form={form} />
         <Button type='submit' disabled={isDisabled}>
-          Update profile
+          Update
         </Button>
       </form>
     </Form>

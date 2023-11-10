@@ -90,15 +90,15 @@ enum JobType {
 }
 
 model StudentDetails {
-  dob                    DateTime?
-  gender                 GenderType
-  userId                 String
-  EducationalInformation EducationalInformation[]
+  studentId String      @map("userId")
+  dob       DateTime?   @db.DateTime
+  gender    GenderType?
+  education Education[]
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  @@id([userId])
-  @@index([userId])
+  @@id([studentId])
+  @@index([studentId])
 }
 
 enum GenderType {
@@ -106,7 +106,8 @@ enum GenderType {
   female
 }
 
-model EducationalInformation {
+model Education {
+  id        String   @id @default(uuid())
   school    String   @db.VarChar(101)
   degree    String   @db.VarChar(51)
   field     String   @db.VarChar(51)
@@ -114,10 +115,9 @@ model EducationalInformation {
   endDate   DateTime
   grade     Float
 
-  studentId      String
-  StudentDetails StudentDetails? @relation(fields: [studentId], references: [userId])
+  studentId String
+  student   StudentDetails @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
 
-  @@unique([studentId, school, degree, field])
   @@index([studentId])
 }
 
@@ -175,23 +175,23 @@ model User {
   sessions      Session[]
 
   // Non Next Auth
-  username         String?          @unique @db.VarChar(30)
-  bio              String?          @db.VarChar(101)
-  coverImage       String?          @db.Text
-  phone            String?          @db.VarChar(15)
+  username         String?         @unique @db.VarChar(30)
+  bio              String?         @db.VarChar(101)
+  coverImage       String?         @db.Text
+  phone            String?         @db.VarChar(15)
   role             UserType?
-  completedProfile Boolean?         @default(false)
+  completedProfile Boolean?        @default(false)
   posts            Post[]
-  followers        User[]           @relation(name: "Followers")
-  follows          User[]           @relation(name: "Followers")
+  followers        User[]          @relation(name: "Followers")
+  follows          User[]          @relation(name: "Followers")
   Like             Like[]
   Bounty           Bounty[]
   Company          Company[]
   job              Job[]
-  StudentDetails   StudentDetails[]
+  StudentDetails   StudentDetails?
   Project          Project[]
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime?        @updatedAt
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime?       @updatedAt
 }
 
 enum UserType {

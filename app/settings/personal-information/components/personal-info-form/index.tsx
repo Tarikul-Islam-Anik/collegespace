@@ -14,8 +14,8 @@ const PersonalInfoForm = () => {
     name: currentUser?.name ?? '',
     email: currentUser?.email ?? '',
     phone: currentUser?.phone ?? '',
-    dob: currentUser?.studentDetails?.dob ?? '',
-    gender: currentUser?.studentDetails?.gender ?? '',
+    dob: currentUser?.StudentDetails?.dob ?? '',
+    gender: currentUser?.StudentDetails?.gender ?? '',
   };
 
   const form = useForm<PersonalInfoFormValues>({
@@ -46,17 +46,19 @@ const PersonalInfoForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(changedValuesObj),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setCurrentUser({
-            ...currentUser!,
-            studentDetails: data,
-          });
-        }),
+      }).then((res) => res.json()),
       {
         loading: 'Updating personal information...',
-        success: 'Personal information updated!',
+        success: (data) => {
+          setCurrentUser({
+            ...currentUser!,
+            StudentDetails: {
+              ...currentUser?.StudentDetails!,
+              ...data,
+            },
+          });
+          return 'Personal information updated!';
+        },
         error: 'Something went wrong',
       }
     );
@@ -66,7 +68,7 @@ const PersonalInfoForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 p-2'>
         <PersonalInfoFormFields form={form} />
-        <Button type='submit'>Update profile</Button>
+        <Button type='submit'>Update</Button>
       </form>
     </Form>
   );

@@ -30,7 +30,7 @@ const FormDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
+        <Button variant='outline'>
           <Add className='mr-1 h-5 w-5' />
           <Text>{label}</Text>
         </Button>

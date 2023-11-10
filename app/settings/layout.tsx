@@ -1,12 +1,13 @@
 import { Metadata } from 'next';
+import { siteConfig } from '@/config/site';
 import { Separator } from '@/components/ui/separator';
 import { SidebarNav } from './components/sidebar-nav';
 import { Flex } from '@/components/layout/flex';
 import { Container } from '@/components/layout/container';
 
 export const metadata: Metadata = {
-  title: 'Forms',
-  description: 'Advanced form example using react-hook-form and Zod.',
+  title: 'Settings | ' + siteConfig.name,
+  description: 'Manage your account settings and edit your profile.',
 };
 
 const sidebarNavItems = [
@@ -20,11 +21,11 @@ const sidebarNavItems = [
   },
   {
     title: 'Educational information',
-    href: '/settings/educational-information',
+    href: '/settings/education',
   },
   {
     title: 'Projects',
-    href: '/settings/projects'
+    href: '/settings/projects',
   },
 ];
 

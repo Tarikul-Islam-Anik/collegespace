@@ -7,7 +7,7 @@ const ProfileForm = dynamic(() => import('./components/profile-form'), {
   loading: () => <Loader />,
 });
 
-export default function SettingsProfilePage() {
+export default function SettingsPage() {
   return (
     <Box className='space-y-6'>
       <SectionHeading

@@ -16,10 +16,10 @@ import UserAvatar from '@/components/shared/user-avatar';
 import { Label } from '@/components/ui/label';
 
 const ProfilePicture = ({
-    form,
-  }: {
-    form: UseFormReturn<ProfileFormValues>;
-  }) => {
+  form,
+}: {
+  form: UseFormReturn<ProfileFormValues>;
+}) => {
   return (
     <FormField
       control={form.control}
@@ -47,8 +47,6 @@ const ProfilePicture = ({
                     type='file'
                     className='sr-only'
                     placeholder='Upload a file'
-                    // @ts-ignore
-                    value={value?.fileName}
                     onChange={(event) => {
                       const file = event.target.files?.[0];
                       if (file) {

@@ -55,8 +55,6 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
                           id='coverImage'
                           type='file'
                           className='sr-only'
-                          // @ts-ignore
-                          value={value?.fileName}
                           onChange={(event) => {
                             const file = event.target.files?.[0];
                             if (file) {

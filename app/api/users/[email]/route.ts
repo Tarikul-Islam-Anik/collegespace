@@ -9,7 +9,6 @@ export async function GET(
     where: { email: params.email },
     include: {
       StudentDetails: true,
-      EducationalInformation: true,
       Project: true,
     },
   });

@@ -6,13 +6,13 @@ export async function PATCH(request: NextRequest) {
   const body = await request.json();
   const { currentUser } = await authStatus();
 
-  const studentDetailsExists = await prisma.studentDetails.findFirst({
-    where: { userId: currentUser.id },
+  const studentDetailsExists = await prisma.studentDetails.findUnique({
+    where: { studentId: currentUser.id },
   });
 
   if (studentDetailsExists) {
     const studentDetails = await prisma.studentDetails.update({
-      where: { userId: studentDetailsExists.userId },
+      where: { studentId: studentDetailsExists.studentId },
       data: {
         ...body,
       },
@@ -24,7 +24,9 @@ export async function PATCH(request: NextRequest) {
     data: {
       ...body,
       user: {
-        connect: { id: currentUser.id },
+        connect: {
+          id: currentUser.id,
+        },
       },
     },
   });

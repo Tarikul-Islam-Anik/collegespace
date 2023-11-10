@@ -36,7 +36,7 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
               )}
             >
               {form.getValues('coverImage') === '' ? (
-                <Box className='text-center'>
+                <Flex align='center' justify='center' direction='column'>
                   <GalleryAdd
                     className='mx-auto h-12 w-12 text-muted-foreground'
                     variant='Outline'
@@ -72,7 +72,7 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
                   <Text as='p' size='xs' className='mt-2 text-muted-foreground'>
                     PNG, JPG, GIF up to 5MB. Recommended size: 1500x500 pixels
                   </Text>
-                </Box>
+                </Flex>
               ) : (
                 <Box className='h-[500px] w-[1500px]'>
                   <Image

@@ -14,6 +14,13 @@ const authStatus = async () => {
     where: {
       email: session.user.email,
     },
+    include: {
+      Company: {
+        select: {
+          id: true,
+        },
+      },
+    },
   });
 
   if (!currentUser) {

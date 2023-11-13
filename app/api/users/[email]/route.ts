@@ -16,6 +16,7 @@ export async function GET(
         },
       },
       Project: true,
+      Company: true,
     },
   });
 

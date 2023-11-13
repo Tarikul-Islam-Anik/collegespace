@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
+import { Box } from '@/components/layout/box';
+import { Flex } from '@/components/layout/flex';
+import { Text } from '@/components/typography/text';
 import { Separator } from '@/components/ui/separator';
 import { SidebarNav } from './components/sidebar-nav';
-import { Flex } from '@/components/layout/flex';
 import { Container } from '@/components/layout/container';
+import { Heading } from '@/components/typography/heading';
 
 export const metadata: Metadata = {
   title: 'Settings | ' + siteConfig.name,
@@ -27,6 +30,10 @@ const sidebarNavItems = [
     title: 'Projects',
     href: '/settings/projects',
   },
+  {
+    title: 'Company',
+    href: '/settings/company',
+  },
 ];
 
 interface SettingsLayoutProps {
@@ -37,12 +44,14 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <Container className='max-w-3xl p-9'>
       <Flex direction='column'>
-        <div className='col-span-2 space-y-0.5'>
-          <h2 className='text-2xl font-bold tracking-tight'>Settings</h2>
-          <p className='text-muted-foreground'>
+        <Box className='col-span-2 space-y-0.5'>
+          <Heading size='2xl' weight='bold' className='tracking-tight'>
+            Settings
+          </Heading>
+          <Text as='p' className='text-muted-foreground'>
             Manage your account settings and edit your profile.
-          </p>
-        </div>
+          </Text>
+        </Box>
         <Separator className='my-8' />
         <Flex
           direction='column'
@@ -52,7 +61,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
           <aside className='-mx-4'>
             <SidebarNav items={sidebarNavItems} />
           </aside>
-          <div className='flex-1 lg:max-w-lg'>{children}</div>
+          <Box className='flex-1 lg:max-w-lg'>{children}</Box>
         </Flex>
       </Flex>
     </Container>

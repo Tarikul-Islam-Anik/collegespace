@@ -30,11 +30,7 @@ const ProfilePicture = ({
           <FormControl>
             <Flex mt={2} align='center' gap={4}>
               <UserAvatar
-                name={
-                  form.getValues('username') === ''
-                    ? 'User'
-                    : form.getValues('username')
-                }
+                name={form.getValues('username')}
                 image={
                   typeof value === 'object' ? URL.createObjectURL(value) : value
                 }

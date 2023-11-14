@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
           userId: true,
         },
       },
+      comments: true,
     },
     orderBy: {
       createdAt: 'desc',

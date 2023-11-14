@@ -25,6 +25,7 @@ export async function GET(
           userId: true,
         },
       },
+      comments: true,
     },
   });
 

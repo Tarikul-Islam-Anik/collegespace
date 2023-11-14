@@ -16,7 +16,7 @@ model Post {
   userId    String
   likes     Like[]
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Comment   Comment[]
+  comments  Comment[]
 
   @@unique([createdAt, id])
   @@index([userId])
@@ -106,10 +106,10 @@ enum JobType {
 }
 
 model StudentDetails {
-  studentId String      @map("userId")
-  dob       DateTime?   @db.DateTime
-  gender    GenderType?
-  education Education[]
+  studentId  String      @map("userId")
+  dob        DateTime?   @db.DateTime
+  gender     GenderType?
+  educations Education[]
 
   user User @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
@@ -206,19 +206,19 @@ model User {
   coverImage     String?         @db.Text
   phone          String?         @db.VarChar(15)
   role           UserType?
-  StudentDetails StudentDetails?
-  posts          Post[]
   followers      User[]          @relation(name: "Followers")
   follows        User[]          @relation(name: "Followers")
-  Like           Like[]
-  Bounty         Bounty[]
-  Company        Company[]
-  job            Job[]
-  Notification   Notification[]
-  Project        Project[]
+  posts          Post[]
+  likes          Like[]
+  comments       Comment[]
+  notifications  Notification[]
+  studentDetails StudentDetails?
+  bounties       Bounty[]
+  projects       Project[]
+  company        Company[]
+  jobs           Job[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime?       @updatedAt
-  Comment        Comment[]
 }
 
 enum UserType {

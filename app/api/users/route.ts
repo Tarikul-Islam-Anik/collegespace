@@ -3,17 +3,17 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const users = await prisma.user.findMany({
-    take: 5,
     orderBy: {
       createdAt: 'desc',
     },
     select: {
       id: true,
       name: true,
+      username: true,
       image: true,
-      role: true,
+      createdAt: true,
     },
   });
 
-  return NextResponse.json(users);
+  return NextResponse.json(users, { status: 200 });
 }

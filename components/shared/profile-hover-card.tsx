@@ -15,7 +15,7 @@ import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { Heading } from '@/components/typography/heading';
 
-interface ProfileHoverCardProps extends User {
+interface ProfileHoverCardProps extends Partial<User> {
   children: React.ReactNode;
   className?: string;
 }
@@ -33,7 +33,7 @@ const ProfileHoverCard = ({
   return (
     <HoverCard openDelay={200} closeDelay={200}>
       <HoverCardTrigger asChild>
-        <Button variant='link' className='px-0 text-inherit'>
+        <Button variant='link' className='h-7 justify-start p-0 text-inherit'>
           {children}
         </Button>
       </HoverCardTrigger>
@@ -46,18 +46,19 @@ const ProfileHoverCard = ({
                 <Heading as='h4' size='sm' weight='semibold'>
                   {name}
                 </Heading>
-                <Text
-                  className={cn(
-                    buttonVariants({
-                      variant: 'secondary',
-                      size: 'sm',
-                    }),
-                    'h-6 rounded px-1'
-                  )}
-                  size='xs'
-                >{`@${username}`}</Text>
+                {username && (
+                  <Text
+                    className={cn(
+                      buttonVariants({
+                        variant: 'secondary',
+                        size: 'sm',
+                      }),
+                      'h-6 rounded px-1'
+                    )}
+                    size='xs'
+                  >{`@${username}`}</Text>
+                )}
               </Flex>
-
               <Text
                 size='xs'
                 className={cn(

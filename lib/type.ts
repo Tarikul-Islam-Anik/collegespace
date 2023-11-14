@@ -11,19 +11,20 @@ import type {
 
 export type PostType = Post & {
   likes: Like[];
+  comments: Comment[];
   user: User;
 };
 
 export type StudentDetailsType = StudentDetails & {
-  education: Education[];
+  educations: Education[];
 };
 
 export type UserType = User & {
   posts: PostType[];
   jobs: Job[];
-  StudentDetails: StudentDetailsType;
-  Project: Project[];
-  Company: Company[];
+  studentDetails: StudentDetailsType;
+  projects: Project[];
+  company: Company[];
 };
 
 export type { User, Post, Like, Job, StudentDetails, Education, Project };

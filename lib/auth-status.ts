@@ -15,7 +15,7 @@ const authStatus = async () => {
       email: session.user.email,
     },
     include: {
-      Company: {
+      company: {
         select: {
           id: true,
         },

@@ -25,11 +25,7 @@ const useUser = (userId?: string) => {
       error,
       isLoading,
       mutate,
-    } = useSWR<User>(
-      // @ts-ignore
-      `/api/users/${session?.user?.email}`,
-      fetcher
-    );
+    } = useSWR<User>(`/api/users/${session?.user?.email}`, fetcher);
     return {
       user,
       error,

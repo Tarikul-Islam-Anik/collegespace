@@ -8,15 +8,15 @@ export async function GET(
   const user = await prisma.user.findUnique({
     where: { email: params.email },
     include: {
-      StudentDetails: {
+      studentDetails: {
         select: {
           dob: true,
           gender: true,
-          education: true,
+          educations: true,
         },
       },
-      Project: true,
-      Company: true,
+      projects: true,
+      company: true,
     },
   });
 

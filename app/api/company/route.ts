@@ -8,14 +8,14 @@ export async function PATCH(request: NextRequest) {
 
   const companyExists = await prisma.company.findUnique({
     where: {
-      id: currentUser.Company[0].id,
+      id: currentUser.company[0].id,
     },
   });
 
   if (companyExists) {
     const company = await prisma.company.update({
       where: {
-        id: currentUser.Company[0].id,
+        id: currentUser.company[0].id,
       },
       data: { ...body },
     });

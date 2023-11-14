@@ -40,7 +40,7 @@ const UpgradeToPremium = () => {
           </DialogHeader>
           <PremiumFeatures />
           <Button className='mt-4 w-full'>Subscribe for $9.99/month</Button>
-          <Text align='center' className='mt-2 text-xs text-muted-foreground'>
+          <Text align='center' className='text-xs text-muted-foreground'>
             Learn more about Premium and Verified Organizations
           </Text>
         </DialogContent>

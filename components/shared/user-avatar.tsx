@@ -1,6 +1,5 @@
 'use client';
 
-import { GallerySlash } from 'iconsax-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const UserAvatar = ({
@@ -16,15 +15,11 @@ const UserAvatar = ({
     <Avatar className={className}>
       <AvatarImage src={image ?? ''} alt={name ?? ''} />
       <AvatarFallback className={className}>
-        {name ? (
-          name
-            ?.split(' ')
-            .map((name: string) => name[0])
-            .join('')
-            .slice(0, 2)
-        ) : (
-          <GallerySlash size={20} className='text-muted-foreground' />
-        )}
+        {name
+          ?.split(' ')
+          .map((name: string) => name[0])
+          .join('')
+          .slice(0, 2)}
       </AvatarFallback>
     </Avatar>
   );

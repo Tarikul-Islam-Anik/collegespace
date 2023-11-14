@@ -24,7 +24,7 @@ const Posts = () => {
       <ul>
         {posts?.map((post) => (
           <li key={post.id}>
-            <PostItem {...post} />
+            <PostItem post={post} />
           </li>
         ))}
       </ul>

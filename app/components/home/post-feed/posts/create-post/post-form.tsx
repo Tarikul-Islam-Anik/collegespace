@@ -2,9 +2,8 @@
 
 import z from 'zod';
 import { toast } from 'sonner';
-import { useAtom } from 'jotai/react';
-import { PostsAtom } from '@/lib/atom';
 import { useForm } from 'react-hook-form';
+import usePosts from '@/hooks/usePosts';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import PostType from './post-type';
@@ -24,7 +23,7 @@ export const postFormSchema = z.object({
 
 const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
   const { currentUser } = useCurrentUser();
-  const [posts, setPosts] = useAtom(PostsAtom);
+  const { mutate } = usePosts();
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
@@ -45,7 +44,10 @@ const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
 
       {
         loading: `Posting ${data.type}...`,
-        success: 'Status posted!',
+        success: () => {
+          mutate();
+          return 'Status posted!';
+        },
         error: 'Something went wrong!',
       }
     );

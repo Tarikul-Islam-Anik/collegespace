@@ -15,7 +15,7 @@ const EducationalInfoForm = ({
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { setCurrentUser } = useCurrentUser();
   const defaultValues: Partial<EducationalInfoFormValues> = {
     school: '',
     degree: '',
@@ -42,7 +42,7 @@ const EducationalInfoForm = ({
         loading: 'Adding educational information...',
         success: (data) => {
           setCurrentUser((prev) => {
-            prev?.StudentDetails.education.push(data);
+            prev?.studentDetails.educations.push(data);
             return prev;
           });
           setOpen(false);

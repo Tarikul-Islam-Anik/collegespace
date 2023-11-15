@@ -1,15 +1,27 @@
 import { MessageText } from 'iconsax-react';
 import { Button } from '@/components/ui/button';
-import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 import CommentDialog from '../../comment/comment-dialog';
+import ToolTipParent from '@/components/shared/tooltip-parent';
+import ScreenReaderOnly from '@/components/ui/screen-reader-only';
+import { Box } from '@/components/layout/box';
 
-const HandleComment = ({ postContent }: { postContent: React.ReactNode }) => {
+const HandleComment = ({
+  postId,
+  postContent,
+}: {
+  postId: string;
+  postContent: React.ReactNode;
+}) => {
   return (
-    <CommentDialog postContent={postContent}>
-      <Button variant='ghost' size='icon'>
-        <MessageText className='text-muted-foreground' />
-        <ScreenReaderOnly>Comment</ScreenReaderOnly>
-      </Button>
+    <CommentDialog postId={postId} postContent={postContent}>
+      <Box>
+        <ToolTipParent content='Comment'>
+          <Button variant='ghost' size='icon'>
+            <MessageText className='text-muted-foreground' />
+            <ScreenReaderOnly>Comment on</ScreenReaderOnly>
+          </Button>
+        </ToolTipParent>
+      </Box>
     </CommentDialog>
   );
 };

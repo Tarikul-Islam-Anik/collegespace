@@ -7,6 +7,7 @@ import type {
   Education,
   Project,
   Company,
+  Notification,
 } from '@prisma/client';
 
 export type PostType = Post & {
@@ -27,4 +28,13 @@ export type UserType = User & {
   company: Company[];
 };
 
-export type { User, Post, Like, Job, StudentDetails, Education, Project };
+export type {
+  User,
+  Post,
+  Like,
+  Job,
+  StudentDetails,
+  Education,
+  Project,
+  Notification,
+};

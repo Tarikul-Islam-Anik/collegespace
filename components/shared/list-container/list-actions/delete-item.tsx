@@ -15,7 +15,7 @@ const DeleteListItem = ({ type, reference }: DeleteListItemProps) => {
   function removeProjectFromUser(reference: string) {
     return setCurrentUser((prev) => ({
       ...prev!,
-      Project: prev?.Project.filter((project) => project.title !== reference)!,
+      Project: prev?.projects.filter((project) => project.title !== reference)!,
     }));
   }
 
@@ -23,8 +23,8 @@ const DeleteListItem = ({ type, reference }: DeleteListItemProps) => {
     return setCurrentUser((prev) => ({
       ...prev!,
       StudentDetails: {
-        ...prev?.StudentDetails!,
-        education: prev?.StudentDetails?.education.filter(
+        ...prev?.studentDetails!,
+        education: prev?.studentDetails?.educations.filter(
           (education) => education.id !== reference
         )!,
       },

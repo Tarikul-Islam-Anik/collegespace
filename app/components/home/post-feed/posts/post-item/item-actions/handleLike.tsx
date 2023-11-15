@@ -7,6 +7,7 @@ import { PostsAtom } from '@/lib/atom';
 import useLike from '@/hooks/useLike';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { Button } from '@/components/ui/button';
+import ToolTipParent from '@/components/shared/tooltip-parent';
 import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 const HandleLike = ({ postId }: { postId: string }) => {
@@ -44,13 +45,15 @@ const HandleLike = ({ postId }: { postId: string }) => {
   }
 
   return (
-    <Button variant='ghost' size='icon' onClick={handleLike}>
-      <Heart
-        variant={liked ? 'Bold' : 'Outline'}
-        className={liked ? 'text-primary' : 'text-muted-foreground'}
-      />
-      <ScreenReaderOnly>Like</ScreenReaderOnly>
-    </Button>
+    <ToolTipParent content='Like'>
+      <Button variant='ghost' size='icon' onClick={handleLike}>
+        <Heart
+          variant={liked ? 'Bold' : 'Outline'}
+          className={liked ? 'text-primary' : 'text-muted-foreground'}
+        />
+        <ScreenReaderOnly>Like</ScreenReaderOnly>
+      </Button>
+    </ToolTipParent>
   );
 };
 

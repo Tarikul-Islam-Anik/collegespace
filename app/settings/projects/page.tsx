@@ -20,7 +20,7 @@ export default function SettingsProjectPage() {
   const [open, setOpen] = useState(false);
   const { currentUser } = useCurrentUser();
 
-  const sortedProjects = currentUser?.Project?.sort(
+  const sortedProjects = currentUser?.projects?.sort(
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
 

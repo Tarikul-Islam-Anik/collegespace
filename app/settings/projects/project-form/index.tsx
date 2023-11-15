@@ -37,7 +37,7 @@ const ProjectForm = ({ setOpen }: ProjectFormProps) => {
         loading: 'Adding project...',
         success: () => {
           setCurrentUser((prev) => {
-            prev?.Project.push({ ...data, userId: prev.id });
+            prev?.projects.push({ ...data, userId: prev.id });
             return prev;
           });
           setOpen(false);

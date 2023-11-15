@@ -14,8 +14,8 @@ const PersonalInfoForm = () => {
     name: currentUser?.name ?? '',
     email: currentUser?.email ?? '',
     phone: currentUser?.phone ?? '',
-    dob: currentUser?.StudentDetails?.dob ?? '',
-    gender: currentUser?.StudentDetails?.gender ?? '',
+    dob: currentUser?.studentDetails?.dob ?? '',
+    gender: currentUser?.studentDetails?.gender ?? '',
   };
 
   const form = useForm<PersonalInfoFormValues>({
@@ -52,8 +52,8 @@ const PersonalInfoForm = () => {
         success: (data) => {
           setCurrentUser({
             ...currentUser!,
-            StudentDetails: {
-              ...currentUser?.StudentDetails!,
+            studentDetails: {
+              ...currentUser?.studentDetails!,
               ...data,
             },
           });

@@ -12,6 +12,25 @@ export async function POST(request: NextRequest) {
       postId: body.id,
     },
   });
+
+  const postOwnerId = await prisma.post.findUnique({
+    where: {
+      id: body.id,
+    },
+    select: {
+      userId: true,
+    },
+  });
+
+  if (postOwnerId?.userId !== currentUser.id) {
+    await prisma.notification.create({
+      data: {
+        userId: postOwnerId!.userId,
+        content: `${currentUser.name} liked your post`,
+      },
+    });
+  }
+
   return NextResponse.json({ liked: true }, { status: 200 });
 }
 

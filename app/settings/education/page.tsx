@@ -19,7 +19,7 @@ export default function SettingsEducationInformationPage() {
   const [open, setOpen] = useState(false);
   const { currentUser } = useCurrentUser();
 
-  const sortedEducation = currentUser?.StudentDetails.education.sort(
+  const sortedEducation = currentUser?.studentDetails.educations.sort(
     (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
   );
 
@@ -54,9 +54,8 @@ export default function SettingsEducationInformationPage() {
           <ListContainer type='education' items={sortedEducation} />
         )
       )}
-      {currentUser?.StudentDetails.education?.length! > 0 && sortedEducation?.length! < 4 && (
-        <Flex justify='center'>{AddNew}</Flex>
-      )}
+      {currentUser?.studentDetails.educations?.length! > 0 &&
+        sortedEducation?.length! < 4 && <Flex justify='center'>{AddNew}</Flex>}
     </Box>
   );
 }

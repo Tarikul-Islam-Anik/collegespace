@@ -12,5 +12,24 @@ export async function POST(request: NextRequest) {
       userId: currentUser.id,
     },
   });
+
+  const postOwnerId = await prisma.post.findUnique({
+    where: {
+      id: body.id,
+    },
+    select: {
+      userId: true,
+    },
+  });
+
+  if (postOwnerId?.userId !== currentUser.id) {
+    await prisma.notification.create({
+      data: {
+        userId: postOwnerId!.userId,
+        content: `${currentUser.name} commented your post`,
+      },
+    });
+  }
+
   return NextResponse.json({}, { status: 200 });
 }

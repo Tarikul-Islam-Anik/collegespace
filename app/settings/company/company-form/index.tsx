@@ -16,13 +16,13 @@ const CompanyForm = () => {
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(companyFormSchema),
     defaultValues: {
-      name: currentUser?.Company[0]?.name ?? '',
-      about: currentUser?.Company[0]?.about ?? '',
-      address: currentUser?.Company[0]?.address ?? '',
-      phone: currentUser?.Company[0]?.phone ?? '',
-      website: currentUser?.Company[0]?.website ?? '',
-      email: currentUser?.Company[0]?.email ?? '',
-      logo: currentUser?.Company[0]?.logo ?? '',
+      name: currentUser?.company[0]?.name ?? '',
+      about: currentUser?.company[0]?.about ?? '',
+      address: currentUser?.company[0]?.address ?? '',
+      phone: currentUser?.company[0]?.phone ?? '',
+      website: currentUser?.company[0]?.website ?? '',
+      email: currentUser?.company[0]?.email ?? '',
+      logo: currentUser?.company[0]?.logo ?? '',
     },
     mode: 'onChange',
   });
@@ -61,7 +61,7 @@ const CompanyForm = () => {
             (prev) =>
               (prev = {
                 ...prev!,
-                Company: [res],
+                company: [res],
               })
           );
           return 'Updated!';

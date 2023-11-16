@@ -8,8 +8,9 @@ export async function POST(request: NextRequest) {
 
   await prisma.comment.create({
     data: {
-      ...body,
+      content: body.content,
       userId: currentUser.id,
+      postId: body.id,
     },
   });
 

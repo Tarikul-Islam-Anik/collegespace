@@ -1,17 +1,20 @@
 import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
+import usePosts from './usePosts';
 
 type LikeResponse = {
   liked: boolean;
 };
 
 const useLike = (postId: string) => {
-  const endpoint = `/api/like`;
+  const endpoint = `/api/like/${postId}`;
   const { data, isLoading, mutate } = useSWR<LikeResponse>(
-    postId ? `${endpoint}/${postId}` : null,
+    postId ? endpoint : null,
     fetcher
   );
+
+  const { mutate: mutatePosts } = usePosts();
 
   const liked = useMemo(() => {
     return data?.liked;
@@ -21,10 +24,10 @@ const useLike = (postId: string) => {
     if (!liked)
       await fetch(endpoint, {
         method: 'POST',
-        body: JSON.stringify({ id: postId }),
       });
-    else await fetch(`${endpoint}/${postId}`, { method: 'DELETE' });
+    else await fetch(endpoint, { method: 'DELETE' });
     mutate();
+    mutatePosts();
   }, [postId, liked]);
 
   return { liked, toggleLike, isLoading };

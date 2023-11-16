@@ -1,3 +1,5 @@
+'use client';
+
 import { More } from 'iconsax-react';
 import {
   DropdownMenu,
@@ -7,8 +9,21 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
-const PostOptions = ({ postId }: { postId: string }) => {
+const PostOptions = ({
+  postId,
+  userId,
+}: {
+  postId: string;
+  userId: string;
+}) => {
+  const { currentUser } = useCurrentUser();
+  const showUnfollow = currentUser?.id !== userId;
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(`${window.location.origin}/post/${postId}`);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -17,16 +32,8 @@ const PostOptions = ({ postId }: { postId: string }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>Unfollow</DropdownMenuItem>
-        <DropdownMenuItem
-          onSelect={() => {
-            navigator.clipboard.writeText(
-              `${window.location.origin}/post/${postId}`
-            );
-          }}
-        >
-          Copy link
-        </DropdownMenuItem>
+        {showUnfollow && <DropdownMenuItem>Unfollow</DropdownMenuItem>}
+        <DropdownMenuItem onSelect={handleCopyLink}>Copy link</DropdownMenuItem>
         <DropdownMenuItem>Mute</DropdownMenuItem>
         <DropdownMenuItem>Hide</DropdownMenuItem>
         <DropdownMenuSeparator />

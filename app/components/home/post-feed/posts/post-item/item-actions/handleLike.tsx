@@ -1,46 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { useAtom } from 'jotai';
 import { Heart } from 'iconsax-react';
-import { PostsAtom } from '@/lib/atom';
 import useLike from '@/hooks/useLike';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { Button } from '@/components/ui/button';
 import ToolTipParent from '@/components/shared/tooltip-parent';
 import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 const HandleLike = ({ postId }: { postId: string }) => {
-  const { toggleLike } = useLike(postId);
-  const [posts, setPosts] = useAtom(PostsAtom);
-  const { currentUser } = useCurrentUser();
-
-  const userId = currentUser?.id;
-  const post = posts?.find((post) => post.id === postId);
-
-  const [liked, setLiked] = useState(
-    post?.likes.some((like) => like.userId === userId)
-  );
+  const { liked, toggleLike } = useLike(postId);
 
   async function handleLike() {
-    setPosts((prev) => {
-      const posts = [...prev!];
-      const postIndex = posts.findIndex((post) => post.id === postId);
-      const post = posts[postIndex];
-
-      if (liked) {
-        post.likes = post.likes.filter((like) => like.userId !== userId);
-      } else {
-        post.likes.push({
-          userId: userId as string,
-          postId: post.id,
-        });
-      }
-
-      posts[postIndex] = post;
-      setLiked(!liked);
-      return posts;
-    });
     await toggleLike();
   }
 

@@ -26,7 +26,7 @@ const EmptyState = ({
       justify='center'
       className={cn('h-96', className)}
     >
-      <Box mx={'auto'} className='w-12 text-gray-500'>
+      <Box mx={'auto'} className='text-gray-500'>
         {icon}
       </Box>
       <Heading size='sm' weight='semibold' className='mt-1'>

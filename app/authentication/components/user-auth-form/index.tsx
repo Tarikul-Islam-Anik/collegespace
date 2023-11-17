@@ -3,7 +3,6 @@
 import { toast } from 'sonner';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { UserAtom } from '@/lib/atom';
@@ -13,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/layout/grid';
+import Loader from '@/components/shared/loader';
 import { UserAuthFormSchema, UserAuthFormValues } from './schema';
 import UserAuthFormFields from './user-auth-form-fields';
 
@@ -21,6 +21,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
   const router = useRouter();
   const [, setUser] = useAtom(UserAtom);
+  const [loading, setLoading] = useState(false);
   const form = useForm<UserAuthFormValues>({
     resolver: zodResolver(UserAuthFormSchema),
     defaultValues: {
@@ -28,12 +29,10 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
       password: '',
     },
   });
-  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
-    formState: { isValid, isSubmitting },
-    control,
+    formState: { isValid },
   } = form;
 
   function onSubmit(data: UserAuthFormValues) {
@@ -46,6 +45,7 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
     }).then((res) => {
       if (res?.error) {
         toast.error(res?.error);
+        setLoading(false);
       } else {
         fetch(`/api/users/${email}`)
           .then((res) => {
@@ -62,7 +62,6 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
           });
       }
     });
-    setLoading(false);
   }
 
   return (
@@ -74,8 +73,8 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
       >
         <Grid gap={4}>
           <UserAuthFormFields form={form} />
-          <Button disabled={!isValid || loading || isSubmitting} type='submit'>
-            {loading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+          <Button disabled={!isValid || loading} type='submit'>
+            {loading && <Loader className='mr-2 h-4 w-4 text-muted-foreground' />}
             Sign In with Email
           </Button>
         </Grid>

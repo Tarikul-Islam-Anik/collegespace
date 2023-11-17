@@ -1,3 +1,3 @@
 export { default as HandleLike } from './handleLike';
 export { default as HandleRepost } from './handleRepost';
-export { default as HandleComment } from './handleComment';
+export { default as HandleReply } from './handleReply';

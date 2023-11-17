@@ -1,13 +1,19 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { UserType } from '@/lib/type';
 import { buttonVariants } from '../ui/button';
 import { Flex } from '@/components/layout/flex';
 import FollowButton from './follow/follow-button';
-import ProfileHoverCard from './profile-hover-card';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { cn } from '@/lib/utils';
+import { Box } from '../layout/box';
+import Link from 'next/link';
+
+const ProfileHoverCard = dynamic(() => import('./profile-hover-card'), {
+  ssr: false,
+});
 
 interface UserItemProps {
   user: Partial<UserType>;
@@ -37,17 +43,18 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
   const card = profileHover ? (
     <ProfileHoverCard {...user}>{content}</ProfileHoverCard>
   ) : (
-    content
+    <Link href={`/profile/${user?.email}`} passHref className='w-full'>
+      {content}
+    </Link>
   );
 
   return (
     <Flex
-      justify='between'
       align='center'
       width='full'
       className={cn(
         buttonVariants({ variant: 'ghost' }),
-        'h-auto justify-start p-2'
+        'h-auto justify-between p-2'
       )}
     >
       <Flex gap={2} align='center'>

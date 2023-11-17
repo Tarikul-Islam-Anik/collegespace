@@ -1,10 +1,11 @@
+import React, { forwardRef } from 'react';
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import React, { forwardRef } from 'react';
 
 const ToolTipParent = forwardRef(
   (

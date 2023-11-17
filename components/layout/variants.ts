@@ -5,6 +5,7 @@ export const boxVariants = cva('', {
     display: {
       block: 'block',
       inline: 'inline',
+      hidden: 'hidden',
       inlineBlock: 'inline-block',
       flex: 'flex',
       inlineFlex: 'inline-flex',

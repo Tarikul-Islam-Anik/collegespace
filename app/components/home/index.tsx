@@ -1,17 +1,21 @@
 import PostFeed from './post-feed';
-import { Box } from '@/components/layout/box';
-import { Grid } from '@/components/layout/grid';
 import UserProfile from './user-profile';
 import Suggestions from './suggestions';
+import { Box } from '@/components/layout/box';
+import { Grid } from '@/components/layout/grid';
 
 const Home = () => {
   return (
-    <Grid cols={4} className='container mx-auto' mt={8} gap={4}>
-      <UserProfile />
-      <Box className='col-span-2'>
+    <Grid cols={1} className='md:gc container mx-auto xl:grid-cols-4' gap={4}>
+      <Box display='hidden' className='xl:block'>
+        <UserProfile />
+      </Box>
+      <Box className='col-span-2 w-[500px] xl:w-full' mx='auto'>
         <PostFeed />
       </Box>
-      <Suggestions />
+      <Box display='hidden' className='xl:block'>
+        <Suggestions />
+      </Box>
     </Grid>
   );
 };

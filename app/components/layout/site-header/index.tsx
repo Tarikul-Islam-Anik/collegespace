@@ -13,14 +13,14 @@ const SiteHeader = () => {
   if (pathname === '/authentication' || pathname === '/bounty-board')
     return null;
   return (
-    <header className='relative z-50 w-full'>
-      <Container asChild>
+    <header className='relative z-50 w-full mb-6'>
+      <Container asChild className='px-0'>
         <Flex
           align='center'
           justify='between'
           className='top-0 h-16 border-b sm:relative'
         >
-          <Box className='block sm:hidden' />
+          <Box className='block mr-9 sm:hidden' />
           <Heading as='h1' className='text-center text-2xl font-bold'>
             <Link href='/'>College Space</Link>
           </Heading>
@@ -32,7 +32,7 @@ const SiteHeader = () => {
         align='center'
         justify='center'
         position='fixed'
-        className='bottom-0 h-16 border-y sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:transform'
+        className='bottom-0 h-16 border-y bg-background sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:transform'
       >
         <Navbar />
       </Flex>

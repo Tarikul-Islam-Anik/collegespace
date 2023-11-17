@@ -27,7 +27,7 @@ export interface RepostType extends Repost {
 }
 
 export interface StudentDetailsType extends StudentDetails {
-  education: Education[];
+  educations: Education[];
 }
 
 export interface UserType extends User {

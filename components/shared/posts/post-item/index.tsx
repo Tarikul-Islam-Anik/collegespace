@@ -1,15 +1,26 @@
+'use client';
+import { useMemo } from 'react';
+import Link from 'next/link';
 import { PostType } from '@/lib/type';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import PostContent from '@/components/shared/posts/post-content';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { HandleLike, HandleComment, HandleRepost } from './item-actions';
-import Link from 'next/link';
+import { HandleLike, HandleReply, HandleRepost } from './item-actions';
 
 const PostItem = ({ post }: { post: PostType }) => {
-  const postContent = <PostContent post={post} />;
-  const totalLikes = post.likes.length;
-  const totalComments = post.comments.length;
+  const postContent = useMemo(
+    () => <PostContent post={post} profileHover />,
+    [post.content]
+  );
+
+  const commentPlaceholder = useMemo(
+    () => <PostContent post={post} />,
+    [post.content]
+  );
+
+  const totalLikes = post._count.likes;
+  const totalReplies = post._count.replies;
 
   return (
     <Card className='rounded-none border-none pt-5 shadow-none'>
@@ -23,14 +34,14 @@ const PostItem = ({ post }: { post: PostType }) => {
               </Text>
               <Text className='mx-1'>&middot;</Text>
               <Text className='hover:opacity-75'>
-                {totalComments} comment{totalComments > 1 && 's '}
+                {totalReplies} repl{totalReplies > 1 ? 'ies' : 'y'}
               </Text>
             </Text>
           </Link>
           <Flex>
             <HandleLike postId={post.id} />
-            <HandleRepost />
-            <HandleComment postId={post.id} postContent={postContent} />
+            <HandleRepost postId={post.id} />
+            <HandleReply postId={post.id} postContent={commentPlaceholder} />
           </Flex>
         </Flex>
       </CardFooter>

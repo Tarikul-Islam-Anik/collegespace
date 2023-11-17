@@ -27,7 +27,7 @@ const UserSuggestions = () => {
         <ul className='flex flex-col'>
           {usersLimit?.map((user, index) => (
             <li key={index} className='my-3'>
-              <UserItem user={user} />
+              <UserItem user={user} profileHover followButton />
             </li>
           ))}
         </ul>

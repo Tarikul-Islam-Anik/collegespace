@@ -7,7 +7,13 @@ export async function GET(request: NextRequest) {
 
   const posts = await prisma.post.findMany({
     where: {
-      userId: currentUser.id,
+      user: {
+        followers: {
+          some: {
+            id: currentUser?.id,
+          },
+        },
+      },
     },
     include: {
       user: {
@@ -25,7 +31,8 @@ export async function GET(request: NextRequest) {
           userId: true,
         },
       },
-      comments: true,
+      replies: true,
+      _count: { select: { likes: true, replies: true, reposts: true } },
     },
     orderBy: {
       createdAt: 'desc',

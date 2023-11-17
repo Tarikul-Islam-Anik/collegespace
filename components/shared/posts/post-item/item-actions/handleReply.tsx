@@ -1,11 +1,11 @@
 import { MessageText } from 'iconsax-react';
 import { Button } from '@/components/ui/button';
-import CommentDialog from '../../comment/comment-dialog';
+import ReplyDialog from '../../reply/reply-dialog';
 import ToolTipParent from '@/components/shared/tooltip-parent';
 import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 import { Box } from '@/components/layout/box';
 
-const HandleComment = ({
+const HandleReply = ({
   postId,
   postContent,
 }: {
@@ -13,7 +13,7 @@ const HandleComment = ({
   postContent: React.ReactNode;
 }) => {
   return (
-    <CommentDialog postId={postId} postContent={postContent}>
+    <ReplyDialog postId={postId} postContent={postContent}>
       <Box>
         <ToolTipParent content='Comment'>
           <Button variant='ghost' size='icon'>
@@ -22,8 +22,9 @@ const HandleComment = ({
           </Button>
         </ToolTipParent>
       </Box>
-    </CommentDialog>
+    </ReplyDialog>
   );
 };
 
-export default HandleComment;
+HandleReply.displayName = 'HandleReply';
+export default HandleReply;

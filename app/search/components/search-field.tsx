@@ -27,7 +27,7 @@ const SearchField = () => {
               return (
                 <>
                   {index !== 0 && <Separator className='my-4' />}
-                  <SearchItem user={user} />
+                  <SearchItem key={index} user={user} />
                 </>
               );
             })}

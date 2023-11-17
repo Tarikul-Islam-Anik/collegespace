@@ -9,17 +9,29 @@ generator client {
 }
 
 model Post {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   type      PostType
-  content   String    @db.VarChar(256)
-  createdAt DateTime  @default(now())
+  content   String   @db.VarChar(256)
+  createdAt DateTime @default(now())
   userId    String
   likes     Like[]
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  comments  Comment[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replies   Reply[]
+  reposts   Repost[]
 
   @@unique([createdAt, id])
   @@index([userId])
+}
+
+model Repost {
+  userId String
+  postId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@id([userId, postId])
+  @@index([userId])
+  @@index([postId])
 }
 
 enum PostType {
@@ -38,7 +50,7 @@ model Like {
   @@index([postId])
 }
 
-model Comment {
+model Reply {
   id        String   @id @default(uuid())
   content   String   @db.VarChar(128)
   createdAt DateTime @default(now())
@@ -151,10 +163,12 @@ model Project {
 }
 
 model Notification {
-  content   String   @db.VarChar(256)
-  createdAt DateTime @default(now())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content      String   @db.VarChar(256)
+  postId       String?
+  interactorId String?
+  createdAt    DateTime @default(now())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([createdAt, userId])
   @@index([userId])
@@ -201,24 +215,26 @@ model User {
   sessions      Session[]
 
   // Non Next Auth
-  username       String?         @unique @db.VarChar(30)
-  bio            String?         @db.VarChar(101)
-  coverImage     String?         @db.Text
-  phone          String?         @db.VarChar(15)
-  role           UserType?
-  followers      User[]          @relation(name: "Followers")
-  follows        User[]          @relation(name: "Followers")
-  posts          Post[]
-  likes          Like[]
-  comments       Comment[]
-  notifications  Notification[]
-  studentDetails StudentDetails?
-  bounties       Bounty[]
-  projects       Project[]
-  company        Company[]
-  jobs           Job[]
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime?       @updatedAt
+  username        String?         @unique @db.VarChar(30)
+  bio             String?         @db.VarChar(101)
+  coverImage      String?         @db.Text
+  phone           String?         @db.VarChar(15)
+  role            UserType?
+  hasNotification Boolean?        @default(false)
+  studentDetails  StudentDetails?
+  followers       User[]          @relation(name: "Followers")
+  follows         User[]          @relation(name: "Followers")
+  posts           Post[]
+  likes           Like[]
+  replies         Reply[]
+  notifications   Notification[]
+  bounties        Bounty[]
+  projects        Project[]
+  company         Company[]
+  jobs            Job[]
+  reposts         Repost[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime?       @updatedAt
 }
 
 enum UserType {

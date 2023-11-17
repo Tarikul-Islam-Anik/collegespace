@@ -1,20 +1,17 @@
 import useSWR from 'swr';
 import { User } from '@/lib/type';
 import fetcher from '@/lib/fetcher';
-import useCurrentUser from './useCurrentUser';
+import { useSession } from 'next-auth/react';
 
 const useUsers = () => {
+  const { data: session } = useSession();
   const { data, error, isLoading, mutate } = useSWR<User[]>(
     `/api/users`,
     fetcher
   );
-  const { currentUser } = useCurrentUser();
-
-  const users = data
-    ?.filter((user) => currentUser && user.id !== currentUser.id)
-    .sort((a, b) => {
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    });
+  const users = data?.filter(
+    (user) => session && user.email !== session?.user?.email
+  );
 
   return {
     users,

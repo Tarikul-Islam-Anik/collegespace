@@ -1,33 +1,28 @@
 'use client';
 import { Box } from '@/components/layout/box';
 import { Flex } from '@/components/layout/flex';
+import EmptyState from '@/components/shared/empty-state';
 import Loader from '@/components/shared/loader';
-import { Text } from '@/components/typography/text';
 import useNotifications from '@/hooks/useNotifications';
 import { InboxIcon } from 'lucide-react';
 
 const NotificationsPage = () => {
   const { notifications, isLoading } = useNotifications();
 
+  if (isLoading) {
+    return <Loader className='h-screen' />;
+  }
+
   return (
-    <Flex justify='center' align='center' mt={8}>
+    <Flex justify='center' align='center'>
       <Box />
       <Box>
-        {isLoading ? (
-          <Loader />
-        ) : notifications?.length === 0 ? (
-          <Flex
-            align='center'
-            gap={2}
-            justify='center'
-            className='h-[calc(100vh-20vh)] text-muted-foreground'
-            direction='column'
-          >
-            <InboxIcon size={32} />
-            <Text weight='medium' size='sm'>
-              No notifications
-            </Text>
-          </Flex>
+        {notifications?.length === 0 ? (
+          <EmptyState
+            icon={<InboxIcon size={32} />}
+            title='No notifications'
+            description='Notifications inbox is empty.'
+          />
         ) : (
           <ul className='w-[500px] gap-4'>
             {notifications?.map((notification, index) => (

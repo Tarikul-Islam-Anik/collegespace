@@ -25,7 +25,8 @@ export async function GET(
           userId: true,
         },
       },
-      comments: true,
+      replies: true,
+      _count: { select: { likes: true, replies: true, reposts: true } },
     },
   });
 
@@ -33,4 +34,15 @@ export async function GET(
     return NextResponse.json({ error: 'Post not found' }, { status: 404 });
 
   return NextResponse.json(post, { status: 200 });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  await prisma.post.delete({
+    where: { id: params.id },
+  });
+
+  return NextResponse.json({ success: true }, { status: 200 });
 }

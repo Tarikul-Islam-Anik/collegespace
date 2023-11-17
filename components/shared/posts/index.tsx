@@ -21,7 +21,7 @@ const Posts = () => {
   else {
     setPosts(data);
     return (
-      <ul>
+      <ul role='post-feed'>
         {posts?.map((post) => (
           <li key={post.id}>
             <PostItem post={post} />

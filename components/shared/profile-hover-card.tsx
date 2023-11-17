@@ -30,7 +30,7 @@ const ProfileHoverCard = forwardRef(
       bio,
       image,
       createdAt,
-      id,
+      email,
       className,
     }: ProfileHoverCardProps,
     ref
@@ -86,7 +86,7 @@ const ProfileHoverCard = forwardRef(
               </Box>
             </Flex>
             <Link
-              href={`/user/${id}`}
+              href={`/profile/${email}`}
               className={cn(buttonVariants({ variant: 'default' }), 'w-full')}
             >
               View profile

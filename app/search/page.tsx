@@ -4,7 +4,7 @@ import SearchField from './components/search-field';
 
 const SearchPage = () => {
   return (
-    <Flex justify='center' align='center' mt={8}>
+    <Flex justify='center' align='center'>
       <Box />
       <SearchField />
       <Box />

@@ -8,25 +8,39 @@ import type {
   Project,
   Company,
   Notification,
+  Reply,
+  Repost,
 } from '@prisma/client';
 
-export type PostType = Post & {
+export interface PostType extends Post {
+  replies: Reply[];
   likes: Like[];
-  comments: Comment[];
   user: User;
-};
+  _count: {
+    replies: number;
+    reposts: number;
+    likes: number;
+  };
+}
+export interface RepostType extends Repost {
+  post: PostType;
+}
 
-export type StudentDetailsType = StudentDetails & {
-  educations: Education[];
-};
+export interface StudentDetailsType extends StudentDetails {
+  education: Education[];
+}
 
-export type UserType = User & {
+export interface UserType extends User {
   posts: PostType[];
   jobs: Job[];
   studentDetails: StudentDetailsType;
   projects: Project[];
   company: Company[];
-};
+  _count: {
+    followers: number;
+    following: number;
+  };
+}
 
 export type {
   User,
@@ -37,4 +51,6 @@ export type {
   Education,
   Project,
   Notification,
+  Reply,
+  Repost,
 };

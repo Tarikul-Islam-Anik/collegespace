@@ -46,6 +46,8 @@ export async function POST(
     await prisma.notification.create({
       data: {
         userId: postOwnerId!.userId,
+        interactorId: currentUser.id,
+        postId: params.postId,
         content: `${currentUser.name} liked your post`,
       },
     });

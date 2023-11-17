@@ -10,6 +10,7 @@ import useUsers from '@/hooks/useUsers';
 import SearchItem from './search-items';
 import { Separator } from '@/components/ui/separator';
 import Loader from '@/components/shared/loader';
+import { Box } from '@/components/layout/box';
 
 const SearchField = () => {
   const { users, isLoading } = useUsers();
@@ -17,7 +18,7 @@ const SearchField = () => {
   return (
     <Command className='w-[500px]'>
       <CommandInput placeholder='Search...' />
-      <CommandList>
+      <CommandList className='h-[80vh]'>
         <CommandEmpty>No results found.</CommandEmpty>
         {isLoading ? (
           <Loader />
@@ -25,10 +26,10 @@ const SearchField = () => {
           <CommandGroup className='mt-4'>
             {users?.map((user, index) => {
               return (
-                <>
+                <Box key={index}>
                   {index !== 0 && <Separator className='my-4' />}
-                  <SearchItem key={index} user={user} />
-                </>
+                  <SearchItem user={user} />
+                </Box>
               );
             })}
           </CommandGroup>

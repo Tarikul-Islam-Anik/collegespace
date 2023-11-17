@@ -9,9 +9,11 @@ export async function GET(request: NextRequest) {
     select: {
       id: true,
       name: true,
+      email: true,
       username: true,
       image: true,
       createdAt: true,
+      _count: { select: { followers: true, follows: true, posts: true } },
     },
   });
 

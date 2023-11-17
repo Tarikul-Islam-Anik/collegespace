@@ -1,6 +1,5 @@
-
 import { Flex } from '@/components/layout/flex';
-import UserSuggestions from './user-suggestions.tsx';
+import UserSuggestions from './user-suggestions';
 import SiteFooter from '@/app/components/layout/site-footer';
 
 const Suggestions = () => {

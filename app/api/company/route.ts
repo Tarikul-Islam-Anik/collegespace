@@ -6,9 +6,9 @@ export async function PATCH(request: NextRequest) {
   const body = await request.json();
   const { currentUser } = await authStatus();
 
-  const companyExists = await prisma.company.findUnique({
+  const companyExists = await prisma.company.findFirst({
     where: {
-      id: currentUser.company[0].id,
+      ownerId: currentUser.id,
     },
   });
 

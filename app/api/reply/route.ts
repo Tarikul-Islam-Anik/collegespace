@@ -34,3 +34,15 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({}, { status: 200 });
 }
+
+export async function DELETE(request: NextRequest) {
+  const body = await request.json();
+
+  await prisma.reply.delete({
+    where: {
+      id: body.id,
+    },
+  });
+
+  return NextResponse.json({}, { status: 200 });
+}

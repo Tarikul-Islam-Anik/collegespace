@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { buttonVariants } from '@/components/ui/button';
+import { useSession } from 'next-auth/react';
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
@@ -15,8 +15,9 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
 
 export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   const pathname = usePathname();
-  const { currentUser } = useCurrentUser();
-  const role = currentUser?.role;
+  const { data: session } = useSession();
+  // @ts-ignore
+  const role = session?.user?.role;
 
   const studentNavItems = items.filter((item) => item.title !== 'Company');
   const recruiterNavItems = items.filter(
@@ -42,7 +43,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   return (
     <nav
       className={cn(
-        'flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 flex-wrap justify-start',
+        'flex flex-wrap justify-start space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1',
         className
       )}
       {...props}

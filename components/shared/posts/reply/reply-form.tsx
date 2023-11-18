@@ -82,7 +82,7 @@ const ReplyForm = ({
               </Button>
             </DialogClose>
             <Button type='submit' size='sm'>
-              Comment
+              Reply
             </Button>
           </Flex>
         </DialogFooter>

@@ -9,8 +9,8 @@ export async function DELETE(
   const { currentUser } = await authStatus();
   await prisma.project.delete({
     where: {
-      userId_title: {
-        userId: currentUser.id,
+      studentId_title: {
+        studentId: currentUser.id,
         title: params.title,
       },
     },

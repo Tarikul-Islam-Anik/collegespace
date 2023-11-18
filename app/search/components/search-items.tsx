@@ -5,7 +5,7 @@ import { UserType } from '@/lib/type';
 const SearchItem = ({ user }: { user: Partial<UserType> }) => {
   return (
     <CommandItem className='w-full'>
-      <UserItem user={user} />
+      <UserItem user={user} followButton/>
     </CommandItem>
   );
 };

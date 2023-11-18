@@ -33,39 +33,41 @@ const FollowerDialog = ({ id, children }: FollowerDialogProps) => {
     },
   ];
 
-  if (isLoading) return <Loader className='h-96' />;
-
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
-        <Tabs defaultValue='followers' className='mx-auto w-[400px]'>
-          <TabsList className='mb-6 grid w-full grid-cols-2'>
-            <TabsTrigger value='followers'>Followers</TabsTrigger>
-            <TabsTrigger value='followings'>Followings</TabsTrigger>
-          </TabsList>
+        {isLoading ? (
+          <Loader className='h-96' />
+        ) : (
+          <Tabs defaultValue='followers' className='mx-auto w-[400px]'>
+            <TabsList className='mb-6 grid w-full grid-cols-2'>
+              <TabsTrigger value='followers'>Followers</TabsTrigger>
+              <TabsTrigger value='followings'>Followings</TabsTrigger>
+            </TabsList>
 
-          {tabsContent.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value}>
-              <ul role='followers-list'>
-                <ScrollArea className='h-96 text-center'>
-                  {tab.content.length > 0 ? (
-                    tab.content.map((item, index) => (
-                      <li key={item.id}>
-                        {index > 0 && <Separator className='my-2' />}
-                        <UserItem user={item} />
-                      </li>
-                    ))
-                  ) : (
-                    <Text className='text-muted-foreground'>
-                      No {tab.value} yet.
-                    </Text>
-                  )}
-                </ScrollArea>
-              </ul>
-            </TabsContent>
-          ))}
-        </Tabs>
+            {tabsContent.map((tab) => (
+              <TabsContent key={tab.value} value={tab.value}>
+                <ul role='followers-list'>
+                  <ScrollArea className='h-96 text-center'>
+                    {tab.content.length > 0 ? (
+                      tab.content.map((item, index) => (
+                        <li key={item.id}>
+                          {index > 0 && <Separator className='my-2' />}
+                          <UserItem user={item} />
+                        </li>
+                      ))
+                    ) : (
+                      <Text className='text-muted-foreground'>
+                        No {tab.value} yet.
+                      </Text>
+                    )}
+                  </ScrollArea>
+                </ul>
+              </TabsContent>
+            ))}
+          </Tabs>
+        )}
       </DialogContent>
     </Dialog>
   );

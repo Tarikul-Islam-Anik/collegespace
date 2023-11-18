@@ -24,8 +24,8 @@ export const profileFormSchema = z.object({
       message: 'Bio must not be longer than 101 characters.',
     })
     .optional(),
-  image: z.string().or(z.instanceof(File)).optional(),
-  coverImage: z.string().or(z.instanceof(File)).optional(),
+  image: z.string().or(z.any()).optional(),
+  coverImage: z.string().or(z.any()).optional(),
 });
 
 export type ProfileFormValues = z.infer<typeof profileFormSchema>;

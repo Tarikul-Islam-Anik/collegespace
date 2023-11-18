@@ -44,14 +44,12 @@ const ProfileForm = () => {
     );
 
     if (changedValuesObj.image) {
-      changedValuesObj.image = await uploadImage(
-        changedValuesObj.image as File
-      );
+      changedValuesObj.image = await uploadImage(changedValuesObj.image);
     }
 
     if (changedValuesObj.coverImage) {
       changedValuesObj.coverImage = await uploadImage(
-        changedValuesObj.coverImage as File
+        changedValuesObj.coverImage
       );
     }
 

@@ -1,6 +1,14 @@
+import dynamic from 'next/dynamic';
 import { Box } from '@/components/layout/box';
+import Loader from '@/components/shared/loader';
 import SectionHeading from '../components/section-heading';
-import PersonalInfoForm from './components/personal-info-form';
+
+const PersonalInfoForm = dynamic(
+  () => import('./components/personal-info-form'),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 export default function SettingsPersonalInformationPage() {
   return (

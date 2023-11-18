@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 import fetcher from '@/lib/fetcher';
-import { Post } from '@/lib/type';
+import { PostType } from '@/lib/type';
 
 const usePost = (postId: string) => {
-  const { data, error, isLoading, mutate } = useSWR<Post>(
+  const { data, error, isLoading, mutate } = useSWR<PostType>(
     postId ? `/api/posts/${postId}` : null,
     fetcher
   );

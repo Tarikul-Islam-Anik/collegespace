@@ -7,13 +7,20 @@ export async function GET(request: NextRequest) {
 
   const posts = await prisma.post.findMany({
     where: {
-      user: {
-        followers: {
-          some: {
-            id: currentUser?.id,
+      OR: [
+        {
+          user: {
+            followers: {
+              some: {
+                id: currentUser?.id,
+              },
+            },
           },
         },
-      },
+        {
+          userId: currentUser?.id,
+        },
+      ],
     },
     include: {
       user: {

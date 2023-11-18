@@ -7,25 +7,24 @@ export async function GET(
 ) {
   const user = await prisma.user.findUnique({
     where: { email: params.email },
-    include: {
-      studentDetails: {
-        select: {
-          dob: true,
-          gender: true,
-          educations: true,
-        },
-      },
-      _count: { select: { followers: true, follows: true, posts: true } },
+    select: {
+      name: true,
+      username: true,
+      email: true,
+      image: true,
+      bio: true,
+      role: true,
+      coverImage: true,
+      createdAt: true,
       company: true,
+      _count: { select: { followers: true, follows: true, posts: true } },
     },
   });
-
-  const excludePassword = user && { ...user, password: undefined };
 
   if (!user)
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
-  return NextResponse.json(excludePassword);
+  return NextResponse.json(user);
 }
 
 export async function PATCH(

@@ -1,7 +1,7 @@
 'use client';
 
 import { toast } from 'sonner';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import { UserType } from '@/lib/type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
@@ -10,14 +10,12 @@ import ProfileFormFields from './profile-form-fields';
 import { profileFormSchema, ProfileFormValues } from './schema';
 import { uploadImage } from '@/lib/utils';
 
-const ProfileForm = () => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
-
+const ProfileForm = ({ user }: { user: UserType }) => {
   const defaultValues: Partial<ProfileFormValues> = {
-    username: currentUser?.username ?? '',
-    bio: currentUser?.bio ?? '',
-    image: currentUser?.image ?? '',
-    coverImage: currentUser?.coverImage ?? '',
+    username: user.username ?? '',
+    bio: user.bio ?? '',
+    image: user.image ?? '',
+    coverImage: user.coverImage ?? '',
   };
 
   const form = useForm<ProfileFormValues>({
@@ -54,17 +52,13 @@ const ProfileForm = () => {
     }
 
     toast.promise(
-      fetch(`/api/users/${currentUser?.email}`, {
+      fetch(`/api/users/${user.email}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(changedValuesObj),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setCurrentUser(data);
-        }),
+      }),
       {
         loading: 'Updating profile...',
         success: 'Profile updated!',

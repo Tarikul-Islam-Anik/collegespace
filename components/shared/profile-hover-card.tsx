@@ -1,8 +1,7 @@
-import { forwardRef } from 'react';
-import Link from 'next/link';
+import { forwardRef, useCallback } from 'react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { User, UserType } from '@/lib/type';
+import { UserType } from '@/lib/type';
 import { Calendar } from 'iconsax-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
@@ -15,6 +14,7 @@ import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { Heading } from '@/components/typography/heading';
+import { useRouter } from 'next/navigation';
 
 interface ProfileHoverCardProps extends Partial<UserType> {
   children: React.ReactNode;
@@ -35,6 +35,16 @@ const ProfileHoverCard = forwardRef(
     }: ProfileHoverCardProps,
     ref
   ) => {
+    const router = useRouter();
+
+    const goToUser = useCallback(
+      (ev: any) => {
+        ev.stopPropagation();
+        router.push(`/profile/${email}`);
+      },
+      [router, email]
+    );
+
     return (
       <HoverCard openDelay={200} closeDelay={200}>
         <HoverCardTrigger
@@ -85,12 +95,9 @@ const ProfileHoverCard = forwardRef(
                 </Flex>
               </Box>
             </Flex>
-            <Link
-              href={`/profile/${email}`}
-              className={cn(buttonVariants({ variant: 'default' }), 'w-full')}
-            >
+            <Button onClick={goToUser} className='w-full'>
               View profile
-            </Link>
+            </Button>
           </Flex>
         </HoverCardContent>
       </HoverCard>

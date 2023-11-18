@@ -26,7 +26,9 @@ export interface RepostType extends Repost {
   post: PostType;
 }
 
+
 export interface StudentDetailsType extends StudentDetails {
+  projects: Project[];
   educations: Education[];
 }
 
@@ -34,7 +36,6 @@ export interface UserType extends User {
   posts: PostType[];
   jobs: Job[];
   studentDetails: StudentDetailsType;
-  projects: Project[];
   company: Company[];
   _count: {
     followers: number;

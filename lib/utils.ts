@@ -9,7 +9,7 @@ const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${process.env.NEX
 const CLOUDINARY_UPLOAD_PRESET =
   process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
-export async function uploadImage(image: File) {
+export async function uploadImage(image: any) {
   const formData = new FormData();
   formData.append('file', image);
   formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET!);

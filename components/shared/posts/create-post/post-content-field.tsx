@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { UseFormReturn } from 'react-hook-form';
-import { postFormSchema } from './post-form';
+import { postFormSchema } from './schema';
 import { Textarea } from '@/components/ui/textarea';
 import {
   FormControl,

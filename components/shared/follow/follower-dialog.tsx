@@ -58,7 +58,7 @@ const FollowerDialog = ({ id, children }: FollowerDialogProps) => {
                     ))
                   ) : (
                     <Text className='text-muted-foreground'>
-                      No followers yet.
+                      No {tab.value} yet.
                     </Text>
                   )}
                 </ScrollArea>

@@ -6,7 +6,7 @@ const UserStats = () => {
   const { currentUser } = useCurrentUser();
 
   return (
-    <Flex direction='column'>
+    <Flex direction='column' className='max-h-16'>
       <FollowersCount
         id={currentUser?.id!}
         count={currentUser?._count?.followers!}

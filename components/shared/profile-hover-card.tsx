@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef, useCallback } from 'react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';

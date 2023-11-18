@@ -27,7 +27,7 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
   const username = user?.username ? `@${user?.username}` : 'no username';
 
   const content = (
-    <>
+    <Box>
       <Text className='text-sm font-semibold'>{name}</Text>
       <Text
         weight='medium'
@@ -35,7 +35,7 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
       >
         {username}
       </Text>
-    </>
+    </Box>
   );
 
   const avatar = <UserAvatar name={name} image={image} />;

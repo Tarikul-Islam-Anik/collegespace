@@ -4,7 +4,7 @@ import z from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import usePosts from '@/hooks/usePosts';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import { useSession } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import UserAvatar from '@/components/shared/user-avatar';
@@ -25,8 +25,10 @@ const ReplyForm = ({
   postId: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { currentUser } = useCurrentUser();
   const { mutate } = usePosts();
+  const { data: session } = useSession();
+  const currentUser = session?.user;
+
   const form = useForm<z.infer<typeof replyFormSchema>>({
     resolver: zodResolver(replyFormSchema),
     defaultValues: {

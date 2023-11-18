@@ -13,7 +13,7 @@ import type {
 } from '@prisma/client';
 
 export interface PostType extends Post {
-  replies: Reply[];
+  replies: ReplyType[];
   likes: Like[];
   user: User;
   _count: {
@@ -22,10 +22,14 @@ export interface PostType extends Post {
     likes: number;
   };
 }
+
+export interface ReplyType extends Reply {
+  user: User;
+}
+
 export interface RepostType extends Repost {
   post: PostType;
 }
-
 
 export interface StudentDetailsType extends StudentDetails {
   projects: Project[];

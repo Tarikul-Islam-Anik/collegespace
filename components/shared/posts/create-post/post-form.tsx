@@ -1,6 +1,5 @@
 'use client';
 
-import z from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import usePosts from '@/hooks/usePosts';
@@ -15,23 +14,21 @@ import { Button } from '@/components/ui/button';
 import PostContentField from './post-content-field';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
+import { PostFormValues, postFormSchema } from './schema';
 
-export const postFormSchema = z.object({
-  content: z.string().trim().min(1).max(256),
-  type: z.enum(['thought', 'question']),
-});
+
 
 const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
   const { currentUser } = useCurrentUser();
   const { mutate } = usePosts();
-  const form = useForm<z.infer<typeof postFormSchema>>({
+  const form = useForm<PostFormValues>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
       type: 'thought',
     },
   });
 
-  function onSubmit(data: z.infer<typeof postFormSchema>) {
+  function onSubmit(data: PostFormValues) {
     setOpen(false);
     toast.promise(
       fetch('/api/posts/new', {

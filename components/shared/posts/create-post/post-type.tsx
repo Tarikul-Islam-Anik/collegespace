@@ -1,7 +1,6 @@
 'use client';
-import z from 'zod';
 import { UseFormReturn } from 'react-hook-form';
-import { postFormSchema } from './post-form';
+
 import {
   Select,
   SelectContent,
@@ -9,34 +8,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Box, LampOn, MessageQuestion, DocumentText } from 'iconsax-react';
+import { LampOn, MessageQuestion } from 'iconsax-react';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
-
+import { PostFormValues, postFormSchema } from './schema';
 
 const PostTypeIcon = ({ type }: { type: string }) => {
-  switch (type) {
-    case 'question':
-      return <MessageQuestion className='text-muted-foreground' size={20} />;
-    case 'job':
-      return <DocumentText className='text-muted-foreground' size={20} />;
-    case 'project':
-      return <Box className='text-muted-foreground' size={20} />;
-    default:
-      return <LampOn className='text-muted-foreground' size={20} />;
-  }
+  return type === 'question' ? (
+    <MessageQuestion className='text-muted-foreground' size={20} />
+  ) : (
+    <LampOn className='text-muted-foreground' size={20} />
+  );
 };
 
-const PostType = ({
-  form,
-}: {
-  form: UseFormReturn<z.infer<typeof postFormSchema>>;
-}) => {
+const PostType = ({ form }: { form: UseFormReturn<PostFormValues> }) => {
   return (
     <Select
       defaultValue='thought'
       onValueChange={(value) =>
-        form.setValue('type', value as z.infer<typeof postFormSchema>['type'])
+        form.setValue('type', value as PostFormValues['type'])
       }
       name='type'
     >

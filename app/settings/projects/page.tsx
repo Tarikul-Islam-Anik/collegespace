@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Folder } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { Box } from '@/components/layout/box';
 import { Flex } from '@/components/layout/flex';
 import Loader from '@/components/shared/loader';
@@ -11,6 +10,7 @@ import EmptyState from '@/components/shared/empty-state';
 import FormDialog from '@/components/shared/form-dialog';
 import SectionHeading from '../components/section-heading';
 import ListContainer from '@/components/shared/list-container';
+import useStudentDetails from '@/hooks/useStudentDetails';
 
 const ProjectForm = dynamic(() => import('./project-form'), {
   loading: () => <Loader />,
@@ -18,9 +18,15 @@ const ProjectForm = dynamic(() => import('./project-form'), {
 
 export default function SettingsProjectPage() {
   const [open, setOpen] = useState(false);
-  const { currentUser } = useCurrentUser();
+  const { data, isLoading } = useStudentDetails();
 
-  const sortedProjects = currentUser?.projects?.sort(
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const projects = data?.studentDetails?.projects;
+
+  const sortedProjects = projects?.sort(
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
 
@@ -57,9 +63,7 @@ export default function SettingsProjectPage() {
         )
       )}
 
-      {sortedProjects?.length! > 0 && (
-        <Flex justify='center'>{AddNew}</Flex>
-      )}
+      {sortedProjects?.length! > 0 && <Flex justify='center'>{AddNew}</Flex>}
     </Box>
   );
 }

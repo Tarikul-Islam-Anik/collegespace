@@ -8,14 +8,12 @@ import { projectFormSchema, ProjectFormValues } from './schema';
 import FormFields from './form-fields';
 import { Flex } from '@/components/layout/flex';
 import { Button } from '@/components/ui/button';
-import useCurrentUser from '@/hooks/useCurrentUser';
 
 interface ProjectFormProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ProjectForm = ({ setOpen }: ProjectFormProps) => {
-  const { setCurrentUser } = useCurrentUser();
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectFormSchema),
     defaultValues: {
@@ -36,10 +34,6 @@ const ProjectForm = ({ setOpen }: ProjectFormProps) => {
       {
         loading: 'Adding project...',
         success: () => {
-          setCurrentUser((prev) => {
-            prev?.projects.push({ ...data, userId: prev.id });
-            return prev;
-          });
           setOpen(false);
           return 'Project added successfully!';
         },

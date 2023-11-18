@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import prisma from './prisma';
-import { NextAuthOptions, AuthOptions } from 'next-auth';
+import { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -56,15 +56,15 @@ export const authOptions = {
   callbacks: {
     session: async ({ session, token }: any) => {
       if (session?.user) {
-        session.user.id = token.uid;
-        session.user.role = token.role;
+        session.user.id = token.uid as string;
+        session.user.role = token.role as string;
       }
       return session;
     },
     jwt: async ({ user, token }: any) => {
       if (user) {
-        token.uid = user.id;
-        token.role = user.role;
+        token.uid = user.id as string;
+        token.role = user.role as string;
       }
       return token;
     },

@@ -28,7 +28,7 @@ const CompanyForm = () => {
   });
 
   async function onSubmit(data: CompanyFormValues) {
-    data.logo = await uploadImage(data.logo as File);
+    data.logo = await uploadImage(data.logo);
 
     const changedValues = form.formState.dirtyFields;
 

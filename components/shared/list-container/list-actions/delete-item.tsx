@@ -1,8 +1,8 @@
 import { toast } from 'sonner';
 import { Trash } from 'iconsax-react';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { Text } from '@/components/typography/text';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import useStudentDetails from '@/hooks/useStudentDetails';
 
 interface DeleteListItemProps {
   type: 'education' | 'project';
@@ -10,26 +10,7 @@ interface DeleteListItemProps {
 }
 
 const DeleteListItem = ({ type, reference }: DeleteListItemProps) => {
-  const { setCurrentUser } = useCurrentUser();
-
-  function removeProjectFromUser(reference: string) {
-    return setCurrentUser((prev) => ({
-      ...prev!,
-      Project: prev?.projects.filter((project) => project.title !== reference)!,
-    }));
-  }
-
-  function removeEducationFromUser(reference: string) {
-    return setCurrentUser((prev) => ({
-      ...prev!,
-      StudentDetails: {
-        ...prev?.studentDetails!,
-        education: prev?.studentDetails?.educations.filter(
-          (education) => education.id !== reference
-        )!,
-      },
-    }));
-  }
+  const { mutate } = useStudentDetails();
 
   function handleDelete(reference: string) {
     toast.promise(
@@ -39,9 +20,7 @@ const DeleteListItem = ({ type, reference }: DeleteListItemProps) => {
       {
         loading: `Deleting...`,
         success: () => {
-          type === 'education'
-            ? removeEducationFromUser(reference)
-            : removeProjectFromUser(reference);
+          mutate();
           return `Deleted successfully!`;
         },
         error: "Couldn't delete. Please try again.",

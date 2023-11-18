@@ -2,7 +2,6 @@
 
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,6 @@ const EducationalInfoForm = ({
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { setCurrentUser } = useCurrentUser();
   const defaultValues: Partial<EducationalInfoFormValues> = {
     school: '',
     degree: '',
@@ -37,14 +35,10 @@ const EducationalInfoForm = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      }).then((res) => res.json()),
+      }),
       {
         loading: 'Adding educational information...',
-        success: (data) => {
-          setCurrentUser((prev) => {
-            prev?.studentDetails.educations.push(data);
-            return prev;
-          });
+        success: () => {
           setOpen(false);
           return 'Information added successfully!';
         },

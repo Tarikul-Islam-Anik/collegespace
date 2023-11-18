@@ -1,38 +1,23 @@
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
-import { User } from '@/lib/type';
+import { UserType } from '@/lib/type';
 import fetcher from '@/lib/fetcher';
 
-const useUser = (userId?: string) => {
+const useUser = (email?: string) => {
   const { data: session } = useSession();
+  const userEmail = email || session?.user?.email;
 
-  if (userId) {
-    const {
-      data: user,
-      error,
-      isLoading,
-      mutate,
-    } = useSWR<User>(`/api/users/${userId}`, fetcher);
-    return {
-      user,
-      error,
-      isLoading,
-      mutate,
-    };
-  } else {
-    const {
-      data: user,
-      error,
-      isLoading,
-      mutate,
-    } = useSWR<User>(`/api/users/${session?.user?.email}`, fetcher);
-    return {
-      user,
-      error,
-      isLoading,
-      mutate,
-    };
-  }
+  const { data: user, error, isLoading, mutate } = useSWR<UserType>(
+    userEmail ? `/api/users/${userEmail}` : null,
+    fetcher
+  );
+
+  return {
+    user,
+    error,
+    isLoading,
+    mutate,
+  };
 };
 
 export default useUser;

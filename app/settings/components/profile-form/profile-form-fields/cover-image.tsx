@@ -72,7 +72,7 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
                   </Text>
                 </Flex>
               ) : (
-                <Box className='h-[500px] w-[1500px]'>
+                <Box className='w-[1500px]'>
                   <Image
                     src={
                       (typeof value === 'object'

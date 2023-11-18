@@ -1,7 +1,6 @@
 'use client';
 
 import useRepliedPosts from '@/hooks/useRepliedPosts';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import EmptyState from '@/components/shared/empty-state';
 import { Messages3 } from 'iconsax-react';
 import Loader from '@/components/shared/loader';

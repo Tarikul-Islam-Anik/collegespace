@@ -5,6 +5,18 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const userQuery = {
+    select: {
+      id: true,
+      name: true,
+      username: true,
+      bio: true,
+      image: true,
+      createdAt: true,
+      email: true,
+    },
+  };
+
   const post = await prisma.post.findUnique({
     where: { id: params.id },
     select: {
@@ -12,20 +24,21 @@ export async function GET(
       type: true,
       content: true,
       createdAt: true,
-      user: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-          createdAt: true,
-        },
-      },
+      user: userQuery,
       likes: {
         select: {
-          userId: true,
+          user: userQuery,
         },
       },
-      replies: true,
+      replies: {
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          user: userQuery,
+        },
+        orderBy: { createdAt: 'desc' },
+      },
       _count: { select: { likes: true, replies: true, reposts: true } },
     },
   });

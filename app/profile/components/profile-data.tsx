@@ -12,6 +12,7 @@ import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { Heading } from '@/components/typography/heading';
 import { Button, buttonVariants } from '@/components/ui/button';
+import FollowerDialog from '@/components/shared/follow/follower-dialog';
 
 const ProfileData = ({ email }: { email: string }) => {
   const { user, isLoading } = useUser(email);
@@ -62,14 +63,16 @@ const ProfileData = ({ email }: { email: string }) => {
         {isLoading ? (
           <Skeleton className='h-6 w-[200px]' />
         ) : (
-          <Text as='p' size='sm' color='muted-foreground'>
-            <Text className='underline-offset-2 hover:underline'>
-              {new Intl.NumberFormat('en-US', {
-                notation: 'compact',
-                compactDisplay: 'short',
-              }).format(1000)}{' '}
-              Followers
-            </Text>
+          <Box className='text-sm text-muted-foreground'>
+            <FollowerDialog id={user?.id!}>
+              <Text className='cursor-pointer underline-offset-2 hover:underline'>
+                {new Intl.NumberFormat('en-US', {
+                  notation: 'compact',
+                  compactDisplay: 'short',
+                }).format(user?._count.followers!)}{' '}
+                Followers
+              </Text>
+            </FollowerDialog>
             {user?.createdAt && (
               <>
                 <Text size='xs' className='mx-1.5 opacity-50'>
@@ -80,7 +83,7 @@ const ProfileData = ({ email }: { email: string }) => {
                 </Text>
               </>
             )}
-          </Text>
+          </Box>
         )}
       </Box>
       {session?.user?.email === email.replaceAll('%40', '@') ? (

@@ -2,12 +2,12 @@
 
 import { toast } from 'sonner';
 import useUserPosts from '@/hooks/useUserPosts';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { useSession } from 'next-auth/react';
 
 const HandlePostDelete = ({ postId }: { postId: string }) => {
-  const { currentUser } = useCurrentUser();
-  const { mutate } = useUserPosts(currentUser?.email!);
+  const { data: session } = useSession();
+  const { mutate } = useUserPosts(session?.user?.email!);
 
   function handleDeletePost() {
     toast.promise(

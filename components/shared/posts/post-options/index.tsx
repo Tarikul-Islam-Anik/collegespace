@@ -9,9 +9,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import HandlePostCopy from './handle-post-copy';
 import HandlePostDelete from './handle-post-delete';
+import { useSession } from 'next-auth/react';
 
 const PostOptions = ({
   postId,
@@ -20,9 +20,12 @@ const PostOptions = ({
   postId: string;
   userId: string;
 }) => {
-  const { currentUser } = useCurrentUser();
-  const showUnfollow = currentUser?.id !== userId;
-  const showDelete = currentUser?.id === userId;
+  const { data: session } = useSession();
+  // @ts-ignore
+  const currentUserId = session?.user?.id!;
+
+  const showUnfollow = currentUserId !== userId;
+  const showDelete = currentUserId === userId;
 
   return (
     <DropdownMenu>

@@ -6,7 +6,7 @@ import ScreenReaderOnly from '@/components/ui/screen-reader-only';
 
 export default function Loading() {
   return (
-    <Flex justify='center' align='center' height='screen'>
+    <Flex justify='center' align='center' className='h-[80vh]'>
       <Loader />
       <ScreenReaderOnly>Loading...</ScreenReaderOnly>
     </Flex>

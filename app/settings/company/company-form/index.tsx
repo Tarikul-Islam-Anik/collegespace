@@ -7,22 +7,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import FormFields from './form-fields';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { companyFormSchema, CompanyFormValues } from './schema';
+import { UserType } from '@/lib/type';
 
-const CompanyForm = () => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
-
+const CompanyForm = ({ user }: { user: UserType }) => {
+  const company = user?.company[0];
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(companyFormSchema),
     defaultValues: {
-      name: currentUser?.company[0]?.name ?? '',
-      about: currentUser?.company[0]?.about ?? '',
-      address: currentUser?.company[0]?.address ?? '',
-      phone: currentUser?.company[0]?.phone ?? '',
-      website: currentUser?.company[0]?.website ?? '',
-      email: currentUser?.company[0]?.email ?? '',
-      logo: currentUser?.company[0]?.logo ?? '',
+      name: company?.name ?? '',
+      about: company?.about ?? '',
+      address: company?.address ?? '',
+      phone: company?.phone ?? '',
+      website: company?.website ?? '',
+      email: company?.email ?? '',
+      logo: company?.logo ?? '',
     },
     mode: 'onChange',
   });
@@ -53,19 +52,10 @@ const CompanyForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(changedValuesObj),
-      }).then((res) => res.json()),
+      }),
       {
         loading: 'Updating...',
-        success: (res) => {
-          setCurrentUser(
-            (prev) =>
-              (prev = {
-                ...prev!,
-                company: [res],
-              })
-          );
-          return 'Updated!';
-        },
+        success: 'Updated!',
         error: 'Something went wrong!',
       }
     );

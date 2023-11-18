@@ -82,7 +82,7 @@ model Company {
   email     String    @unique
   phone     String    @db.VarChar(15)
   website   String?   @db.VarChar(100)
-  logo      String    @db.Text
+  logo      String?    @db.Text
   address   String?   @db.VarChar(101)
   job       Job[]
   createdAt DateTime  @default(now())
@@ -122,6 +122,7 @@ model StudentDetails {
   dob        DateTime?   @db.DateTime
   gender     GenderType?
   educations Education[]
+  projects   Project[]
 
   user User @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
@@ -155,11 +156,12 @@ model Project {
   website     String?  @db.VarChar(100)
   startDate   DateTime
   endDate     DateTime
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, title])
-  @@index([userId])
+  studentId String
+  student   StudentDetails? @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+
+  @@unique([studentId, title])
+  @@index([studentId])
 }
 
 model Notification {
@@ -229,7 +231,6 @@ model User {
   replies         Reply[]
   notifications   Notification[]
   bounties        Bounty[]
-  projects        Project[]
   company         Company[]
   jobs            Job[]
   reposts         Repost[]

@@ -2,14 +2,14 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { GraduationCap } from 'lucide-react';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { Box } from '@/components/layout/box';
 import Loader from '@/components/shared/loader';
+import { Flex } from '@/components/layout/flex';
 import EmptyState from '@/components/shared/empty-state';
 import FormDialog from '@/components/shared/form-dialog';
+import useStudentDetails from '@/hooks/useStudentDetails';
 import SectionHeading from '../components/section-heading';
 import ListContainer from '@/components/shared/list-container';
-import { Flex } from '@/components/layout/flex';
 
 const EducationalInfoForm = dynamic(() => import('./educational-info-form'), {
   loading: () => <Loader />,
@@ -17,9 +17,9 @@ const EducationalInfoForm = dynamic(() => import('./educational-info-form'), {
 
 export default function SettingsEducationInformationPage() {
   const [open, setOpen] = useState(false);
-  const { currentUser } = useCurrentUser();
-
-  const sortedEducation = currentUser?.studentDetails.educations.sort(
+  const { data } = useStudentDetails();
+  const educationalInfo = data?.studentDetails.educations;
+  const sortedEducation = educationalInfo?.sort(
     (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
   );
 
@@ -54,8 +54,9 @@ export default function SettingsEducationInformationPage() {
           <ListContainer type='education' items={sortedEducation} />
         )
       )}
-      {currentUser?.studentDetails.educations?.length! > 0 &&
-        sortedEducation?.length! < 4 && <Flex justify='center'>{AddNew}</Flex>}
+      {educationalInfo?.length! > 0 && sortedEducation?.length! < 4 && (
+        <Flex justify='center'>{AddNew}</Flex>
+      )}
     </Box>
   );
 }

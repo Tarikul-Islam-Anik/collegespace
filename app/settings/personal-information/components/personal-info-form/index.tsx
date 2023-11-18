@@ -1,21 +1,20 @@
 'use client';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import { UserType } from '@/lib/type';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import PersonalInfoFormFields from './personal-info-form-fields';
 import { personalInfoFormSchema, PersonalInfoFormValues } from './schema';
 
-const PersonalInfoForm = () => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+const PersonalInfoForm = ({ data }: { data: UserType }) => {
   const defaultValues: Partial<PersonalInfoFormValues> = {
-    name: currentUser?.name ?? '',
-    email: currentUser?.email ?? '',
-    phone: currentUser?.phone ?? '',
-    dob: currentUser?.studentDetails?.dob ?? '',
-    gender: currentUser?.studentDetails?.gender ?? '',
+    name: data.name ?? '',
+    email: data?.email ?? '',
+    phone: data?.phone ?? '',
+    dob: data?.studentDetails?.dob ?? '',
+    gender: data?.studentDetails.gender ?? '',
   };
 
   const form = useForm<PersonalInfoFormValues>({
@@ -46,19 +45,11 @@ const PersonalInfoForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(changedValuesObj),
-      }).then((res) => res.json()),
+      }),
       {
         loading: 'Updating personal information...',
-        success: (data) => {
-          setCurrentUser({
-            ...currentUser!,
-            studentDetails: {
-              ...currentUser?.studentDetails!,
-              ...data,
-            },
-          });
-          return 'Personal information updated!';
-        },
+        success: 'Personal information updated!',
+
         error: 'Something went wrong',
       }
     );

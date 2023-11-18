@@ -12,6 +12,22 @@ import { PersonalInfoFormValues } from './schema';
 import SelectDateField from '@/components/shared/select-date-field';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
+const fields = [
+  {
+    value: 'name',
+    description: 'To change your name, please contact support.',
+  },
+  {
+    value: 'email',
+    description: 'Your email address is the primary way we contact you.',
+  },
+  {
+    value: 'phone',
+    description:
+      'Your phone number is not publicly visible. But it is visible to recruiters.',
+  },
+];
+
 const PersonalInfoFormFields = ({
   form,
 }: {
@@ -19,38 +35,27 @@ const PersonalInfoFormFields = ({
 }) => {
   return (
     <>
-      <FormField
-        control={form.control}
-        name='name'
-        render={({ field }) => (
-          <FormItem className='col-span-full'>
-            <FormLabel>Name</FormLabel>
-            <FormControl>
-              <Input disabled maxLength={51} {...field} />
-            </FormControl>
-            <FormDescription>
-              To change your name, please contact support.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name='email'
-        render={({ field }) => (
-          <FormItem className='col-span-full'>
-            <FormLabel>Email</FormLabel>
-            <FormControl>
-              <Input type='email' disabled {...field} />
-            </FormControl>
-            <FormDescription>
-              Your email address is not publicly visible.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      {fields.map((item) => (
+        <FormField
+          control={form.control}
+          name={item.value as keyof PersonalInfoFormValues}
+          key={item.value}
+          render={({ field }) => (
+            <FormItem className='col-span-full'>
+              <FormLabel className='capitalize'>{field.name}</FormLabel>
+              <FormControl>
+                <Input
+                  maxLength={51}
+                  {...(field as any)}
+                  disabled
+                />
+              </FormControl>
+              <FormDescription>{item.description}</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      ))}
       <SelectDateField
         form={form}
         name='dob'

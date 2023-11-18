@@ -34,12 +34,6 @@ export async function GET(request: NextRequest) {
           createdAt: true,
         },
       },
-      likes: {
-        select: {
-          userId: true,
-        },
-      },
-      replies: true,
       _count: { select: { likes: true, replies: true, reposts: true } },
     },
     orderBy: {

@@ -2,8 +2,8 @@
 
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 import usePosts from '@/hooks/usePosts';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import PostType from './post-type';
 import PostAddons from './post-addons';
@@ -16,10 +16,10 @@ import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { PostFormValues, postFormSchema } from './schema';
 
-
-
 const PostForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
-  const { currentUser } = useCurrentUser();
+  const { data: session } = useSession();
+  const currentUser = session?.user;
+
   const { mutate } = usePosts();
   const form = useForm<PostFormValues>({
     resolver: zodResolver(postFormSchema),

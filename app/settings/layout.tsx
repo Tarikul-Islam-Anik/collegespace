@@ -31,6 +31,14 @@ const sidebarNavItems = [
     href: '/settings/projects',
   },
   {
+    title: 'Skills',
+    href: '/settings/skills',
+  },
+  {
+    title: 'Experience',
+    href: '/settings/experience',
+  },
+  {
     title: 'Company',
     href: '/settings/company',
   },

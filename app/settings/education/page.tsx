@@ -8,7 +8,7 @@ import { Flex } from '@/components/layout/flex';
 import EmptyState from '@/components/shared/empty-state';
 import FormDialog from '@/components/shared/form-dialog';
 import useStudentDetails from '@/hooks/useStudentDetails';
-import SectionHeading from '../components/section-heading';
+import SectionHeading from '../../../components/shared/section-heading';
 import ListContainer from '@/components/shared/list-container';
 
 const EducationalInfoForm = dynamic(() => import('./educational-info-form'), {

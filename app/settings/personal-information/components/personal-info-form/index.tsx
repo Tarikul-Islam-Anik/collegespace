@@ -15,6 +15,9 @@ const PersonalInfoForm = ({ data }: { data: UserType }) => {
     phone: data?.phone ?? '',
     dob: data?.studentDetails?.dob ?? '',
     gender: data?.studentDetails.gender ?? '',
+    country: data?.studentDetails.country ?? '',
+    about: data?.studentDetails.about ?? '',
+    experience: data?.studentDetails.experience ?? '',
   };
 
   const form = useForm<PersonalInfoFormValues>({
@@ -33,10 +36,25 @@ const PersonalInfoForm = ({ data }: { data: UserType }) => {
     const changedValuesObj = Object.keys(changedValues).reduce(
       (result, key) => ({
         ...result,
-        [key]: data[key as keyof PersonalInfoFormValues],
+        [key]:
+          key === 'experience'
+            ? parseInt(
+                data[key as keyof PersonalInfoFormValues]?.toString() ?? '0',
+                10
+              )
+            : data[key as keyof PersonalInfoFormValues],
       }),
       {}
     );
+
+    let payload = {};
+
+    if (data.country) {
+      payload = {
+        ...changedValuesObj,
+        country: data.country,
+      };
+    }
 
     toast.promise(
       fetch('/api/student-details', {
@@ -44,12 +62,11 @@ const PersonalInfoForm = ({ data }: { data: UserType }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(changedValuesObj),
+        body: JSON.stringify(payload),
       }),
       {
         loading: 'Updating personal information...',
         success: 'Personal information updated!',
-
         error: 'Something went wrong',
       }
     );
@@ -59,7 +76,9 @@ const PersonalInfoForm = ({ data }: { data: UserType }) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 p-2'>
         <PersonalInfoFormFields form={form} />
-        <Button type='submit'>Update</Button>
+        <Button type='submit' disabled={!form.formState.isDirty}>
+          Update
+        </Button>
       </form>
     </Form>
   );

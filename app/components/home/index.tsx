@@ -10,7 +10,7 @@ const Home = () => {
       <Box display='hidden' className='xl:block'>
         <UserProfile />
       </Box>
-      <Box className='col-span-2 w-[550px] xl:w-full' mx='auto'>
+      <Box className='col-span-2 page-width xl:w-full' mx='auto'>
         <PostFeed />
       </Box>
       <Box display='hidden' className='xl:block'>

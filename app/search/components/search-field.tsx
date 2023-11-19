@@ -16,7 +16,7 @@ const SearchField = () => {
   const { users, isLoading } = useUsers();
 
   return (
-    <Command className='w-[550px]'>
+    <Command className='page-width'>
       <CommandInput placeholder='Search...' />
       <CommandList className='h-[80vh]'>
         <CommandEmpty>No results found.</CommandEmpty>

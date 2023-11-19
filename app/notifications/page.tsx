@@ -17,7 +17,7 @@ const NotificationsPage = () => {
   }
 
   return (
-    <Box mx='auto' className='w-[550px]'>
+    <Box mx='auto' className='page-width'>
       <Container>
         {notifications?.length === 0 ? (
           <EmptyState

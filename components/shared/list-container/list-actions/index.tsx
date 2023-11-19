@@ -10,7 +10,7 @@ import { Text } from '@/components/typography/text';
 import DeleteListItem from './delete-item';
 
 interface ListActionsProps {
-  type: 'education' | 'project';
+  type: 'education' | 'project' | 'experience';
   reference: string;
 }
 

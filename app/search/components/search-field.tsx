@@ -21,7 +21,7 @@ const SearchField = () => {
       <CommandList className='h-[80vh]'>
         <CommandEmpty>No results found.</CommandEmpty>
         {isLoading ? (
-          <Loader />
+          <Loader className='mt-4'/>
         ) : (
           <CommandGroup className='mt-4'>
             {users?.map((user, index) => {

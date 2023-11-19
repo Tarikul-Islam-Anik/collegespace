@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import PostItem from '@/components/shared/posts/post-item';
 import ReplyItem from '@/components/shared/posts/reply/reply-item';
 
-export default function Page({ params }: { params: { postId: string } }) {
+export default function PostPage({ params }: { params: { postId: string } }) {
   const { data: post, isLoading } = usePost(params.postId);
   const replies = post ? post?.replies : [];
 

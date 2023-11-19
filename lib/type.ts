@@ -10,6 +10,7 @@ import type {
   Notification,
   Reply,
   Repost,
+  Experience,
 } from '@prisma/client';
 
 export interface PostType extends Post {
@@ -34,6 +35,7 @@ export interface RepostType extends Repost {
 export interface StudentDetailsType extends StudentDetails {
   projects: Project[];
   educations: Education[];
+  experiences: Experience[];
 }
 
 export interface UserType extends User {
@@ -58,4 +60,5 @@ export type {
   Notification,
   Reply,
   Repost,
+  Experience,
 };

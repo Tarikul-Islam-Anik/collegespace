@@ -1,11 +1,9 @@
 import { toast } from 'sonner';
-import { Trash } from 'iconsax-react';
-import { Text } from '@/components/typography/text';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import useStudentDetails from '@/hooks/useStudentDetails';
+import { Button } from '@/components/ui/button';
 
 interface DeleteListItemProps {
-  type: 'education' | 'project';
+  type: 'education' | 'project' | 'experience';
   reference: string;
 }
 
@@ -28,10 +26,9 @@ const DeleteListItem = ({ type, reference }: DeleteListItemProps) => {
     );
   }
   return (
-    <DropdownMenuItem onSelect={() => handleDelete(reference)}>
-      <Trash size={16} className='mr-2' />
-      <Text>Delete</Text>
-    </DropdownMenuItem>
+    <Button variant='ghost' onClick={() => handleDelete(reference)}>
+      Remove
+    </Button>
   );
 };
 

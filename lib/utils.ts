@@ -20,3 +20,20 @@ export async function uploadImage(image: any) {
   const file = await res.json();
   return file.secure_url as string;
 }
+
+export function getCountries(lang = 'en') {
+  const countryName = new Intl.DisplayNames([lang], { type: 'region' });
+  const countries: Record<string, string> = {};
+  for (let i = 65; i <= 90; ++i) {
+    for (let j = 65; j <= 90; ++j) {
+      let code = String.fromCharCode(i) + String.fromCharCode(j);
+      let name = countryName.of(code);
+      if (code !== name) {
+        countries[code] = name!;
+      }
+    }
+  }
+  delete countries['IL'];
+  delete countries['ZZ'];
+  return countries;
+}

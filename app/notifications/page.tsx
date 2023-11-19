@@ -13,30 +13,24 @@ const NotificationsPage = () => {
   const { notifications, isLoading } = useNotifications();
 
   if (isLoading) {
-    return <Loader className='h-96' />;
+    return <Loader className='h-[80vh]' />;
   }
 
-  return (
-    <Box mx='auto' className='page-width'>
-      <Container>
-        {notifications?.length === 0 ? (
-          <EmptyState
-            icon={<InboxIcon size={32} />}
-            title='No notifications'
-            description='Notifications inbox is empty.'
-          />
-        ) : (
-          <ul className='gap-4'>
-            {notifications?.map((notification, index) => (
-              <li key={index}>
-                {index !== 0 && <Separator />}
-                <NotificationItem content={notification.content} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </Container>
-    </Box>
+  return notifications?.length === 0 ? (
+    <EmptyState
+      icon={<InboxIcon size={32} />}
+      title='No notifications'
+      description='Notifications inbox is empty.'
+    />
+  ) : (
+    <ul>
+      {notifications?.map((notification, index) => (
+        <li key={index}>
+          {index !== 0 && <Separator />}
+          <NotificationItem content={notification.content} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

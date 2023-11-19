@@ -13,6 +13,9 @@ export const personalInfoFormSchema = z.object({
   phone: z.string().optional(),
   dob: z.date().or(z.string()).or(z.undefined()).optional(),
   gender: z.string().optional(),
+  country: z.string().optional(),
+  about: z.string().optional(),
+  experience: z.string().or(z.number()).optional(),
 });
 
 export type PersonalInfoFormValues = z.infer<typeof personalInfoFormSchema>;

@@ -1,4 +1,3 @@
-import { Box } from '@/components/layout/box';
 import { Button } from '@/components/ui/button';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
@@ -9,7 +8,7 @@ interface NotificationType {
 
 const NotificationItem = ({ content }: NotificationType) => {
   return (
-    <Flex align='center' justify='between'>
+    <Flex align='center' justify='between' my={4}>
       <Text>{content}</Text>
       {content.includes('following') && (
         <Button size='sm' variant='outline'>

@@ -82,7 +82,7 @@ model Company {
   email     String    @unique
   phone     String    @db.VarChar(15)
   website   String?   @db.VarChar(100)
-  logo      String?    @db.Text
+  logo      String?   @db.Text
   address   String?   @db.VarChar(101)
   job       Job[]
   createdAt DateTime  @default(now())
@@ -118,11 +118,16 @@ enum JobType {
 }
 
 model StudentDetails {
-  studentId  String      @map("userId")
-  dob        DateTime?   @db.DateTime
-  gender     GenderType?
-  educations Education[]
-  projects   Project[]
+  studentId   String       @map("userId")
+  dob         DateTime?    @db.DateTime
+  gender      GenderType?
+  country     String?      @db.VarChar(60)
+  about       String?      @db.Text
+  experience  Int?         @db.SmallInt
+  educations  Education[]
+  projects    Project[]
+  skills      String
+  experiences Experience[]
 
   user User @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
@@ -159,6 +164,20 @@ model Project {
 
   studentId String
   student   StudentDetails? @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+
+  @@unique([studentId, title])
+  @@index([studentId])
+}
+
+model Experience {
+  title       String   @db.VarChar(101)
+  description String   @db.Text
+  position    String   @db.VarChar(51)
+  startDate   DateTime
+  endDate     DateTime
+
+  studentId String
+  student   StudentDetails @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
 
   @@unique([studentId, title])
   @@index([studentId])

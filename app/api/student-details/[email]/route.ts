@@ -15,6 +15,7 @@ export async function GET(
         include: {
           educations: true,
           projects: true,
+          experiences: true,
         },
       },
     },

@@ -1,21 +1,26 @@
 import Image from 'next/image';
 import { Box } from '@/components/layout/box';
 import { CardHeader } from '@/components/ui/card';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import UserAvatar from '@/components/shared/user-avatar';
 
-const UserMedia = () => {
-  const { currentUser } = useCurrentUser();
-
+const UserMedia = ({
+  name,
+  image,
+  coverImage,
+}: {
+  name: string;
+  image: string;
+  coverImage: string;
+}) => {
   return (
     <CardHeader className='relative p-0 pb-4'>
       <Box className='h-28'>
-        {currentUser?.coverImage && (
+        {coverImage && (
           <Image
             width={256}
             height={50}
-            alt={currentUser?.name + ' cover image'}
-            src={currentUser?.coverImage ?? ''}
+            alt={name + ' cover image'}
+            src={coverImage ?? ''}
             className='h-28 w-full object-cover'
             priority
           />
@@ -25,11 +30,7 @@ const UserMedia = () => {
         position='absolute'
         className='-bottom-8 left-1/2 -translate-x-1/2  transform rounded-full border-2 border-muted'
       >
-        <UserAvatar
-          className='h-24 w-24'
-          name={currentUser?.name}
-          image={currentUser?.image}
-        />
+        <UserAvatar className='h-24 w-24' name={name} image={image} />
       </Box>
     </CardHeader>
   );

@@ -1,16 +1,13 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+'use client'
 
+import { useSession } from 'next-auth/react';
+import StudentView from './components/student-view';
+import RecruiterView from './components/recruiter-view';
 const JobsPage = () => {
-  return (
-    <Tabs defaultValue='jobs' className='mx-auto mt-4'>
-      <TabsList className='grid w-full grid-cols-2'>
-        <TabsTrigger value='jobs'>Jobs</TabsTrigger>
-        <TabsTrigger value='bounty'>Bounty</TabsTrigger>
-      </TabsList>
-      <TabsContent value='jobs'>Job post here</TabsContent>
-      <TabsContent value='bounty'>Bounty post here</TabsContent>
-    </Tabs>
-  );
+  const { data: session } = useSession();
+  //   @ts-ignore
+  const role = session?.user?.role;
+  return role === 'student' ? <StudentView /> : <RecruiterView />;
 };
 
 export default JobsPage;

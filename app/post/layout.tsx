@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 import { Box } from '@/components/layout/box';
-import BackButton from './components/back-button';
+import BackButton from '@/components/shared/back-button';
 import { Container } from '@/components/layout/container';
 
 export const metadata: Metadata = {

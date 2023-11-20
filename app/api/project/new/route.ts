@@ -6,14 +6,14 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { currentUser } = await authStatus();
 
-  const data = {
-    ...body,
-    userId: currentUser.id,
-  };
-
   const project = await prisma.project.create({
     data: {
-      ...data,
+      ...body,
+      student: {
+        connect: {
+          studentId: currentUser.id,
+        },
+      },
     },
   });
 

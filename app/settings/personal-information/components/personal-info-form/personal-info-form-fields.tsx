@@ -61,7 +61,7 @@ const PersonalInfoFormFields = ({
           <FormItem className='col-span-full'>
             <FormLabel className='capitalize'>{field.name}</FormLabel>
             <FormControl>
-              <Textarea rows={4} maxLength={600} {...field} />
+              <Textarea rows={4} maxLength={1000} {...field} />
             </FormControl>
             <FormDescription>
               Describe your professional experience, accomplishments, and

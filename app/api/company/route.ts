@@ -15,7 +15,7 @@ export async function PATCH(request: NextRequest) {
   if (companyExists) {
     const company = await prisma.company.update({
       where: {
-        id: currentUser.company[0].id,
+        id: currentUser?.company?.id,
       },
       data: { ...body },
     });

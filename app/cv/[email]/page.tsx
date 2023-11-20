@@ -11,12 +11,13 @@ import StudentEducationCard from '../components/student-education-card';
 import StudentProjectCard from '../components/student-project-card';
 import StudentExperienceCard from '../components/student-experience-card';
 import useStudentDetails from '@/hooks/useStudentDetails';
+import Loader from '@/components/shared/loader';
 
 export default function CVPage({ params }: { params: { email: string } }) {
   const { data, isLoading } = useStudentDetails(params.email);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader className='h-96' />;
   }
   const studentDetails = data?.studentDetails;
 

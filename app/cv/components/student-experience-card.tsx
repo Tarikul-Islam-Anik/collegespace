@@ -1,4 +1,4 @@
-import { Experience } from '@/lib/type';
+import { Experience, JobType } from '@/lib/type';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import StudentAboutInfoItem from './student-about-item';
@@ -22,7 +22,7 @@ const StudentExperienceCard = ({
               <StudentAboutInfoItem
                 title={experience.title}
                 description={experience.description}
-                jobType={'internship'}
+                jobType={experience.jobType as JobType}
                 startDate={experience.startDate}
                 endDate={experience.endDate}
               />

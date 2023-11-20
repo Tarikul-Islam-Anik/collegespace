@@ -47,8 +47,12 @@ const JobItem = ({ job }: { job: JobType }) => {
           </Flex>
           <Text size='xs'>&bull;</Text>
           <Text className='capitalize'>{jobType(job.type)}</Text>
-          <Text size='xs'>&bull;</Text>
-          <CompanyDetails name={job.company.name} id={job.companyId} />
+          {!isOwner && (
+            <>
+              <Text size='xs'>&bull;</Text>
+              <CompanyDetails name={job.company.name} id={job.companyId} />
+            </>
+          )}
         </Flex>
       </Flex>
       {isOwner ? (

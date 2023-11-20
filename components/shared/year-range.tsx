@@ -10,17 +10,15 @@ const YearRange = ({
   startDate: Date;
   endDate: Date;
 }) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
   return (
     <Flex align='center' className='gap-1.5 text-muted-foreground'>
       <Calendar size='16' />
       <Text size='sm'>
-        <time dateTime={startDate.toISOString()}>
-          {format(startDate, 'MMMM yyyy')}
-        </time>
+        <time dateTime={start.toISOString()}>{format(start, 'MMMM yyyy')}</time>
         {' - '}
-        <time dateTime={endDate.toISOString()}>
-          {format(endDate, 'MMMM yyyy')}
-        </time>
+        <time dateTime={end.toISOString()}>{format(end, 'MMMM yyyy')}</time>
       </Text>
     </Flex>
   );

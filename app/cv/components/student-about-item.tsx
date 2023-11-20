@@ -15,12 +15,15 @@ interface StudentInfoItemProps {
   link?: string | null;
   jobType?:
     | 'internship'
-    | 'full-time'
-    | 'part-time'
+    | 'fulltime'
+    | 'parttime'
     | 'contract'
     | 'freelance'
     | 'volunteer'
-    | 'remote';
+    | 'remote'
+    | 'temporary'
+    | 'other'
+    | null;
   startDate: Date;
   endDate: Date;
 }

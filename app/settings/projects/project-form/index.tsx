@@ -3,6 +3,7 @@
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import useStudentDetails from '@/hooks/useStudentDetails';
 import { Form } from '@/components/ui/form';
 import { projectFormSchema, ProjectFormValues } from './schema';
 import FormFields from './form-fields';
@@ -14,6 +15,7 @@ interface ProjectFormProps {
 }
 
 const ProjectForm = ({ setOpen }: ProjectFormProps) => {
+  const { mutate } = useStudentDetails();
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectFormSchema),
     defaultValues: {
@@ -34,6 +36,7 @@ const ProjectForm = ({ setOpen }: ProjectFormProps) => {
       {
         loading: 'Adding project...',
         success: () => {
+          mutate();
           setOpen(false);
           return 'Project added successfully!';
         },

@@ -22,7 +22,7 @@ const StudentExperienceCard = ({
               <StudentAboutInfoItem
                 title={experience.title}
                 description={experience.description}
-                jobType={experience.jobType as JobType}
+                jobType={experience.jobType as any}
                 startDate={experience.startDate}
                 endDate={experience.endDate}
               />

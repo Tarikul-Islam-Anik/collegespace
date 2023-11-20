@@ -11,7 +11,7 @@ import { companyFormSchema, CompanyFormValues } from './schema';
 import { UserType } from '@/lib/type';
 
 const CompanyForm = ({ user }: { user: UserType }) => {
-  const company = user?.company[0];
+  const company = user?.company;
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(companyFormSchema),
     defaultValues: {

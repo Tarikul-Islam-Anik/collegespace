@@ -5,15 +5,15 @@ import { usePathname } from 'next/navigation';
 const links = [
   {
     label: 'Terms',
-    href: '/terms',
+    href: '#',
   },
   {
     label: 'Privacy Policy',
-    href: '/privacy-policy',
+    href: '#',
   },
   {
     label: 'Cookie Policy',
-    href: '/cookie-policy',
+    href: '#',
   },
 ];
 

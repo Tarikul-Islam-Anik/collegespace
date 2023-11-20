@@ -22,6 +22,7 @@ interface SelectDateFieldProps {
   name: string;
   label: string;
   description?: string;
+  futureOnly?: boolean;
 }
 
 const SelectDateField = ({
@@ -29,6 +30,7 @@ const SelectDateField = ({
   name,
   label,
   description,
+  futureOnly,
 }: SelectDateFieldProps) => {
   return (
     <FormField
@@ -62,7 +64,9 @@ const SelectDateField = ({
                 selected={new Date(field.value ?? '')}
                 onSelect={field.onChange}
                 disabled={(date) =>
-                  date > new Date() || date < new Date('1900-01-01')
+                  futureOnly
+                    ? date < new Date()
+                    : date > new Date() || date < new Date('1900-01-01')
                 }
                 initialFocus
               />

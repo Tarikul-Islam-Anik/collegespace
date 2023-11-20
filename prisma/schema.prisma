@@ -114,6 +114,7 @@ enum JobType {
   contract
   internship
   temporary
+  remote
   other
 }
 
@@ -173,6 +174,7 @@ model Experience {
   title       String   @db.VarChar(101)
   description String   @db.Text
   position    String   @db.VarChar(51)
+  jobType     JobType
   startDate   DateTime
   endDate     DateTime
 

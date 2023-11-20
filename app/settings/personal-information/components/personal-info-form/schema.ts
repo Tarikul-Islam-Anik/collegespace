@@ -14,7 +14,10 @@ export const personalInfoFormSchema = z.object({
   dob: z.date().or(z.string()).or(z.undefined()).optional(),
   gender: z.string().optional(),
   country: z.string().optional(),
-  about: z.string().optional(),
+  about: z
+    .string()
+    .max(999, { message: 'About must not be longer than 1000 characters.' })
+    .optional(),
   experience: z.string().or(z.number()).optional(),
 });
 

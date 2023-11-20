@@ -32,12 +32,12 @@ const links = [
   },
   {
     label: 'Help & Support',
-    href: '/help',
+    href: '#',
     icon: Lifebuoy,
   },
   {
     label: 'About',
-    href: '/about',
+    href: '#',
     icon: InfoCircle,
   },
 ];

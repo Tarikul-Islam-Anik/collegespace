@@ -61,7 +61,7 @@ const StudentAboutInfoItem = ({
             <>
               <GraduationCap size='16' />
               <Text as='p' size='sm'>
-                University of California
+                {school}
               </Text>
             </>
           )}

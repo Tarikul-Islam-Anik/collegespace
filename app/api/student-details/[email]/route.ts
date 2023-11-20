@@ -11,6 +11,9 @@ export async function GET(
       name: true,
       email: true,
       phone: true,
+      image: true,
+      coverImage: true,
+      bio: true,
       studentDetails: {
         include: {
           educations: true,

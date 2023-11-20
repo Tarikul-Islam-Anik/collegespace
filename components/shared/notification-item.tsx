@@ -15,6 +15,11 @@ const NotificationItem = ({ content }: NotificationType) => {
           Follow back
         </Button>
       )}
+      {content.includes('job') && (
+        <Button size='sm' variant='outline'>
+          View CV
+        </Button>
+      )}
     </Flex>
   );
 };

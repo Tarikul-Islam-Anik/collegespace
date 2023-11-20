@@ -17,7 +17,7 @@ export default function PostLayout({ children }: PostLayoutProps) {
   return (
     <>
       <Box mx='auto' position='relative'>
-        <Box className='fixed left-4 top-3.5 z-50 sm:absolute sm:left-[32.5rem] sm:top-0'>
+        <Box className='fixed left-4 top-3.5 z-50 sm:hidden'>
           <BackButton />
         </Box>
         <Container>{children}</Container>

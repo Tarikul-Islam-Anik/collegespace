@@ -84,28 +84,29 @@ model Company {
   website   String?   @db.VarChar(100)
   logo      String?   @db.Text
   address   String?   @db.VarChar(101)
-  job       Job[]
+  jobs      Job[]
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   ownerId   String
   owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 
+  @@unique([ownerId])
   @@index([ownerId])
 }
 
 model Job {
-  title     String  @db.VarChar(51)
-  type      JobType
-  salary    Int
-  location  String? @db.VarChar(51)
-  userId    String
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyId String
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  id          String   @id @default(uuid())
+  title       String   @db.VarChar(51)
+  description String   @db.Text
+  type        JobType
+  salary      Int
+  location    String?  @db.VarChar(51)
+  deadline    DateTime
+  user        User[]
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
-  @@id([userId, companyId])
   @@index([companyId])
-  @@index([userId])
 }
 
 enum JobType {
@@ -245,6 +246,7 @@ model User {
   role            UserType?
   hasNotification Boolean?        @default(false)
   studentDetails  StudentDetails?
+  company         Company?
   followers       User[]          @relation(name: "Followers")
   follows         User[]          @relation(name: "Followers")
   posts           Post[]
@@ -252,7 +254,6 @@ model User {
   replies         Reply[]
   notifications   Notification[]
   bounties        Bounty[]
-  company         Company[]
   jobs            Job[]
   reposts         Repost[]
   createdAt       DateTime        @default(now())

@@ -3,7 +3,6 @@ import type {
   User,
   Like,
   Job,
-  JobType,
   StudentDetails,
   Education,
   Project,
@@ -39,11 +38,21 @@ export interface StudentDetailsType extends StudentDetails {
   experiences: Experience[];
 }
 
+export interface CompanyType extends Company {
+  jobs: Job[];
+}
+
+export interface JobType extends Job {
+  company: {
+    name: string;
+  };
+}
+
 export interface UserType extends User {
   posts: PostType[];
   jobs: Job[];
   studentDetails: StudentDetailsType;
-  company: Company[];
+  company: CompanyType;
   _count: {
     followers: number;
     following: number;
@@ -55,7 +64,6 @@ export type {
   Post,
   Like,
   Job,
-  JobType,
   StudentDetails,
   Education,
   Project,

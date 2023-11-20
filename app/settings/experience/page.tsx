@@ -23,7 +23,6 @@ export default function SettingsSkillsPage() {
   const sortedExperiences = experiences?.sort(
     (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
   );
-  console.log(data?.studentDetails?.experiences);
 
   const AddNew = (
     <FormDialog

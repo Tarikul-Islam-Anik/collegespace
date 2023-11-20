@@ -3,6 +3,7 @@
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import useStudentDetails from '@/hooks/useStudentDetails';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Flex } from '@/components/layout/flex';
@@ -14,6 +15,7 @@ const ExperienceForm = ({
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const { mutate } = useStudentDetails();
   const defaultValues: Partial<ExperienceFormValue> = {
     title: '',
     position: '',
@@ -37,6 +39,7 @@ const ExperienceForm = ({
       {
         loading: 'Adding experience information...',
         success: () => {
+          mutate();
           setOpen(false);
           return 'Information added successfully!';
         },

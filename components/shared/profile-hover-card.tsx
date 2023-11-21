@@ -83,7 +83,7 @@ const ProfileHoverCard = forwardRef(
                   size='xs'
                   className={cn(
                     !bio && 'italic text-muted-foreground',
-                    'line-clamp-3'
+                    'line-clamp-2 whitespace-pre-wrap'
                   )}
                 >
                   {bio ? bio : 'No bio provided'}

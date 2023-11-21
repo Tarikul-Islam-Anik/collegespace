@@ -34,7 +34,9 @@ const RecruiterView = () => {
       label='Add job'
       description='Create a new hiring post for your company.'
     >
-      <JobForm setOpen={setOpen} companyId={currentUser?.company.id!} />
+      {currentUser?.company.id && (
+        <JobForm setOpen={setOpen} companyId={currentUser?.company.id} />
+      )}
     </FormDialog>
   );
 

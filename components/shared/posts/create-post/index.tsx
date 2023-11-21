@@ -1,15 +1,14 @@
 'use client';
 
 import PostDialog from './post-dialog';
+import useCurrentUser from '@/hooks/useCurrentUser';
 import { Button } from '@/components/ui/button';
 import { Box } from '@/components/layout/box';
 import { Flex } from '@/components/layout/flex';
 import UserAvatar from '@/components/shared/user-avatar';
-import { useSession } from 'next-auth/react';
 
 const CreatePost = () => {
-  const { data: session } = useSession();
-  const currentUser = session?.user;
+  const { currentUser } = useCurrentUser();
   return (
     <Box className='container'>
       <Flex align='center' justify='between' className='border-b pb-4'>

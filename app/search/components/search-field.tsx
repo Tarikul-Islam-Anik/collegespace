@@ -18,7 +18,7 @@ const SearchField = () => {
   return (
     <Command className='page-width'>
       <CommandInput placeholder='Search...' />
-      <CommandList className='h-[80vh]'>
+      <CommandList className='max-h-full'>
         <CommandEmpty>No results found.</CommandEmpty>
         {isLoading ? (
           <Loader className='mt-4'/>

@@ -15,12 +15,17 @@ model Post {
   createdAt DateTime @default(now())
   userId    String
   likes     Like[]
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   replies   Reply[]
   reposts   Repost[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([createdAt, id])
   @@index([userId])
+}
+
+enum PostType {
+  thought
+  question
 }
 
 model Repost {
@@ -32,11 +37,6 @@ model Repost {
   @@id([userId, postId])
   @@index([userId])
   @@index([postId])
-}
-
-enum PostType {
-  thought
-  question
 }
 
 model Like {
@@ -65,13 +65,14 @@ model Reply {
 }
 
 model Bounty {
-  title    String   @db.VarChar(51)
-  reward   Int
-  deadline DateTime
-  userId   String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String   @db.VarChar(51)
+  description String   @db.Text
+  reward      Int
+  deadline    DateTime
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([userId])
+  @@unique([userId, title])
   @@index([userId])
 }
 
@@ -104,6 +105,7 @@ model Job {
   deadline    DateTime
   user        User[]
   companyId   String
+  createdAt   DateTime @default(now())
   company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@index([companyId])
@@ -126,9 +128,9 @@ model StudentDetails {
   country     String?      @db.VarChar(60)
   about       String?      @db.Text
   experience  Int?         @db.SmallInt
+  skills      String
   educations  Education[]
   projects    Project[]
-  skills      String
   experiences Experience[]
 
   user User @relation(fields: [studentId], references: [id], onDelete: Cascade)

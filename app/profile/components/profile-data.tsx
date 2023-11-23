@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { format } from 'date-fns';
+import { UserType } from '@/lib/type';
 import { useSession } from 'next-auth/react';
-import useUser from '@/hooks/useUser';
 import { Box } from '@/components/layout/box';
 import { Badge } from '@/components/ui/badge';
 import { Flex } from '@/components/layout/flex';
@@ -11,12 +11,19 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { Heading } from '@/components/typography/heading';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import FollowerDialog from '@/components/shared/follow/follower-dialog';
+import FollowButton from '@/components/shared/follow/follow-button';
 
-const ProfileData = ({ email }: { email: string }) => {
-  const { user, isLoading } = useUser(email);
+const ProfileData = ({
+  user,
+  isLoading,
+}: {
+  user: UserType;
+  isLoading: boolean;
+}) => {
   const { data: session } = useSession();
+
   return (
     <>
       <Flex align='center' justify='between' width='full'>
@@ -64,7 +71,7 @@ const ProfileData = ({ email }: { email: string }) => {
           <Skeleton className='h-6 w-[200px]' />
         ) : (
           <Box className='text-sm text-muted-foreground'>
-            <FollowerDialog id={user?.id!}>
+            <FollowerDialog id={user?.id}>
               <Text className='cursor-pointer underline-offset-2 hover:underline'>
                 {new Intl.NumberFormat('en-US', {
                   notation: 'compact',
@@ -86,7 +93,7 @@ const ProfileData = ({ email }: { email: string }) => {
           </Box>
         )}
       </Box>
-      {session?.user?.email === email.replaceAll('%40', '@') ? (
+      {session?.user?.email === user?.email?.replaceAll('%40', '@') ? (
         <Link
           href='/settings'
           className={buttonVariants({ variant: 'outline' }) + ' w-full'}
@@ -94,8 +101,7 @@ const ProfileData = ({ email }: { email: string }) => {
           Edit Profile
         </Link>
       ) : (
-        // {user?.isFollowing ? 'Unfollow' : 'Follow
-        <Button className='w-full'>Follow</Button>
+        <FollowButton className='w-full' variant='default' userId={user?.id} />
       )}
     </>
   );

@@ -29,7 +29,7 @@ const ExperienceForm = ({
   });
   function onSubmit(data: ExperienceFormValue) {
     toast.promise(
-      fetch('/api/experience/new', {
+      fetch('/api/student-details/experience/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

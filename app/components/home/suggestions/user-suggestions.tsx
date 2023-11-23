@@ -12,9 +12,10 @@ import {
 } from '@/components/ui/card';
 import { buttonVariants } from '@/components/ui/button';
 import UserItem from '@/components/shared/user-item';
+import Loader from '@/components/shared/loader';
 
 const UserSuggestions = () => {
-  const { users } = useUsers();
+  const { users, isLoading } = useUsers();
 
   const usersLimit = users?.slice(0, 4);
 
@@ -24,13 +25,17 @@ const UserSuggestions = () => {
         <CardTitle>People you may know</CardTitle>
       </CardHeader>
       <CardContent className='pb-2'>
-        <ul className='flex flex-col'>
-          {usersLimit?.map((user, index) => (
-            <li key={index} className='my-3'>
-              <UserItem user={user} profileHover followButton />
-            </li>
-          ))}
-        </ul>
+        {isLoading ? (
+          <Loader className='h-80 w-full' />
+        ) : (
+          <ul className='flex flex-col'>
+            {usersLimit?.map((user, index) => (
+              <li key={index} className='my-3'>
+                <UserItem user={user} profileHover followButton />
+              </li>
+            ))}
+          </ul>
+        )}
       </CardContent>
       <CardFooter className='pb-4'>
         <Link

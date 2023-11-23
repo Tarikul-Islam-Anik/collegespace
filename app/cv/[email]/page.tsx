@@ -59,7 +59,9 @@ export default function CVPage({ params }: { params: { email: string } }) {
           bio={data?.bio!}
         />
         <StudentInfoCard informations={informations} />
-        <StudentSkillSCard skills={studentDetails?.skills} />
+        {studentDetails?.skills && (
+          <StudentSkillSCard skills={studentDetails?.skills} />
+        )}
       </Box>
       <Box className='lg:col-span-2'>
         <Tabs

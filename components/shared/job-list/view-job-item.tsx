@@ -40,7 +40,7 @@ const ViewJobItem = ({ job }: { job: Job }) => {
   const [open, setOpen] = useState(false);
   function handleApply() {
     toast.promise(
-      fetch(`/api/jobs/${job.id}`, {
+      fetch(`/api/company/jobs/${job.id}`, {
         method: 'POST',
       }).then((res) => res.json()),
       {

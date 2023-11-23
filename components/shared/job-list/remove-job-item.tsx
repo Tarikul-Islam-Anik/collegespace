@@ -13,7 +13,7 @@ const RemoveJobItem = ({
   const { mutate } = useJobs(companyId);
   function handleDelete() {
     toast.promise(
-      fetch(`/api/jobs/${jobId}`, {
+      fetch(`/api/company/jobs/${jobId}`, {
         method: 'DELETE',
       }),
       {

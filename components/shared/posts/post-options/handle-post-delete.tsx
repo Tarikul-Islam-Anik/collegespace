@@ -1,13 +1,13 @@
 'use client';
 
 import { toast } from 'sonner';
-import useUserPosts from '@/hooks/useUserPosts';
+import usePosts from '@/hooks/usePosts';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { useSession } from 'next-auth/react';
 
 const HandlePostDelete = ({ postId }: { postId: string }) => {
   const { data: session } = useSession();
-  const { mutate } = useUserPosts(session?.user?.email!);
+  const { mutate } = usePosts(session?.user?.email!);
 
   function handleDeletePost() {
     toast.promise(

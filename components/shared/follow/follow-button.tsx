@@ -2,16 +2,25 @@
 import { toast } from 'sonner';
 import { useState } from 'react';
 import Loader from '../loader';
-import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { VariantProps } from 'class-variance-authority';
 import usePosts from '@/hooks/usePosts';
 
-interface FollowButtonProps {
+interface FollowButtonProps extends VariantProps<typeof buttonVariants> {
   userId: string;
+  className?: string;
   defaultLabel?: string;
   asChild?: boolean;
 }
 
-const FollowButton = ({ userId, defaultLabel, asChild }: FollowButtonProps) => {
+const FollowButton = ({
+  userId,
+  variant = 'outline',
+  className,
+  defaultLabel,
+  asChild,
+}: FollowButtonProps) => {
   const [loading, setLoading] = useState(false);
   const [label, setLabel] = useState(defaultLabel || 'Follow');
   const { mutate } = usePosts();
@@ -39,10 +48,10 @@ const FollowButton = ({ userId, defaultLabel, asChild }: FollowButtonProps) => {
 
   return !asChild ? (
     <Button
-      variant='outline'
+      variant={variant}
       size='sm'
       onClick={handleFollow}
-      className='w-20 capitalize'
+      className={cn('w-20 capitalize', className)}
       disabled={loading}
     >
       {loading ? <Loader className='h-4 w-4 text-muted-foreground' /> : label}

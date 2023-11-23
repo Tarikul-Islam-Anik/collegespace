@@ -4,13 +4,15 @@ import { PostType } from '@/lib/type';
 
 const usePosts = () => {
   const endpoint = '/api/posts';
-  const { data, error, isLoading, mutate } = useSWR<PostType[]>(
-    endpoint,
-    fetcher
-  );
+  const {
+    data: posts,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR<PostType[]>(endpoint, fetcher);
 
   return {
-    data,
+    posts,
     error,
     isLoading,
     mutate,

@@ -31,7 +31,7 @@ const EducationalInfoForm = ({
 
   function onSubmit(data: EducationalInfoFormValues) {
     toast.promise(
-      fetch('/api/education/new', {
+      fetch('/api/student-details/education/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

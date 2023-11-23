@@ -1,6 +1,7 @@
 'use client';
 
 import { More } from 'iconsax-react';
+import { useSession } from 'next-auth/react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import HandlePostCopy from './handle-post-copy';
 import HandlePostDelete from './handle-post-delete';
-import { useSession } from 'next-auth/react';
+import FollowButton from '@/components/shared/follow/follow-button';
 
 const PostOptions = ({
   postId,
@@ -21,6 +22,7 @@ const PostOptions = ({
   userId: string;
 }) => {
   const { data: session } = useSession();
+  
   // @ts-ignore
   const currentUserId = session?.user?.id!;
 
@@ -35,7 +37,11 @@ const PostOptions = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {showUnfollow && <DropdownMenuItem>Unfollow</DropdownMenuItem>}
+        {showUnfollow && (
+          <DropdownMenuItem>
+            <FollowButton asChild userId={userId} defaultLabel='Unfollow' />
+          </DropdownMenuItem>
+        )}
         <HandlePostCopy postId={postId} />
         <DropdownMenuItem>Mute</DropdownMenuItem>
         <DropdownMenuItem>Hide</DropdownMenuItem>

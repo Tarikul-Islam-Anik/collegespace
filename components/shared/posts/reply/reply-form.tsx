@@ -43,7 +43,7 @@ const ReplyForm = ({
     };
 
     toast.promise(
-      fetch('/api/reply', {
+      fetch('/api/posts/reply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -38,7 +38,7 @@ const JobForm = ({
     };
 
     toast.promise(
-      fetch('/api/jobs/new', {
+      fetch('/api/company/jobs/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

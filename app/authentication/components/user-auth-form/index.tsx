@@ -1,11 +1,9 @@
 'use client';
 
 import { toast } from 'sonner';
-import { useAtom } from 'jotai';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { cn } from '@/lib/utils';
-import { UserAtom } from '@/lib/atom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -20,7 +18,6 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 
 const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
   const router = useRouter();
-  const [, setUser] = useAtom(UserAtom);
   const [loading, setLoading] = useState(false);
   const form = useForm<UserAuthFormValues>({
     resolver: zodResolver(UserAuthFormSchema),
@@ -42,26 +39,21 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
       email,
       password,
       redirect: false,
-    }).then((res) => {
-      if (res?.error) {
-        toast.error(res?.error);
+    })
+      .then((res) => {
+        if (res?.error) {
+          toast.error(res?.error);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.message);
         setLoading(false);
-      } else {
-        fetch(`/api/users/${email}`)
-          .then((res) => {
-            if (res.ok) {
-              return res.json();
-            }
-          })
-          .then((data) => {
-            setUser(data);
-          })
-          .finally(() => {
-            toast.success('Signed in successfully');
-            router.push('/');
-          });
-      }
-    });
+      })
+      .finally(() => {
+        toast.success('Signed in successfully');
+        router.push('/');
+      });
   }
 
   return (
@@ -74,8 +66,11 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
         <Grid gap={4}>
           <UserAuthFormFields form={form} />
           <Button disabled={!isValid || loading} type='submit'>
-            {loading && <Loader className='mr-2 h-4 w-4 text-muted-foreground' />}
-            Sign In with Email
+            {loading ? (
+              <Loader className='mr-2 h-4 w-4 text-muted-foreground' />
+            ) : (
+              'Sign In with Email'
+            )}
           </Button>
         </Grid>
       </form>

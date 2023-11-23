@@ -11,6 +11,7 @@ import FormDialog from '@/components/shared/form-dialog';
 import SectionHeading from '../../../components/shared/section-heading';
 import ListContainer from '@/components/shared/list-container';
 import useStudentDetails from '@/hooks/useStudentDetails';
+import MissingInfoWaring from '../components/missing-info-warning';
 
 const ProjectForm = dynamic(() => import('./project-form'), {
   loading: () => <Loader />,
@@ -24,9 +25,9 @@ export default function SettingsProjectPage() {
     return <Loader />;
   }
 
-  const projects = data?.studentDetails?.projects;
+  const projectsInfo = data?.studentDetails?.projects;
 
-  const sortedProjects = projects?.sort(
+  const sortedProjects = projectsInfo?.sort(
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
 
@@ -42,6 +43,19 @@ export default function SettingsProjectPage() {
     </FormDialog>
   );
 
+  const projects =
+    sortedProjects?.length === 0 ? (
+      <EmptyState
+        title='No projects added yet'
+        description='Add your projects to showcase them to the world.'
+        icon={<Folder className='h-12 w-12' />}
+      >
+        {AddNew}
+      </EmptyState>
+    ) : (
+      sortedProjects && <ListContainer type='project' items={sortedProjects} />
+    );
+
   return (
     <Box className='space-y-6'>
       <SectionHeading
@@ -49,19 +63,7 @@ export default function SettingsProjectPage() {
         description='Showcase your projects and let people know what you are working on.'
       />
 
-      {sortedProjects?.length === 0 ? (
-        <EmptyState
-          title='No projects added yet'
-          description='Add your projects to showcase them to the world.'
-          icon={<Folder className='h-12 w-12' />}
-        >
-          {AddNew}
-        </EmptyState>
-      ) : (
-        sortedProjects && (
-          <ListContainer type='project' items={sortedProjects} />
-        )
-      )}
+      {!projectsInfo ? <MissingInfoWaring /> : projects}
 
       {sortedProjects?.length! > 0 && <Flex justify='center'>{AddNew}</Flex>}
     </Box>

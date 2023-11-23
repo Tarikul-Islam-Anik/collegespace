@@ -128,7 +128,7 @@ model StudentDetails {
   country     String?      @db.VarChar(60)
   about       String?      @db.Text
   experience  Int?         @db.SmallInt
-  skills      String
+  skills      String?
   educations  Education[]
   projects    Project[]
   experiences Experience[]

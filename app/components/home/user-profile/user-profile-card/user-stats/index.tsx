@@ -1,16 +1,13 @@
-import FollowersCount from './followers-count';
+import useUser from '@/hooks/useUser';
 import { Flex } from '@/components/layout/flex';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import FollowersCount from './followers-count';
 
 const UserStats = () => {
-  const { currentUser } = useCurrentUser();
+  const { user } = useUser();
 
   return (
     <Flex direction='column' className='max-h-16'>
-      <FollowersCount
-        id={currentUser?.id!}
-        count={currentUser?._count?.followers!}
-      />
+      <FollowersCount id={user?.id!} count={user?._count?.followers!} />
     </Flex>
   );
 };

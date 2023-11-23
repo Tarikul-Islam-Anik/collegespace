@@ -5,7 +5,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { email: string } }
 ) {
-  const posts = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { email: params.email },
     select: {
       posts: {
@@ -24,8 +24,8 @@ export async function GET(
     },
   });
 
-  if (!posts)
+  if (!user)
     return NextResponse.json({ error: 'Post not found' }, { status: 404 });
 
-  return NextResponse.json(posts, { status: 200 });
+  return NextResponse.json(user.posts, { status: 200 });
 }

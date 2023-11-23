@@ -4,7 +4,7 @@ import { PostType, Reply } from '@/lib/type';
 
 const useRepliedPosts = (email: string) => {
   const { data, error, isLoading, mutate } = useSWR<PostType[]>(
-    email ? `/api/reply/${email}` : null,
+    email ? `/api/posts/reply${email}` : null,
     fetcher
   );
 

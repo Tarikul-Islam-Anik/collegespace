@@ -6,6 +6,7 @@ import Loader from '@/components/shared/loader';
 import SectionHeading from '@/components/shared/section-heading';
 
 const ProfileForm = dynamic(() => import('./components/profile-form'), {
+  ssr: false,
   loading: () => <Loader />,
 });
 

@@ -1,15 +1,12 @@
 'use client';
 
-import { useAtom } from 'jotai/react';
-import { PostsAtom } from '@/lib/atom';
 import usePosts from '@/hooks/usePosts';
 import PostItem from './post-item';
 import Loading from '@/components/shared/loader';
 import { Text } from '@/components/typography/text';
 
 const Posts = () => {
-  const { data = [], isLoading } = usePosts();
-  const [posts, setPosts] = useAtom(PostsAtom);
+  const { posts = [], isLoading } = usePosts();
 
   if (isLoading) return <Loading />;
   else if (posts?.length === 0)
@@ -19,7 +16,6 @@ const Posts = () => {
       </Text>
     );
   else {
-    setPosts(data);
     return (
       <ul role='post-feed'>
         {posts?.map((post) => (

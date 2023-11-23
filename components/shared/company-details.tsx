@@ -3,6 +3,7 @@ import useCompany from '@/hooks/useCompany';
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -30,7 +31,9 @@ const CompanyDetails = ({ name, id }: { name: string; id: string }) => {
       ) {
         continue;
       }
-      details[key] = value;
+      if (value) {
+        details[key] = value;
+      }
     }
   }
 
@@ -61,10 +64,12 @@ const CompanyDetails = ({ name, id }: { name: string; id: string }) => {
                     />
                   }
                 />
-                {Object.entries(details).map(([key, value]) => (
+                {Object.entries(details).map(([key, value], index) => (
                   <>
-                    <Separator className='my-4 sm:my-6' />
                     <DescriptionList name={key} value={value} />
+                    {index !== Object.entries(details).length - 1 && (
+                      <Separator className='my-4 sm:my-6' />
+                    )}
                   </>
                 ))}
               </dl>

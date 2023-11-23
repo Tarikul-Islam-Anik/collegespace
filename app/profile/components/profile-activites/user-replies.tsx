@@ -1,12 +1,15 @@
 'use client';
 
-import useRepliedPosts from '@/hooks/useRepliedPosts';
-import EmptyState from '@/components/shared/empty-state';
+import { PostType } from '@/lib/type';
+import usePosts from '@/hooks/usePosts';
 import { Messages3 } from 'iconsax-react';
 import Loader from '@/components/shared/loader';
+import EmptyState from '@/components/shared/empty-state';
 
 const UserReplies = ({ email }: { email: string }) => {
-  const { data: repliedPosts, isLoading } = useRepliedPosts(email);
+  const { data, isLoading } = usePosts(email, 'replies');
+
+  const repliedPosts = data as unknown as PostType[];
 
   if (isLoading) {
     return <Loader className='h-96' />;

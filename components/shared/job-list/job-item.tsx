@@ -1,7 +1,7 @@
 'use client';
 import { Location } from 'iconsax-react';
 import { JobType } from '@/lib/type';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import useUser from '@/hooks/useUser';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import { Heading } from '@/components/typography/heading';
@@ -22,9 +22,8 @@ export const jobType = (type: string) => {
 };
 
 const JobItem = ({ job }: { job: JobType }) => {
-  const { currentUser } = useCurrentUser();
-  const isOwner =
-    currentUser?.company && currentUser?.company.id === job.companyId;
+  const { user } = useUser();
+  const isOwner = user?.company && user?.company.id === job.companyId;
 
   return (
     <Flex justify='between' align={'center'}>

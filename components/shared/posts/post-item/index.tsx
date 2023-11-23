@@ -1,4 +1,5 @@
 'use client';
+
 import { useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { PostType } from '@/lib/type';
@@ -9,25 +10,33 @@ import PostContent from '@/components/shared/posts/post-content';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { HandleLike, HandleReply, HandleRepost } from './item-actions';
 
+const pluralize = (count: number, noun: string, suffix = 's') => {
+  if (noun === 'repl') return `${count} ${noun}${count !== 1 ? 'ies' : 'y'}`;
+  else return `${count} ${noun}${count !== 1 ? suffix : ''}`;
+};
+
 const PostItem = ({ post }: { post: PostType }) => {
   const router = useRouter();
 
   const postContent = useMemo(
     () => <PostContent post={post} profileHover />,
-    [post.content]
+    [post]
   );
 
-  const commentPlaceholder = useMemo(
-    () => <PostContent post={post} />,
-    [post.content]
-  );
+  const commentPlaceholder = useMemo(() => <PostContent post={post} />, [post]);
 
-  const totalLikes = post._count.likes;
-  const totalReplies = post._count.replies;
+  const matrics = useMemo(
+    () => ({
+      like: post._count.likes,
+      repl: post._count.replies,
+      repost: post._count.reposts,
+    }),
+    [post._count.likes, post._count.replies, post._count.reposts]
+  );
 
   const goToPost = useCallback(() => {
     router.push(`/post/${post.id}`);
-  }, [router, post.id]);
+  }, [router, post]);
 
   return (
     <Card className='rounded-none border-none pt-5 shadow-none'>
@@ -36,13 +45,14 @@ const PostItem = ({ post }: { post: PostType }) => {
         <Flex align='center' justify='between' width='full'>
           <Box onClick={goToPost} className='cursor-pointer'>
             <Text as='p' className='text-muted-foreground' size='xs'>
-              <Text className='hover:opacity-75'>
-                {totalLikes} like{totalLikes > 1 && 's'}
-              </Text>
-              <Text className='mx-1'>&middot;</Text>
-              <Text className='hover:opacity-75'>
-                {totalReplies} repl{totalReplies > 1 ? 'ies' : 'y'}
-              </Text>
+              {Object.keys(matrics).map((key, index) => (
+                <>
+                  {index !== 0 && <Text className='mx-1'>&middot;</Text>}
+                  <Text key={key} className='hover:opacity-75'>
+                    {pluralize(matrics[key as keyof typeof matrics], key)}
+                  </Text>
+                </>
+              ))}
             </Text>
           </Box>
           <Flex>

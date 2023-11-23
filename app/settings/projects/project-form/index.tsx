@@ -26,7 +26,7 @@ const ProjectForm = ({ setOpen }: ProjectFormProps) => {
   });
   function onSubmit(data: ProjectFormValues) {
     toast.promise(
-      fetch('/api/project/new', {
+      fetch('/api/student-details/project/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

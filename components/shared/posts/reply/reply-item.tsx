@@ -35,7 +35,7 @@ const ReplyItem = ({ id, content, createdAt, user }: ReplyItemProps) => {
 
   function handleRemoveReply() {
     toast.promise(
-      fetch(`/api/reply`, {
+      fetch(`/api/posts/reply`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

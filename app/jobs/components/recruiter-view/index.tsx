@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import useUser from '@/hooks/useUser';
+import useJobs from '@/hooks/useJobs';
 import { Container } from '@/components/layout/container';
 import SectionHeading from '@/components/shared/section-heading';
 import RecruiterTabs from './recruiter-tabs';
@@ -11,8 +13,6 @@ import EmptyState from '@/components/shared/empty-state';
 import { DocumentText1 } from 'iconsax-react';
 import FormDialog from '@/components/shared/form-dialog';
 import { buttonVariants } from '@/components/ui/button';
-import useJobs from '@/hooks/useJobs';
-import useCurrentUser from '@/hooks/useCurrentUser';
 
 const JobForm = dynamic(() => import('./job-form'), {
   ssr: false,
@@ -21,8 +21,8 @@ const JobForm = dynamic(() => import('./job-form'), {
 
 const RecruiterView = () => {
   const [open, setOpen] = useState(false);
-  const { currentUser } = useCurrentUser();
-  const { data, isLoading } = useJobs(currentUser?.company?.id);
+  const { user } = useUser();
+  const { data, isLoading } = useJobs(user?.company?.id);
 
   if (isLoading) return <Loader className='h-96' />;
 
@@ -34,13 +34,13 @@ const RecruiterView = () => {
       label='Add job'
       description='Create a new hiring post for your company.'
     >
-      {currentUser?.company.id && (
-        <JobForm setOpen={setOpen} companyId={currentUser?.company.id} />
+      {user?.company.id && (
+        <JobForm setOpen={setOpen} companyId={user?.company.id} />
       )}
     </FormDialog>
   );
 
-  const companyDetailsMissing = !currentUser?.company;
+  const companyDetailsMissing = !user?.company;
   const jobs = data?.jobs;
   return (
     <Container>

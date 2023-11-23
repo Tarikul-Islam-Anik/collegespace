@@ -85,4 +85,4 @@ const ProfileForm = ({ user }: { user: UserType }) => {
 };
 
 ProfileForm.displayName = 'ProfileForm';
-
+export default ProfileForm;

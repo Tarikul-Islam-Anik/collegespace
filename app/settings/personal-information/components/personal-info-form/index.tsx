@@ -10,14 +10,14 @@ import { personalInfoFormSchema, PersonalInfoFormValues } from './schema';
 
 const PersonalInfoForm = ({ data }: { data: UserType }) => {
   const defaultValues: Partial<PersonalInfoFormValues> = {
-    name: data.name ?? '',
+    name: data?.name ?? '',
     email: data?.email ?? '',
     phone: data?.phone ?? '',
     dob: data?.studentDetails?.dob ?? '',
-    gender: data?.studentDetails.gender ?? '',
-    country: data?.studentDetails.country ?? '',
-    about: data?.studentDetails.about ?? '',
-    experience: data?.studentDetails.experience ?? '',
+    gender: data?.studentDetails?.gender ?? '',
+    country: data?.studentDetails?.country ?? '',
+    about: data?.studentDetails?.about ?? '',
+    experience: data?.studentDetails?.experience ?? '',
   };
 
   const form = useForm<PersonalInfoFormValues>({

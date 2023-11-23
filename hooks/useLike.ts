@@ -8,7 +8,7 @@ type LikeResponse = {
 };
 
 const useLike = (postId: string) => {
-  const endpoint = `/api/like/${postId}`;
+  const endpoint = `/api/posts/like/${postId}`;
   const { data, isLoading, mutate } = useSWR<LikeResponse>(
     postId ? endpoint : null,
     fetcher

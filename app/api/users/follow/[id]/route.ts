@@ -65,7 +65,7 @@ export async function POST(
     });
     return NextResponse.json(
       {
-        action: 'unfollow',
+        action: 'follow',
         message: `You are no longer following ${user?.name}`,
       },
       { status: 200 }
@@ -93,7 +93,7 @@ export async function POST(
 
     return NextResponse.json(
       {
-        action: 'follow',
+        action: 'unfollow',
         message: `You are now following ${user?.name}`,
       },
       { status: 200 }

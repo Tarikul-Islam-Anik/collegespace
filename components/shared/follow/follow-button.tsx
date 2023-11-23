@@ -3,11 +3,18 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import Loader from '../loader';
 import { Button } from '@/components/ui/button';
+import usePosts from '@/hooks/usePosts';
 
-const FollowButton = ({ userId }: { userId: string }) => {
+interface FollowButtonProps {
+  userId: string;
+  defaultLabel?: string;
+  asChild?: boolean;
+}
+
+const FollowButton = ({ userId, defaultLabel, asChild }: FollowButtonProps) => {
   const [loading, setLoading] = useState(false);
-  const [label, setLabel] = useState('Follow');
-
+  const [label, setLabel] = useState(defaultLabel || 'Follow');
+  const { mutate } = usePosts();
   function handleFollow() {
     setLoading(true);
     toast.promise(
@@ -18,7 +25,9 @@ const FollowButton = ({ userId }: { userId: string }) => {
         },
       }).then((res) => res.json()),
       {
+        loading: label + 'ing...',
         success: (data) => {
+          mutate();
           setLoading(false);
           setLabel(data.action);
           return data.message;
@@ -28,7 +37,7 @@ const FollowButton = ({ userId }: { userId: string }) => {
     );
   }
 
-  return (
+  return !asChild ? (
     <Button
       variant='outline'
       size='sm'
@@ -38,6 +47,10 @@ const FollowButton = ({ userId }: { userId: string }) => {
     >
       {loading ? <Loader className='h-4 w-4 text-muted-foreground' /> : label}
     </Button>
+  ) : (
+    <span onClick={handleFollow}>
+      {loading ? <Loader className='h-4 w-4' /> : label}
+    </span>
   );
 };
 

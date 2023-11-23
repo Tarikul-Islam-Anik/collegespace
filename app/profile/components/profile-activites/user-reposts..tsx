@@ -1,13 +1,15 @@
 'use client';
 
 import { Repeat } from 'iconsax-react';
-import useReposts from '@/hooks/useReposts';
+import usePosts from '@/hooks/usePosts';
 import Loader from '@/components/shared/loader';
 import EmptyState from '@/components/shared/empty-state';
 import PostItem from '@/components/shared/posts/post-item';
+import { RepostType } from '@/lib/type';
 
 const UserReposts = ({ email }: { email: string }) => {
-  const { data: reposts, isLoading } = useReposts(email);
+  const { data, isLoading } = usePosts(email, 'repost');
+  const reposts = data as unknown as RepostType[];
 
   if (isLoading) {
     return <Loader className='h-96' />;

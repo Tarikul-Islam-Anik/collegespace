@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 import { UserType } from '@/lib/type';
 import { uploadImage } from '@/lib/utils';
 import { useForm } from 'react-hook-form';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,6 @@ import ProfileFormFields from './profile-form-fields';
 import { profileFormSchema, ProfileFormValues } from './schema';
 
 const ProfileForm = ({ user }: { user: UserType }) => {
-  const { setCurrentUser } = useCurrentUser();
   const defaultValues: Partial<ProfileFormValues> = {
     username: user.username ?? '',
     bio: user.bio ?? '',
@@ -60,13 +58,10 @@ const ProfileForm = ({ user }: { user: UserType }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(changedValuesObj),
-      }).then((res) => res.json()),
+      }),
       {
         loading: 'Updating profile...',
-        success: (data) => {
-          setCurrentUser(data);
-          return 'Profile updated successfully';
-        },
+        success: 'Profile updated successfully',
         error: 'Something went wrong',
       }
     );
@@ -90,4 +85,4 @@ const ProfileForm = ({ user }: { user: UserType }) => {
 };
 
 ProfileForm.displayName = 'ProfileForm';
-export default ProfileForm;
+

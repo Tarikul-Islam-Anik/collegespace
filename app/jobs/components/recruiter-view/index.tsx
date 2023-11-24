@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import useCompany from '@/hooks/useCompany';
@@ -12,7 +13,6 @@ import EmptyState from '@/components/shared/empty-state';
 import { DocumentText1 } from 'iconsax-react';
 import FormDialog from '@/components/shared/form-dialog';
 import { buttonVariants } from '@/components/ui/button';
-
 const JobForm = dynamic(() => import('./job-form'), {
   ssr: false,
   loading: () => <Loader />,
@@ -21,6 +21,7 @@ const JobForm = dynamic(() => import('./job-form'), {
 const RecruiterView = () => {
   const [open, setOpen] = useState(false);
   const { company, isLoading } = useCompany();
+  const { data: session } = useSession();
 
   if (isLoading) return <Loader className='h-[80vh]' />;
 
@@ -43,6 +44,8 @@ const RecruiterView = () => {
       ...job,
       company: {
         name: company.name,
+        // @ts-ignore
+        isOwner: company.ownerId === session?.user?.id,
       },
     };
   });

@@ -44,15 +44,14 @@ const UserAuthForm = ({ className, ...props }: UserAuthFormProps) => {
         if (res?.error) {
           toast.error(res?.error);
           setLoading(false);
+        } else {
+          toast.success('Signed in successfully');
+          router.push('/');
         }
       })
       .catch((err) => {
         toast.error(err?.message);
         setLoading(false);
-      })
-      .finally(() => {
-        toast.success('Signed in successfully');
-        router.push('/');
       });
   }
 

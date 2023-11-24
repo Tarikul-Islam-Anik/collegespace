@@ -13,11 +13,12 @@ const SkillsForm = dynamic(() => import('./skills-form'), {
 
 export default function SettingsSkillsPage() {
   const { data, isLoading } = useStudentDetails();
-  const skillInfo = data?.studentDetails?.skills?.split(',');
+  const studentDetails = data?.studentDetails;
+  const skillInfo = studentDetails?.skills?.split(',');
   const skills = isLoading ? (
     <Loader />
   ) : (
-    skillInfo && <SkillsForm skills={skillInfo} />
+    <SkillsForm skills={skillInfo ? skillInfo : []} />
   );
 
   return (
@@ -26,7 +27,7 @@ export default function SettingsSkillsPage() {
         title='Skills'
         description='Add your skills to your profile and attract more recruiters.'
       />
-      {!skillInfo ? <MissingInfoWaring /> : skills}
+      {!studentDetails ? <MissingInfoWaring /> : skills}
     </Box>
   );
 }

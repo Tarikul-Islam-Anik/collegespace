@@ -2,9 +2,13 @@ import useSWR from 'swr';
 import { JobType } from '@/lib/type';
 import fetcher from '@/lib/fetcher';
 
-const useJobs = (companyId?: string) => {
+const useJobs = (reference?: string) => {
+  const endPoint = reference
+    ? `/api/company/jobs/${reference}`
+    : '/api/company/jobs';
+
   const { data, error, isLoading, mutate } = useSWR<{ jobs: JobType[] }>(
-    companyId ? `/api/company/jobs/${companyId}` : '/api/company/jobs',
+    endPoint,
     fetcher
   );
 

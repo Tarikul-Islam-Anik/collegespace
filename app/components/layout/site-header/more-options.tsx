@@ -72,7 +72,7 @@ const MoreOptions = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {links.map((link) => (
-            <Link href={link.href} key={link.href}>
+            <Link href={link.href} key={link.label}>
               <DropdownMenuItem>
                 <link.icon className='mr-2 h-4 w-4' />
                 <Text>{link.label}</Text>

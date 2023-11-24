@@ -11,6 +11,7 @@ import { ExperienceFormValue } from './schema';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import SelectDateField from '@/components/shared/select-date-field';
+import SelectOptionsField from '@/components/shared/select-options-field';
 
 const FormFields = ({ form }: { form: UseFormReturn<ExperienceFormValue> }) => {
   return (
@@ -31,6 +32,21 @@ const FormFields = ({ form }: { form: UseFormReturn<ExperienceFormValue> }) => {
           )}
         />
       ))}
+      <SelectOptionsField
+        form={form}
+        name='type'
+        label='Job type'
+        triggerPlaceholder='Select job type'
+        options={{
+          fulltime: 'Full-time',
+          parttime: 'Part-time',
+          contract: 'Contract',
+          internship: 'Internship',
+          temporary: 'Temporary',
+          remote: 'Remote',
+          other: 'Other',
+        }}
+      />
       <FormField
         control={form.control}
         name='description'

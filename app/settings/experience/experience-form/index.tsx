@@ -20,6 +20,7 @@ const ExperienceForm = ({
     title: '',
     position: '',
     description: '',
+    type: '',
   };
 
   const form = useForm<ExperienceFormValue>({

@@ -1,24 +1,23 @@
 import * as z from 'zod';
 
 export const personalInfoFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: 'Name must be at least 2 characters.',
-    })
-    .max(30, {
-      message: 'Name must not be longer than 30 characters.',
-    }),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  dob: z.date().or(z.string()).or(z.undefined()).optional(),
-  gender: z.string().optional(),
-  country: z.string().optional(),
+  name: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  dob: z
+    .date({ required_error: 'Date of birth is required.' })
+    .or(z.string())
+    .or(z.undefined()),
+  gender: z.string({
+    required_error: 'Please select a gender.',
+  }),
+  country: z.string({
+    required_error: 'Please select a country.',
+  }),
   about: z
-    .string()
-    .max(999, { message: 'About must not be longer than 1000 characters.' })
-    .optional(),
-  experience: z.string().or(z.number()).optional(),
+    .string({ required_error: 'About is required.' })
+    .max(999, { message: 'About must not be longer than 1000 characters.' }),
+  experience: z.string().or(z.number()),
 });
 
 export type PersonalInfoFormValues = z.infer<typeof personalInfoFormSchema>;

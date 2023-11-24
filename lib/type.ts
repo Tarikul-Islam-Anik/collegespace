@@ -45,6 +45,7 @@ export interface CompanyType extends Company {
 export interface JobType extends Job {
   company: {
     name: string;
+    isOwner: boolean; 
   };
 }
 

@@ -7,10 +7,21 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
-  const jobs = await prisma.company.findUnique({
+  const jobs = await prisma.job.findUnique({
     where: { id: id },
-    select: {
-      jobs: true,
+    include: {
+      company: {
+        select: {
+          id: true,
+          name: true,
+          owner: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 

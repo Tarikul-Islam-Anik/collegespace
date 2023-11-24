@@ -2,11 +2,14 @@
 import { Location } from 'iconsax-react';
 import { JobType } from '@/lib/type';
 import { Box } from '@/components/layout/box';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import CompanyDetails from '../company-details';
 import JobItemOptions from './job-item-options';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import { Heading } from '@/components/typography/heading';
+import ViewJobItem from './view-job-item';
+import { Button } from '@/components/ui/button';
 
 export const jobType = (type: string) => {
   switch (type) {
@@ -48,7 +51,16 @@ const JobItem = ({ job }: { job: JobType }) => {
         </Flex>
       </Flex>
       <Box>
-        <JobItemOptions job={job} />
+        {job.company.isOwner ? (
+          <JobItemOptions job={job} />
+        ) : (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant='outline'>View</Button>
+            </DialogTrigger>
+            <ViewJobItem job={job} />
+          </Dialog>
+        )}
       </Box>
     </Flex>
   );

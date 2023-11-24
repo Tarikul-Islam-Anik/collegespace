@@ -40,7 +40,7 @@ const JobItem = ({ job }: { job: JobType }) => {
           {job.description}
         </Text>
         <Flex gap={2} align='center' className='text-sm text-muted-foreground'>
-          <Flex align='center' className='max-w-[300px]'>
+          <Flex align='center' className='max-w-[290px]'>
             <Location size={12} className='mr-1' />
             <Text as='p' className='truncate'>
               {job.location}

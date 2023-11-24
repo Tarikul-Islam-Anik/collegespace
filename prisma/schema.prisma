@@ -123,11 +123,11 @@ enum JobType {
 
 model StudentDetails {
   studentId   String       @map("userId")
-  dob         DateTime?    @db.DateTime
-  gender      GenderType?
-  country     String?      @db.VarChar(60)
-  about       String?      @db.Text
-  experience  Int?         @db.SmallInt
+  dob         DateTime     @db.DateTime
+  gender      GenderType
+  country     String       @db.VarChar(60)
+  about       String       @db.Text
+  experience  Int          @default(0) @db.SmallInt
   skills      String?
   educations  Education[]
   projects    Project[]

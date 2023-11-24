@@ -178,7 +178,7 @@ model Experience {
   title       String   @db.VarChar(101)
   description String   @db.Text
   position    String   @db.VarChar(51)
-  jobType     JobType
+  type        JobType
   startDate   DateTime
   endDate     DateTime
 

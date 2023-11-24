@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
       company: {
         select: {
           name: true,
+          ownerId: true,
         },
       },
     },

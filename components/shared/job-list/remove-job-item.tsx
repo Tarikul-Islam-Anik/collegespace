@@ -1,7 +1,14 @@
 import { toast } from 'sonner';
 import useJobs from '@/hooks/useJobs';
 import { Button } from '@/components/ui/button';
-import AlertDialogParent from '../alert-dialog-parent';
+import {
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from '@/components/ui/dialog';
 
 const RemoveJobItem = ({
   jobId,
@@ -27,15 +34,22 @@ const RemoveJobItem = ({
     );
   }
   return (
-    <AlertDialogParent
-      title='Delete Job post'
-      description='Are you sure you want to delete this job? This action cannot be undone. All applicants data will be removed.'
-      action={handleDelete}
-    >
-      <Button size='sm' variant='outline'>
-        Remove
-      </Button>
-    </AlertDialogParent>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Delete Job</DialogTitle>
+        <DialogDescription>
+          Are you sure you want to delete this job? This action cannot be
+          undone. All applicants data will be removed.
+        </DialogDescription>
+      </DialogHeader>
+
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button variant='ghost'>Cancel</Button>
+        </DialogClose>
+        <Button onClick={handleDelete} variant='destructive'>Delete</Button>
+      </DialogFooter>
+    </DialogContent>
   );
 };
 

@@ -17,13 +17,13 @@ const PersonalInfoForm = ({ data }: { data: UserType }) => {
     gender: data?.studentDetails?.gender ?? '',
     country: data?.studentDetails?.country ?? '',
     about: data?.studentDetails?.about ?? '',
-    experience: data?.studentDetails?.experience ?? '',
+    experience: data?.studentDetails?.experience ?? '0',
   };
 
   const form = useForm<PersonalInfoFormValues>({
     resolver: zodResolver(personalInfoFormSchema),
     defaultValues,
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   function onSubmit(data: PersonalInfoFormValues) {
@@ -72,11 +72,16 @@ const PersonalInfoForm = ({ data }: { data: UserType }) => {
     );
   }
 
+  const isDisabled =
+    Object.keys(form.formState.dirtyFields).length < 3 ||
+    form.getValues('country') === '' ||
+    form.formState.isSubmitting;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 p-2'>
         <PersonalInfoFormFields form={form} />
-        <Button type='submit' disabled={!form.formState.isDirty}>
+        <Button type='submit' disabled={isDisabled}>
           Update
         </Button>
       </form>

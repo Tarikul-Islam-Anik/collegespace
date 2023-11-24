@@ -24,7 +24,7 @@ const RecruiterView = () => {
   const { user } = useUser();
   const { data, isLoading } = useJobs(user?.company?.id);
 
-  if (isLoading) return <Loader className='h-96' />;
+  if (isLoading) return <Loader className='h-[80vh]' />;
 
   const AddNew = (
     <FormDialog

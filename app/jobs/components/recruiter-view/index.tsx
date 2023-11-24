@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import useUser from '@/hooks/useUser';
-import useJobs from '@/hooks/useJobs';
+import useCompany from '@/hooks/useCompany';
 import { Container } from '@/components/layout/container';
 import SectionHeading from '@/components/shared/section-heading';
 import RecruiterTabs from './recruiter-tabs';
@@ -21,8 +20,7 @@ const JobForm = dynamic(() => import('./job-form'), {
 
 const RecruiterView = () => {
   const [open, setOpen] = useState(false);
-  const { user } = useUser();
-  const { data, isLoading } = useJobs(user?.company?.id);
+  const { company, isLoading } = useCompany();
 
   if (isLoading) return <Loader className='h-[80vh]' />;
 
@@ -34,14 +32,21 @@ const RecruiterView = () => {
       label='Add job'
       description='Create a new hiring post for your company.'
     >
-      {user?.company.id && (
-        <JobForm setOpen={setOpen} companyId={user?.company.id} />
-      )}
+      {company?.id && <JobForm setOpen={setOpen} companyId={company?.id} />}
     </FormDialog>
   );
 
-  const companyDetailsMissing = !user?.company;
-  const jobs = data?.jobs;
+  const companyDetailsMissing = !company;
+
+  const jobs = company?.jobs?.map((job) => {
+    return {
+      ...job,
+      company: {
+        name: company.name,
+      },
+    };
+  });
+
   return (
     <Container>
       <SectionHeading
@@ -49,7 +54,7 @@ const RecruiterView = () => {
         description='Post jobs and easily reach out to the best candidates.'
       />
 
-      {jobs ? (
+      {jobs && jobs?.length > 0 ? (
         <RecruiterTabs addNew={AddNew} jobs={jobs} />
       ) : (
         <EmptyState

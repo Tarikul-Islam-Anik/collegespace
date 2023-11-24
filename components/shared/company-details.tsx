@@ -64,6 +64,7 @@ const CompanyDetails = ({ name, id }: { name: string; id: string }) => {
                     />
                   }
                 />
+                <Separator className='my-4 sm:my-6' />
                 {Object.entries(details).map(([key, value], index) => (
                   <>
                     <DescriptionList name={key} value={value} />

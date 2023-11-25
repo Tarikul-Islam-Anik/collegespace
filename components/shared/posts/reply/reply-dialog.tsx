@@ -7,7 +7,7 @@ import { Flex } from '@/components/layout/flex';
 import Loader from '@/components/shared/loader';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
-const CommentForm = dynamic(() => import('./reply-form'), {
+const ReplyForm = dynamic(() => import('./reply-form'), {
   ssr: false,
   loading: () => <Loader />,
 });
@@ -34,7 +34,7 @@ const ReplyDialog = forwardRef<HTMLButtonElement, ReplyDialogProps>(
               orientation='vertical'
               className='my-3 ml-5 h-auto w-0.5 py-2'
             />
-            <CommentForm postId={postId} setOpen={setOpen} />
+            <ReplyForm postId={postId} setOpen={setOpen} />
           </Flex>
         </DialogContent>
       </Dialog>

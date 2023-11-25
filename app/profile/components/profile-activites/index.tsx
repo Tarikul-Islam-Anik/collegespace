@@ -24,7 +24,7 @@ const ProfileActivities = ({ email }: { email: string }) => {
       defaultValue='recent'
       className='mx-auto flex w-full flex-col items-center'
     >
-      <TabsList className='w-full justify-around rounded-none border-b bg-transparent p-0'>
+      <TabsList className='w-full justify-around rounded-none border-b bg-transparent p-0 mb-6'>
         {tabsContent.map((tab) => (
           <TabsTrigger
             key={tab.name}

@@ -24,7 +24,7 @@ export const jobType = (type: string) => {
 
 const JobItem = ({ job }: { job: JobType }) => {
   return (
-    <Flex justify='between' align={'center'}>
+    <Flex justify='between' align={'center'} className='space-x-1'>
       <Flex direction='column' gap={2}>
         <Heading as='h3' weight='medium'>
           {job.title}
@@ -38,7 +38,7 @@ const JobItem = ({ job }: { job: JobType }) => {
           {job.description}
         </Text>
         <Flex gap={2} align='center' className='text-sm text-muted-foreground'>
-          <Flex align='center' className='max-w-[290px]'>
+          <Flex align='center' className='max-w-[280px]'>
             <Location size={12} className='mr-1' />
             <Text as='p' className='truncate'>
               {job.location}

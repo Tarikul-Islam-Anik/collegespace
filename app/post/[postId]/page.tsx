@@ -17,16 +17,17 @@ export default function PostPage({ params }: { params: { postId: string } }) {
   return (
     <Flex direction='column' mx='auto'>
       {data && <PostItem post={data} />}
+      <Separator className='mt-4' />
       <ul role='reply-list'>
         {replies.map((reply: ReplyType, index) => (
           <li key={reply.id}>
-            {index !== 0 && <Separator />}
             <ReplyItem
               id={reply.id}
               content={reply.content}
               createdAt={reply.createdAt}
               user={reply.user}
             />
+            {index !== replies.length && <Separator />}
           </li>
         ))}
       </ul>

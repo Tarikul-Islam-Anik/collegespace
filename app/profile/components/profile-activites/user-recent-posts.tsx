@@ -3,9 +3,10 @@
 import { PostType } from '@/lib/type';
 import usePosts from '@/hooks/usePosts';
 import { MessageEdit } from 'iconsax-react';
-import PostItem from '@/components/shared/posts/post-item';
-import EmptyState from '@/components/shared/empty-state';
 import Loader from '@/components/shared/loader';
+import { Separator } from '@/components/ui/separator';
+import EmptyState from '@/components/shared/empty-state';
+import PostItem from '@/components/shared/posts/post-item';
 
 const UserRecentPosts = ({ email }: { email: string }) => {
   const { data, isLoading } = usePosts(email, 'recent');
@@ -23,9 +24,10 @@ const UserRecentPosts = ({ email }: { email: string }) => {
     />
   ) : (
     <ul role='recent-post-list'>
-      {posts?.map((post: PostType) => (
+      {posts?.map((post: PostType, index) => (
         <li key={post.id}>
           <PostItem post={post} />
+          {index !== posts.length && <Separator className='mb-6 mt-4' />}
         </li>
       ))}
     </ul>

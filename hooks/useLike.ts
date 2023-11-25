@@ -14,7 +14,7 @@ const useLike = (postId: string) => {
     fetcher
   );
 
-  const { mutate: mutatePosts } = usePosts();
+  const { mutate: mutatePosts } = usePosts(postId, 'single');
 
   const liked = useMemo(() => {
     return data?.liked;

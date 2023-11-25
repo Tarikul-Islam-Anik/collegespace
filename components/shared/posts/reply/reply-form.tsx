@@ -25,7 +25,7 @@ const ReplyForm = ({
   postId: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { mutate } = usePosts();
+  const { mutate } = usePosts(postId, 'single');
   const { data: session } = useSession();
   const currentUser = session?.user;
 

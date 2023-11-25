@@ -5,6 +5,7 @@ import usePosts from '@/hooks/usePosts';
 import PostItem from './post-item';
 import Loading from '@/components/shared/loader';
 import { Text } from '@/components/typography/text';
+import { Separator } from '@/components/ui/separator';
 
 const Posts = () => {
   const { data, isLoading } = usePosts('all');
@@ -20,9 +21,10 @@ const Posts = () => {
   else {
     return (
       <ul role='post-feed'>
-        {posts?.map((post) => (
+        {posts?.map((post, index) => (
           <li key={post.id}>
             <PostItem post={post} />
+            {index !== posts.length && <Separator className='mb-8 mt-4' />}
           </li>
         ))}
       </ul>

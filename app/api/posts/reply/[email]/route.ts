@@ -17,17 +17,25 @@ export async function GET(
     where: {
       replies: {
         some: {
-          userId: {
-            not: user?.id,
-          },
+          userId: user?.id,
         },
-      },
-      NOT: {
-        userId: user?.id,
       },
     },
     include: {
-      replies: true,
+      replies: {
+        where: {
+          userId: user?.id,
+        },
+      },
+      user: {
+        select: {
+          name: true,
+          email: true,
+          username: true,
+          bio: true,
+          image: true,
+        },
+      },
     },
   });
 

@@ -20,10 +20,13 @@ const PostItem = ({ post }: { post: PostType }) => {
 
   const postContent = useMemo(
     () => <PostContent post={post} profileHover />,
-    [post]
+    [post._count.likes, post._count.replies, post._count.reposts]
   );
 
-  const commentPlaceholder = useMemo(() => <PostContent post={post} />, [post]);
+  const replyPlaceholder = useMemo(
+    () => <PostContent post={post} />,
+    [post._count.replies]
+  );
 
   const matrics = useMemo(
     () => ({
@@ -36,29 +39,29 @@ const PostItem = ({ post }: { post: PostType }) => {
 
   const goToPost = useCallback(() => {
     router.push(`/post/${post.id}`);
-  }, [router, post]);
+  }, [router, post._count.likes, post._count.replies, post._count.reposts]);
 
   return (
-    <Card className='rounded-none border-none pt-5 shadow-none'>
-      <CardContent className='pb-2 pl-0'>{postContent}</CardContent>
-      <CardFooter className='border-b pb-4 pl-14'>
+    <Card className='rounded-none border-none shadow-none'>
+      <CardContent className='px-0 pb-2'>{postContent}</CardContent>
+      <CardFooter className='pb-0 pl-14 pr-0'>
         <Flex align='center' justify='between' width='full'>
           <Box onClick={goToPost} className='cursor-pointer'>
             <Text as='p' className='text-muted-foreground' size='xs'>
               {Object.keys(matrics).map((key, index) => (
-                <>
+                <Text key={key} className='inline-flex'>
                   {index !== 0 && <Text className='mx-1'>&middot;</Text>}
                   <Text key={key} className='hover:opacity-75'>
                     {pluralize(matrics[key as keyof typeof matrics], key)}
                   </Text>
-                </>
+                </Text>
               ))}
             </Text>
           </Box>
           <Flex>
             <HandleLike postId={post.id} />
             <HandleRepost postId={post.id} />
-            <HandleReply postId={post.id} postContent={commentPlaceholder} />
+            <HandleReply postId={post.id} postContent={replyPlaceholder} />
           </Flex>
         </Flex>
       </CardFooter>

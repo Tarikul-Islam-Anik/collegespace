@@ -6,7 +6,7 @@ import { Flex } from '@/components/layout/flex';
 const PostFeed = () => {
   return (
     <Container>
-      <Flex direction='column' gap={4}>
+      <Flex direction='column' className='space-y-8'>
         <CreatePost />
         <Posts />
       </Flex>

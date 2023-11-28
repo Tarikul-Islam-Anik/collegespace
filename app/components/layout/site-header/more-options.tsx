@@ -74,7 +74,7 @@ const MoreOptions = () => {
           {links.map((link) => (
             <Link href={link.href} key={link.label}>
               <DropdownMenuItem>
-                <link.icon className='mr-2 h-4 w-4' />
+                <link.icon className='mr-2 h-4 w-4' aria-label={link.label} />
                 <Text>{link.label}</Text>
               </DropdownMenuItem>
             </Link>

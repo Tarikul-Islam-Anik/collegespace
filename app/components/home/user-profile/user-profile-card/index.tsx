@@ -37,9 +37,14 @@ const UserProfileCard = () => {
             {user?.bio ?? 'No bio provided'}
           </Text>
         </Flex>
-        <Separator className='my-4 w-full' />
+        <Separator className='mt-4 w-full' />
         <UserStats />
-        {!completedProfile && <CompletedProfileButton />}
+        {!completedProfile && (
+          <>
+            <Separator className='mb-4 w-full' />
+            <CompletedProfileButton />
+          </>
+        )}
         <Separator className='my-4 w-full' />
         <UpgradeToPremium />
       </CardContent>

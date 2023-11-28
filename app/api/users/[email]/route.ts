@@ -54,20 +54,3 @@ export async function PATCH(
 
   return NextResponse.json(excludePassword);
 }
-
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { email: string } }
-) {
-  const user = await prisma.user.findUnique({
-    where: { email: params.email },
-  });
-
-  if (!user)
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
-
-  return NextResponse.json(
-    { userId: user.id, message: `User ${user.name} deleted successfully` },
-    { status: 200 }
-  );
-}

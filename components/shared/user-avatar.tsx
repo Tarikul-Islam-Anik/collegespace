@@ -14,7 +14,7 @@ const UserAvatar = ({
   return (
     <Avatar className={className}>
       <AvatarImage src={image ?? ''} alt={name ?? ''} />
-      <AvatarFallback>
+      <AvatarFallback className={className}>
         {name
           ?.split(' ')
           .map((name: string) => name[0])

@@ -5,6 +5,18 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const userQuery = {
+    select: {
+      id: true,
+      name: true,
+      username: true,
+      bio: true,
+      image: true,
+      createdAt: true,
+      email: true,
+    },
+  };
+
   const post = await prisma.post.findUnique({
     where: { id: params.id },
     select: {
@@ -12,19 +24,22 @@ export async function GET(
       type: true,
       content: true,
       createdAt: true,
-      user: {
-        select: {
-          id: true,
-          name: true,
-          image: true,
-          createdAt: true,
-        },
-      },
+      user: userQuery,
       likes: {
         select: {
-          userId: true,
+          user: userQuery,
         },
       },
+      replies: {
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          user: userQuery,
+        },
+        orderBy: { createdAt: 'desc' },
+      },
+      _count: { select: { likes: true, replies: true, reposts: true } },
     },
   });
 
@@ -32,4 +47,15 @@ export async function GET(
     return NextResponse.json({ error: 'Post not found' }, { status: 404 });
 
   return NextResponse.json(post, { status: 200 });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  await prisma.post.delete({
+    where: { id: params.id },
+  });
+
+  return NextResponse.json({ success: true }, { status: 200 });
 }

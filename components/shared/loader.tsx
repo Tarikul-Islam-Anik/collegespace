@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { cva } from 'class-variance-authority';
 import { Loader2 } from 'lucide-react';
+import { Box } from '../layout/box';
 
 const loaderVariants = cva('animate-spin text-inherit', {
   variants: {
@@ -20,12 +21,12 @@ interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Loader = ({ className, size, ...props }: LoaderProps) => {
   return (
-    <div
+    <Box
       className={cn('flex items-center justify-center text-primary', className)}
       {...props}
     >
       <Loader2 className={loaderVariants({ size })} />
-    </div>
+    </Box>
   );
 };
 

@@ -1,3 +1,5 @@
+import React, { forwardRef } from 'react';
+
 import {
   Tooltip,
   TooltipContent,
@@ -5,22 +7,29 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-const ToolTipParent = ({
-  content,
-  children,
-}: {
-  content: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent>{content}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-};
+const ToolTipParent = forwardRef(
+  (
+    props: {
+      children: React.ReactNode;
+      content: string;
+    },
+    ref
+  ) => {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            ref={ref as React.RefObject<HTMLButtonElement>}
+            asChild
+          >
+            {props.children}
+          </TooltipTrigger>
+          <TooltipContent>{props.content}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  }
+);
 
 ToolTipParent.displayName = 'ToolTipParent';
 export default ToolTipParent;

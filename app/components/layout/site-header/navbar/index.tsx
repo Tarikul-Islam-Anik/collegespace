@@ -16,41 +16,44 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
 import NavLink from './navlink';
-
-const NavItems: {
-  href: string;
-  label: string;
-  icon: React.FC<IconProps>;
-}[] = [
-  {
-    href: '/',
-    label: 'Home',
-    icon: Home2,
-  },
-  {
-    href: '/search',
-    label: 'Search',
-    icon: SearchNormal1,
-  },
-  {
-    href: '/notifications',
-    label: 'Notifications',
-    icon: Notification1,
-  },
-  {
-    href: '/jobs',
-    label: 'Jobs',
-    icon: Briefcase,
-  },
-  {
-    href: '/profile',
-    label: 'Profile',
-    icon: User,
-  },
-];
+import { useSession } from 'next-auth/react';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
+
+  const NavItems: {
+    href: string;
+    label: string;
+    icon: React.FC<IconProps>;
+  }[] = [
+    {
+      href: '/',
+      label: 'Home',
+      icon: Home2,
+    },
+    {
+      href: '/search',
+      label: 'Search',
+      icon: SearchNormal1,
+    },
+    {
+      href: '/notifications',
+      label: 'Notifications',
+      icon: Notification1,
+    },
+    {
+      href: '/jobs',
+      label: 'Jobs',
+      icon: Briefcase,
+    },
+    {
+      href: '/profile/' + session?.user?.email,
+      label: 'Profile',
+      icon: User,
+    },
+  ];
+
   return (
     <NavigationMenu>
       <NavigationMenuList>

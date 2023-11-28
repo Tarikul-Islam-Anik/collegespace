@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/typography/text';
 import { CreateAccountFormSchema, CreateAccountFormValues } from './schema';
+import PasswordField from '@/components/shared/password-field';
 
 const AccountFormFields = ({
   form,
@@ -26,7 +27,7 @@ const AccountFormFields = ({
 
   return (
     <>
-      {['name', 'username', 'email', 'phone', 'password'].map((item) => (
+      {['name', 'username', 'email', 'phone'].map((item) => (
         <Box key={item}>
           <FormField
             control={form.control}
@@ -43,6 +44,9 @@ const AccountFormFields = ({
           />
         </Box>
       ))}
+      <Box>
+        <PasswordField form={form} />
+      </Box>
       <Button disabled={!isValid || isLoading} type='submit'>
         {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
         Sign up

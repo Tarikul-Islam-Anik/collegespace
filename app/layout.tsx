@@ -29,15 +29,15 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-screen scroll-smooth bg-background font-sans antialiased',
           fontSans.variable
         )}
       >
         <Providers>
           <Flex position='relative' direction='column' className='min-h-screen'>
             <SiteHeader />
-          <main className='flex-1'>{children}</main>
-          <SiteFooter />
+            <main className='flex-1'>{children}</main>
+            <SiteFooter />
           </Flex>
           <Toaster position='bottom-left' />
         </Providers>

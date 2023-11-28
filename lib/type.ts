@@ -56,7 +56,7 @@ export interface UserType extends User {
   company: CompanyType;
   _count: {
     followers: number;
-    following: number;
+    follows: number;
   };
 }
 

@@ -9,12 +9,18 @@ import { Heading } from '@/components/typography/heading';
 import { Text } from '@/components/typography/text';
 import UserMedia from '@/components/shared/user-media';
 import UserStats from './user-stats';
-import CompletedProfileButton from './complete-profile-button';
+import ProfileCompleteProgression from './profile-complete-progression';
 
 const UserProfileCard = () => {
   const { user } = useUser();
 
-  const completedProfile = user?.image && user?.coverImage && user?.bio;
+  const profileData = {
+    hasImage: user?.image !== null,
+    hasCoverImage: user?.coverImage !== null,
+    hasBio: user?.bio !== null,
+  };
+
+  const profileCompleted = Object.values(profileData).every((value) => value);
 
   return (
     <Card className='isolate h-auto w-64 overflow-hidden shadow-none'>
@@ -23,7 +29,7 @@ const UserProfileCard = () => {
         image={user?.image!}
         coverImage={user?.coverImage!}
       />
-      <CardContent className='mt-12 w-full px-0'>
+      <CardContent className='mt-10 w-full px-0'>
         <Flex align='center' justify='center' direction='column' px={4}>
           <Heading size='lg' as='h2' weight='medium'>
             {user?.name}
@@ -39,13 +45,13 @@ const UserProfileCard = () => {
         </Flex>
         <Separator className='mt-4 w-full' />
         <UserStats />
-        {!completedProfile && (
+        {!profileCompleted && (
           <>
             <Separator className='mb-4 w-full' />
-            <CompletedProfileButton />
+            <ProfileCompleteProgression profileData={profileData} />
           </>
         )}
-        <Separator className='my-4 w-full' />
+        <Separator className={`${profileCompleted ? 'mb-4' : 'my-4'} w-full`} />
         <UpgradeToPremium />
       </CardContent>
     </Card>

@@ -64,15 +64,15 @@ model Reply {
   @@index([postId])
 }
 
-model Notification {
-  content      String   @db.VarChar(256)
-  postId       String?
-  interactorId String?
-  createdAt    DateTime @default(now())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Bounty {
+  title       String   @db.VarChar(51)
+  description String   @db.Text
+  reward      Int
+  deadline    DateTime
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([createdAt, userId])
+  @@unique([userId, title])
   @@index([userId])
 }
 
@@ -103,7 +103,7 @@ model Job {
   salary      Int
   location    String?  @db.VarChar(51)
   deadline    DateTime
-  applicants  User[]
+  user        User[]
   companyId   String
   createdAt   DateTime @default(now())
   company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
@@ -188,16 +188,15 @@ model Experience {
   @@index([studentId])
 }
 
-model Bounty {
-  id          String   @id @default(uuid())
-  title       String   @db.VarChar(101)
-  description String   @db.Text
-  reward      Int 
-  deadline    DateTime
+model Notification {
+  content      String   @db.VarChar(256)
+  postId       String?
+  interactorId String?
+  createdAt    DateTime @default(now())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  @@id([createdAt, userId])
   @@index([userId])
 }
 
@@ -256,12 +255,11 @@ model User {
   likes           Like[]
   replies         Reply[]
   notifications   Notification[]
+  bounties        Bounty[]
   jobs            Job[]
   reposts         Repost[]
   createdAt       DateTime        @default(now())
   updatedAt       DateTime?       @updatedAt
-
-  Bounty Bounty[]
 }
 
 enum UserType {

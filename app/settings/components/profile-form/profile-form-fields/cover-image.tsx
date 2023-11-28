@@ -32,11 +32,11 @@ const CoverImage = ({ form }: { form: UseFormReturn<ProfileFormValues> }) => {
               className={cn(
                 form.getValues('coverImage') === '' &&
                   'border-muted-2 border-2 border-dashed',
-                'relative h-60 overflow-hidden rounded-xl'
+                'relative overflow-hidden rounded-xl'
               )}
             >
               {form.getValues('coverImage') === '' ? (
-                <Flex align='center' justify='center' direction='column'>
+                <Flex align='center' justify='center' direction='column' py={8}>
                   <GalleryAdd
                     className='mx-auto h-12 w-12 text-muted-foreground'
                     variant='Outline'

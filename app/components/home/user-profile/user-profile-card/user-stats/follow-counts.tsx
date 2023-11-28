@@ -49,7 +49,7 @@ const FollowCounts = () => {
           </Button>
         </FollowingDialog>
       ) : (
-        <FollowPlaceholder />
+        <Loader />
       )}
     </Flex>
   );

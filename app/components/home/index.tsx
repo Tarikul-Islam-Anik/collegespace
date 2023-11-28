@@ -7,7 +7,7 @@ import { Grid } from '@/components/layout/grid';
 const Home = () => {
   return (
     <Grid cols={1} className='md:gc container mx-auto xl:grid-cols-4' gap={4}>
-      <Box display='hidden' className='xl:block'>
+      <Box display='' className='xl:block'>
         <UserProfile />
       </Box>
       <Box className='col-span-2 page-width xl:w-full' mx='auto'>

@@ -4,6 +4,7 @@ import useUser from '@/hooks/useUser';
 import { Box } from '@/components/layout/box';
 import Loader from '@/components/shared/loader';
 import SectionHeading from '@/components/shared/section-heading';
+import DeleteAccount from './components/delete-account';
 
 const ProfileForm = dynamic(() => import('./components/profile-form'), {
   ssr: false,
@@ -18,7 +19,15 @@ export default function SettingsPage() {
         title='Profile'
         description='This information will be displayed publicly so be careful what you share.'
       />
-      {isLoading ? <Loader /> : user && <ProfileForm user={user} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        user && (
+          <>
+            <ProfileForm user={user} /> <DeleteAccount />
+          </>
+        )
+      )}
     </Box>
   );
 }

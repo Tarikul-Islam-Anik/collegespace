@@ -3,11 +3,11 @@ import useCompany from '@/hooks/useCompany';
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Box } from '../layout/box';
 import { Button } from '../ui/button';
 import Loader from './loader';
 import { Separator } from '../ui/separator';
@@ -66,12 +66,12 @@ const CompanyDetails = ({ name, id }: { name: string; id: string }) => {
                 />
                 <Separator className='my-4 sm:my-6' />
                 {Object.entries(details).map(([key, value], index) => (
-                  <>
+                  <Box key={key}>
                     <DescriptionList name={key} value={value} />
                     {index !== Object.entries(details).length - 1 && (
                       <Separator className='my-4 sm:my-6' />
                     )}
-                  </>
+                  </Box>
                 ))}
               </dl>
             </>

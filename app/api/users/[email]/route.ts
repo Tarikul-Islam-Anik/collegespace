@@ -17,6 +17,7 @@ export async function GET(
       role: true,
       coverImage: true,
       createdAt: true,
+      bounties: true,
       _count: { select: { followers: true, follows: true, posts: true } },
     },
   });

@@ -3,7 +3,7 @@
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { Job } from '@/lib/type';
+import { JobType } from '@/lib/type';
 import { Button } from '@/components/ui/button';
 import {
   DialogContent,
@@ -16,8 +16,9 @@ import { jobType } from './job-item';
 import { Separator } from '@/components/ui/separator';
 import DescriptionList from '../description-list';
 
-const ViewJobItem = ({ job, showApply }: { job: Job; showApply?: boolean }) => {
+const ViewJobItem = ({ job }: { job: JobType }) => {
   const details: { [key: string]: any } = {};
+  const showApply = !job.company.isOwner;
 
   if (job) {
     for (const [key, value] of Object.entries(job)) {

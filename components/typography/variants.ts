@@ -50,6 +50,7 @@ export const typographyVariants = cva('', {
       muted: 'text-muted',
       'muted-foreground': 'text-muted-foreground',
       primary: 'text-primary',
+      destructive: 'text-destructive',
     },
   },
 });

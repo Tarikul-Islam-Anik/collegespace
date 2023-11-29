@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Navbar from './navbar';
 import MoreOptions from './more-options';
-import { Flex } from '@/components/layout/flex';
+import Logo from '@/components/shared/logo';
 import { Box } from '@/components/layout/box';
+import { Flex } from '@/components/layout/flex';
 import { Heading } from '@/components/typography/heading';
 import { Container } from '@/components/layout/container';
 
@@ -21,8 +22,10 @@ const SiteHeader = () => {
           className='top-0 h-16 sm:relative'
         >
           <Box className='mr-9 block sm:hidden' />
-          <Heading as='h1' className='text-center text-2xl font-bold'>
-            <Link href='/'>College Space</Link>
+          <Heading as='h1' className='z-50 text-center sm:ml-5'>
+            <Link href='/'>
+              <Logo className='text-xl font-bold' />
+            </Link>
           </Heading>
           <MoreOptions />
         </Flex>

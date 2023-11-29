@@ -45,7 +45,7 @@ const JobItem = ({ job }: { job: JobType }) => {
             </Text>
           </Flex>
           <Text size='xs'>&bull;</Text>
-          <Text className='capitalize'>{jobType(job.type)}</Text>
+          <Text className='capitalize min-w-[60px]'>{jobType(job.type)}</Text>
           <Text size='xs'>&bull;</Text>
           <CompanyDetails name={job.company.name} id={job.companyId} />
         </Flex>

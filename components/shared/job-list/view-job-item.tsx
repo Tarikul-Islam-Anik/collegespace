@@ -16,6 +16,8 @@ import { Box } from '@/components/layout/box';
 import { jobType } from './job-item';
 import { Separator } from '@/components/ui/separator';
 import DescriptionList from '../description-list';
+import { Text } from '@/components/typography/text';
+import { Flex } from '@/components/layout/flex';
 
 const ViewJobItem = ({
   job,
@@ -74,7 +76,7 @@ const ViewJobItem = ({
           {Object.entries(details).map(
             ([key, value], index) =>
               !(value instanceof Date) && (
-                <>
+                <Box key={key}>
                   <DescriptionList
                     name={key}
                     value={
@@ -93,23 +95,28 @@ const ViewJobItem = ({
                   {index !== Object.entries(details).length - 1 && (
                     <Separator className='my-4 sm:my-6' />
                   )}
-                </>
+                </Box>
               )
           )}
         </dl>
       </Box>
       {showApply && (
         <DialogFooter className='mt-8'>
-          <Button
-            type='submit'
-            className='w-full'
-            onClick={handleApply}
-            disabled={!canApply}
-          >
-            {!canApply
-              ? 'Please fillup your personal and academic info before applying'
-              : 'Apply'}
-          </Button>
+          <Flex direction='column' gap={2} width='full'>
+            {!canApply && (
+              <Text color='destructive' align='center' size='sm'>
+                Please fillup your personal and academic info before applying
+              </Text>
+            )}
+            <Button
+              type='submit'
+              className='w-full'
+              onClick={handleApply}
+              disabled={!canApply}
+            >
+              Apply
+            </Button>
+          </Flex>
         </DialogFooter>
       )}
     </DialogContent>

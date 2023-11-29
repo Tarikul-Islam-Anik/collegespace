@@ -22,7 +22,7 @@ const SiteHeader = () => {
           className='top-0 h-16 sm:relative'
         >
           <Box className='mr-9 block sm:hidden' />
-          <Heading as='h1' className='z-50 text-center sm:ml-5'>
+          <Heading as='h1' className='z-50 text-center md:ml-5'>
             <Link href='/'>
               <Logo className='text-xl font-bold' />
             </Link>

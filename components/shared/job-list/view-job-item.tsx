@@ -3,7 +3,8 @@
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { Job } from '@/lib/type';
+import { JobType } from '@/lib/type';
+import useUser from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
 import {
   DialogContent,
@@ -15,9 +16,24 @@ import { Box } from '@/components/layout/box';
 import { jobType } from './job-item';
 import { Separator } from '@/components/ui/separator';
 import DescriptionList from '../description-list';
+import { Text } from '@/components/typography/text';
+import { Flex } from '@/components/layout/flex';
 
-const ViewJobItem = ({ job, showApply }: { job: Job; showApply?: boolean }) => {
+const ViewJobItem = ({
+  job,
+  setOpen,
+}: {
+  job: JobType;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const details: { [key: string]: any } = {};
+  const showApply = !job.company.isOwner;
+  const { user } = useUser();
+  const canApply =
+    user &&
+    user.studentDetails &&
+    user.studentDetails.educations.length > 0 &&
+    user.studentDetails.about;
 
   if (job) {
     for (const [key, value] of Object.entries(job)) {
@@ -35,7 +51,6 @@ const ViewJobItem = ({ job, showApply }: { job: Job; showApply?: boolean }) => {
     }
   }
 
-  const [open, setOpen] = useState(false);
   function handleApply() {
     toast.promise(
       fetch(`/api/company/jobs/${job.id}`, {
@@ -61,7 +76,7 @@ const ViewJobItem = ({ job, showApply }: { job: Job; showApply?: boolean }) => {
           {Object.entries(details).map(
             ([key, value], index) =>
               !(value instanceof Date) && (
-                <>
+                <Box key={key}>
                   <DescriptionList
                     name={key}
                     value={
@@ -80,16 +95,28 @@ const ViewJobItem = ({ job, showApply }: { job: Job; showApply?: boolean }) => {
                   {index !== Object.entries(details).length - 1 && (
                     <Separator className='my-4 sm:my-6' />
                   )}
-                </>
+                </Box>
               )
           )}
         </dl>
       </Box>
       {showApply && (
         <DialogFooter className='mt-8'>
-          <Button type='submit' className='w-full' onClick={handleApply}>
-            Apply
-          </Button>
+          <Flex direction='column' gap={2} width='full'>
+            {!canApply && (
+              <Text color='destructive' align='center' size='sm'>
+                Please fillup your personal and academic info before applying
+              </Text>
+            )}
+            <Button
+              type='submit'
+              className='w-full'
+              onClick={handleApply}
+              disabled={!canApply}
+            >
+              Apply
+            </Button>
+          </Flex>
         </DialogFooter>
       )}
     </DialogContent>

@@ -1,15 +1,16 @@
 'use client';
-import { Location } from 'iconsax-react';
+import { useState } from 'react';
 import { JobType } from '@/lib/type';
+import { Location } from 'iconsax-react';
+import ViewJobItem from './view-job-item';
 import { Box } from '@/components/layout/box';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import CompanyDetails from '../company-details';
+import { Button } from '@/components/ui/button';
 import JobItemOptions from './job-item-options';
 import { Flex } from '@/components/layout/flex';
 import { Text } from '@/components/typography/text';
 import { Heading } from '@/components/typography/heading';
-import ViewJobItem from './view-job-item';
-import { Button } from '@/components/ui/button';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 
 export const jobType = (type: string) => {
   switch (type) {
@@ -23,6 +24,7 @@ export const jobType = (type: string) => {
 };
 
 const JobItem = ({ job }: { job: JobType }) => {
+  const [open, setOpen] = useState(false);
   return (
     <Flex justify='between' align={'center'} className='space-x-1'>
       <Flex direction='column' gap={2}>
@@ -45,7 +47,7 @@ const JobItem = ({ job }: { job: JobType }) => {
             </Text>
           </Flex>
           <Text size='xs'>&bull;</Text>
-          <Text className='capitalize'>{jobType(job.type)}</Text>
+          <Text className='min-w-[60px] capitalize'>{jobType(job.type)}</Text>
           <Text size='xs'>&bull;</Text>
           <CompanyDetails name={job.company.name} id={job.companyId} />
         </Flex>
@@ -54,11 +56,11 @@ const JobItem = ({ job }: { job: JobType }) => {
         {job.company.isOwner ? (
           <JobItemOptions job={job} />
         ) : (
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button variant='outline'>View</Button>
             </DialogTrigger>
-            <ViewJobItem job={job} />
+            <ViewJobItem job={job} setOpen={setOpen} />
           </Dialog>
         )}
       </Box>

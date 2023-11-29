@@ -11,7 +11,7 @@ import ContinueWith from './components/continue-with';
 import UserAuthForm from './components/user-auth-form';
 import { buttonVariants } from '@/components/ui/button';
 import { Heading } from '@/components/typography/heading';
-
+import Logo from '@/components/shared/logo';
 
 export const metadata: Metadata = {
   title: 'Authentication | ' + siteConfig.name,
@@ -29,13 +29,13 @@ export default function AuthenticationPage() {
       >
         Bounty Board
       </Link>
-      <div className='hidden h-screen flex-col bg-muted bg-zinc-900 p-10 text-white dark:border-r lg:flex'>
-        <div className='relative z-20 flex items-center text-lg font-medium'>
-          <Command className='mr-2 h-6 w-6' />
-          College Space
-        </div>
+      <Flex
+        direction='column'
+        className='hidden h-screen bg-muted bg-zinc-900 p-10 text-white dark:border-r lg:flex'
+      >
+        <Logo className='relative z-20' />
         <Quote />
-      </div>
+      </Flex>
       <Box my='auto' className='lg:p-8'>
         <Flex
           direction='column'

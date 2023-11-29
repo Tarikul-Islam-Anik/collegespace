@@ -15,7 +15,7 @@ const Counts = ({ label, count }: CountsProps) => {
       className='space-y-0.5'
     >
       <Text size='sm' className='tabular-nums' weight='medium'>
-        {count
+        {count !== undefined
           ? Intl.NumberFormat('en-US', {
               useGrouping: true,
             }).format(count)

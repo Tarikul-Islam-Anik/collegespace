@@ -69,6 +69,7 @@ model Bounty {
   description String   @db.Text
   reward      Int
   deadline    DateTime
+  createdAt   DateTime @default(now())
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -245,7 +246,7 @@ model User {
   bio             String?         @db.VarChar(101)
   coverImage      String?         @db.Text
   phone           String?         @db.VarChar(15)
-  role            UserType?
+  role            UserType?       @default(student)
   hasNotification Boolean?        @default(false)
   studentDetails  StudentDetails?
   company         Company?

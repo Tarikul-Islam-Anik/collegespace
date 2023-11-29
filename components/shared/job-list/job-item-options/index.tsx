@@ -61,7 +61,7 @@ const JobItemOptions = ({ job }: { job: JobType }) => {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      {content === 'View' && <ViewJobItem job={job} />}
+      {content === 'View' && <ViewJobItem job={job} setOpen={setOpen}/>}
       {content === 'Delete' && (
         <RemoveJobItem jobId={job.id} companyId={job.companyId} />
       )}

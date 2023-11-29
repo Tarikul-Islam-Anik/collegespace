@@ -11,6 +11,7 @@ import type {
   Reply,
   Repost,
   Experience,
+  Bounty,
 } from '@prisma/client';
 
 export interface PostType extends Post {
@@ -45,8 +46,12 @@ export interface CompanyType extends Company {
 export interface JobType extends Job {
   company: {
     name: string;
-    isOwner: boolean; 
+    isOwner: boolean;
   };
+}
+
+export interface BountyType extends Bounty {
+  user: Partial<User>;
 }
 
 export interface UserType extends User {
@@ -54,6 +59,7 @@ export interface UserType extends User {
   jobs: Job[];
   studentDetails: StudentDetailsType;
   company: CompanyType;
+  bounties: BountyType[];
   _count: {
     followers: number;
     follows: number;

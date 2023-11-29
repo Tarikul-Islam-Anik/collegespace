@@ -42,7 +42,12 @@ const FormFields = ({ form }: { form: UseFormReturn<BountyFormValues> }) => {
         )}
       />
       <Flex width='full' gap={4}>
-        <SelectDateField name='deadline' label='Deadline' form={form} />
+        <SelectDateField
+          name='deadline'
+          label='Deadline'
+          futureOnly
+          form={form}
+        />
         <FormField
           control={form.control}
           name='reward'

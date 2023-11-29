@@ -5,8 +5,10 @@ import dynamic from 'next/dynamic';
 import Loader from '@/components/shared/loader';
 import EmptyState from '@/components/shared/empty-state';
 import FormDialog from '@/components/shared/form-dialog';
-import useUser from '@/hooks/useUser';
 import { Gem } from 'lucide-react';
+import useBounty from '@/hooks/useBounty';
+import BountyList from '@/components/shared/bounty-list';
+import { Flex } from '@/components/layout/flex';
 
 const BountyForm = dynamic(() => import('./bounty-form'), {
   ssr: false,
@@ -15,9 +17,9 @@ const BountyForm = dynamic(() => import('./bounty-form'), {
 
 const CreateBounty = () => {
   const [open, setOpen] = useState(false);
-  const { user, isLoading } = useUser();
+  const { bounties, isLoading } = useBounty(true);
 
-  if (isLoading) return <Loader className='h-[80vh]' />;
+  if (isLoading) return <Loader className='h-96' />;
 
   const AddNew = (
     <FormDialog
@@ -31,7 +33,14 @@ const CreateBounty = () => {
     </FormDialog>
   );
 
-  return (
+  return bounties && bounties?.length ? (
+    <>
+      <BountyList currentUser />
+      <Flex align='center' justify='center' mt={4} width='full'>
+        {AddNew}
+      </Flex>
+    </>
+  ) : (
     <EmptyState
       icon={<Gem className='h-12 w-12' strokeWidth={1} />}
       title="You haven't posted any bounties yet."

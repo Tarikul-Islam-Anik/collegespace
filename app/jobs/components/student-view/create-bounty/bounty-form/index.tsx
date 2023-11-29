@@ -3,8 +3,7 @@
 import { toast } from 'sonner';
 import { BountyFormValues, bountyFormSchema } from './schema';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
-import usePosts from '@/hooks/usePosts';
+import useBounty from '@/hooks/useBounty';
 import FormFields from './form-fields';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
@@ -12,10 +11,7 @@ import { Flex } from '@/components/layout/flex';
 import { Button } from '@/components/ui/button';
 
 const BountyForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
-  const { data: session } = useSession();
-  const currentUser = session?.user;
-
-  const { mutate } = usePosts();
+  const { mutate } = useBounty(true);
   const form = useForm<BountyFormValues>({
     resolver: zodResolver(bountyFormSchema),
     defaultValues: {
@@ -27,13 +23,19 @@ const BountyForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
 
   function onSubmit(data: BountyFormValues) {
     setOpen(false);
+
     toast.promise(
-      fetch('/api/posts/new', {
+      fetch('/api/bounty/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          title: data.title,
+          description: data.description,
+          reward: parseInt(data.reward.toString()),
+          deadline: data.deadline,
+        }),
       }),
       {
         loading: 'Posting bounty...',

@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { JobType } from '@/lib/type';
+import useUser from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
 import {
   DialogContent,
@@ -16,9 +17,21 @@ import { jobType } from './job-item';
 import { Separator } from '@/components/ui/separator';
 import DescriptionList from '../description-list';
 
-const ViewJobItem = ({ job }: { job: JobType }) => {
+const ViewJobItem = ({
+  job,
+  setOpen,
+}: {
+  job: JobType;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const details: { [key: string]: any } = {};
   const showApply = !job.company.isOwner;
+  const { user } = useUser();
+  const canApply =
+    user &&
+    user.studentDetails &&
+    user.studentDetails.educations.length > 0 &&
+    user.studentDetails.about;
 
   if (job) {
     for (const [key, value] of Object.entries(job)) {
@@ -36,7 +49,6 @@ const ViewJobItem = ({ job }: { job: JobType }) => {
     }
   }
 
-  const [open, setOpen] = useState(false);
   function handleApply() {
     toast.promise(
       fetch(`/api/company/jobs/${job.id}`, {
@@ -88,8 +100,15 @@ const ViewJobItem = ({ job }: { job: JobType }) => {
       </Box>
       {showApply && (
         <DialogFooter className='mt-8'>
-          <Button type='submit' className='w-full' onClick={handleApply}>
-            Apply
+          <Button
+            type='submit'
+            className='w-full'
+            onClick={handleApply}
+            disabled={!canApply}
+          >
+            {!canApply
+              ? 'Please fillup your personal and academic info before applying'
+              : 'Apply'}
           </Button>
         </DialogFooter>
       )}

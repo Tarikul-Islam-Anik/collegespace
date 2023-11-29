@@ -4,6 +4,7 @@ import Loader from '@/components/shared/loader';
 import JobList from '@/components/shared/job-list';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CreateBounty from './create-bounty';
+import BountyList from '@/components/shared/bounty-list';
 
 const StudentTabs = () => {
   const { data, isLoading } = useJobs();
@@ -18,7 +19,9 @@ const StudentTabs = () => {
       <TabsContent value='jobs'>
         {isLoading ? <Loader /> : data && <JobList jobs={data.jobs} />}
       </TabsContent>
-      <TabsContent value='bounties'>Bounty post here</TabsContent>
+      <TabsContent value='bounties'>
+        <BountyList />
+      </TabsContent>
       <TabsContent value='add-bounty'>
         <CreateBounty />
       </TabsContent>

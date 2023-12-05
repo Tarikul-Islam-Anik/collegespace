@@ -15,10 +15,10 @@ const YearRange = ({
   return (
     <Flex align='center' className='gap-1.5 text-muted-foreground'>
       <Calendar size='16' />
-      <Text size='sm'>
-        <time dateTime={start.toISOString()}>{format(start, 'MMMM yyyy')}</time>
+      <Text size='sm' className='line-clamp-1'>
+        <time dateTime={start.toISOString()}>{format(start, 'MMM yyyy')}</time>
         {' - '}
-        <time dateTime={end.toISOString()}>{format(end, 'MMMM yyyy')}</time>
+        <time dateTime={end.toISOString()}>{format(end, 'MMM yyyy')}</time>
       </Text>
     </Flex>
   );

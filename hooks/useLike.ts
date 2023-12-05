@@ -14,7 +14,8 @@ const useLike = (postId: string) => {
     fetcher
   );
 
-  const { mutate: mutatePosts } = usePosts(postId, 'single');
+  const { mutate: mutatePost } = usePosts(postId, 'single');
+  const { mutate: mutatePosts } = usePosts(postId, 'all');
 
   const liked = useMemo(() => {
     return data?.liked;
@@ -27,6 +28,7 @@ const useLike = (postId: string) => {
       });
     else await fetch(endpoint, { method: 'DELETE' });
     mutate();
+    mutatePost();
     mutatePosts();
   }, [postId, liked]);
 

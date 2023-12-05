@@ -98,7 +98,7 @@ const ProfileData = ({
                 {new Intl.NumberFormat('en-US', {
                   notation: 'compact',
                   compactDisplay: 'short',
-                }).format(user?._count.followers!)}{' '}
+                }).format(user?._count?.followers!)}{' '}
                 Followers
               </Text>
             </FollowerDialog>

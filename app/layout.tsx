@@ -41,6 +41,7 @@ export default function RootLayout({
           </Flex>
           <Toaster position='bottom-left' />
         </Providers>
+        <script async src="https://cdn.splitbee.io/sb.js" />
       </body>
     </html>
   );

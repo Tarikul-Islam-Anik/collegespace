@@ -3,7 +3,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const bounties = await prisma.bounty.findMany({
-    include: {
+    select: {
+      title: true,
+      description: true,
+      reward: true,
+      deadline: true,
+      createdAt: true,
       user: {
         select: {
           id: true,

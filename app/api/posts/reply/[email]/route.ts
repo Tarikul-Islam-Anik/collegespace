@@ -22,6 +22,11 @@ export async function GET(
       },
     },
     select: {
+      id: true,
+      type: true,
+      content: true,
+      createdAt: true,
+      userId: true,
       replies: {
         where: {
           userId: user?.id,

@@ -21,7 +21,7 @@ export async function GET(
         },
       },
     },
-    include: {
+    select: {
       replies: {
         where: {
           userId: user?.id,

@@ -13,7 +13,7 @@ const StudentExperienceCard = ({
   return (
     <Card className='shadow-none'>
       <CardHeader>
-        <CardTitle>Projects</CardTitle>
+        <CardTitle>Experience</CardTitle>
       </CardHeader>
       <CardContent className='space-y-4'>
         <ul role='list'>

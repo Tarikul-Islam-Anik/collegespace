@@ -50,7 +50,7 @@ export default function CVPage({ params }: { params: { email: string } }) {
   ];
 
   return (
-    <Grid cols={1} className='gap-4 lg:grid-cols-3 lg:space-x-4'>
+    <Grid cols={1} className='mb-8 gap-4 sm:mb-0 lg:grid-cols-3 lg:space-x-4'>
       <Box className='space-y-4 lg:w-64'>
         <StudentMediaCard
           name={data?.name!}

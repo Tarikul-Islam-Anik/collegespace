@@ -1,7 +1,9 @@
+'use client';
+import Link from 'next/link';
+import { toast } from 'sonner';
 import { Button, buttonVariants } from '@/components/ui/button';
 import BountyList from './components/bounty-list';
 import { AddCircle, Back } from 'iconsax-react';
-import Link from 'next/link';
 import { Flex } from '@/components/layout/flex';
 import { Box } from '@/components/layout/box';
 import { Text } from '@/components/typography/text';
@@ -9,7 +11,14 @@ import { Heading } from '@/components/typography/heading';
 
 const BountyBoardPage = () => {
   return (
-    <Flex direction='column' className='container pt-9' mx='auto' px={2}  gap={4} pb={4}>
+    <Flex
+      direction='column'
+      className='container pt-9'
+      mx='auto'
+      px={2}
+      gap={4}
+      pb={4}
+    >
       <Box mr='auto'>
         <Link
           href='/authentication'
@@ -29,8 +38,15 @@ const BountyBoardPage = () => {
           click the Apply button to get started.
         </Text>
       </Flex>
-      <Box ml='auto'>
-        <Button>
+      <Box ml='auto' width='full' className='md:w-auto'>
+        <Button
+          onClick={() => {
+            toast.error(
+              'You need to be logged in to create new bounties. Login or create an account to continue.'
+            );
+          }}
+          className='w-full'
+        >
           <AddCircle className='h-5 w-5' />
           <Text className='ml-2'>Add Bounty</Text>
         </Button>

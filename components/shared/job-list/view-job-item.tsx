@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { JobType } from '@/lib/type';
-import useUser from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
 import {
   DialogContent,
@@ -28,12 +27,8 @@ const ViewJobItem = ({
 }) => {
   const details: { [key: string]: any } = {};
   const showApply = !job.company.isOwner;
-  const { user } = useUser();
-  const canApply =
-    user &&
-    user.studentDetails &&
-    user.studentDetails.educations.length > 0 &&
-    user.studentDetails.about;
+  // TODO: add logic here
+  const canApply = true;
 
   if (job) {
     for (const [key, value] of Object.entries(job)) {

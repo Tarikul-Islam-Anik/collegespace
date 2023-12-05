@@ -10,7 +10,7 @@ const useUser = (email?: string) => {
     error,
     isLoading,
     mutate,
-  } = useSWR<UserType>(userEmail ? `/api/users/${userEmail}` : null, fetcher);
+  } = useSWR<UserType>(`/api/users/${userEmail}`, fetcher);
 
   return {
     user,

@@ -37,3 +37,7 @@ export function getCountries(lang = 'en') {
   delete countries['ZZ'];
   return countries;
 }
+
+export function truncateString(str: string, n: number) {
+  return str.length > n ? str.slice(0, n - 1) + '...' : str;
+}

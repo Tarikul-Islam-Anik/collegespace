@@ -10,7 +10,7 @@ import { TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const StudentAboutCard = ({ about }: { about?: string }) => {
   return (
-    <Card className='relative overflow-hidden shadow-none lg:h-[300px]'>
+    <Card className='relative overflow-hidden shadow-none lg:h-[300px] min-w-full'>
       <CardHeader>
         <CardTitle>About</CardTitle>
       </CardHeader>

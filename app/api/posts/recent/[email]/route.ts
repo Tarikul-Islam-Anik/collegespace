@@ -9,7 +9,7 @@ export async function GET(
     where: { email: params.email },
     select: {
       posts: {
-        include: {
+        select: {
           user: {
             select: {
               name: true,

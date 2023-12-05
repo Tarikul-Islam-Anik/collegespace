@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 import { Box } from '@/components/layout/box';
 import Loader from '@/components/shared/loader';
-import SectionHeading from '../../../components/shared/section-heading';
+import SectionHeading from '@/components/shared/section-heading';
 import useStudentDetails from '@/hooks/useStudentDetails';
 
 const PersonalInfoForm = dynamic(

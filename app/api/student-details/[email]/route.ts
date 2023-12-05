@@ -1,12 +1,16 @@
 import prisma from '@/lib/prisma';
+import authStatus from '@/lib/auth-status';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { email: string } }
 ) {
+  const { currentUser } = await authStatus();
+  const email =
+    params.email !== 'currentUser' ? params.email : currentUser.email;
   const user = await prisma.user.findUnique({
-    where: { email: params.email },
+    where: { email: email! },
     select: {
       name: true,
       email: true,

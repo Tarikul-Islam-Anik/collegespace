@@ -8,11 +8,12 @@ import { Text } from '@/components/typography/text';
 import ProfileHoverCard from '../profile-hover-card';
 import { Heading } from '@/components/typography/heading';
 import BountyActions from './bounty-actions';
+import { truncateString } from '@/lib/utils';
 
 const BountyItem = ({ bounty }: { bounty: BountyType }) => {
   return (
-    <Flex justify='between' align={'center'} className='space-x-1' width='full'>
-      <Flex direction='column' gap={2}>
+    <Flex justify='between' align={'center'} className='space-x-1'>
+      <Flex direction='column' gap={2} className='w-[400px]'>
         <Heading as='h3' weight='medium'>
           {bounty.title}
         </Heading>
@@ -22,12 +23,11 @@ const BountyItem = ({ bounty }: { bounty: BountyType }) => {
           size='sm'
           className='line-clamp-3'
         >
-          {bounty.description}
+          {bounty.description ? bounty.description : 'No description provided'}
         </Text>
         <Flex align='center' className='text-sm text-muted-foreground'>
           <Text as='p' className='mr-1 inline-flex items-center'>
             <Sparkles className='mr-1 h-4 w-4' />
-            <Text className='mx-0.5'>Reward:</Text>
             <Text className='tabular-nums'>
               {new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -42,7 +42,6 @@ const BountyItem = ({ bounty }: { bounty: BountyType }) => {
           </Text>
           <Text as='p' className='inline-flex items-center'>
             <Calendar className='mr-1 h-4 w-4' />
-            <Text className='mx-0.5'>Deadline:</Text>
             <time dateTime={new Date(bounty.deadline).toISOString()}>
               {format(new Date(bounty.deadline), 'MMM dd, yyyy')}
             </time>
@@ -55,7 +54,7 @@ const BountyItem = ({ bounty }: { bounty: BountyType }) => {
               <ProfileHoverCard {...bounty.user}>
                 <Text as='p' className='inline-flex items-center'>
                   <User className='mr-1 h-4 w-4' />
-                  {bounty.user?.name}
+                  {truncateString(bounty.user.name!, 18)}
                 </Text>
               </ProfileHoverCard>
             </>

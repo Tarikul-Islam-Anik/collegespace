@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { UserType } from '@/lib/type';
 import { buttonVariants } from '../ui/button';
@@ -7,9 +8,7 @@ import { Flex } from '@/components/layout/flex';
 import FollowButton from './follow/follow-button';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
-import { cn } from '@/lib/utils';
-import { Box } from '../layout/box';
-import Link from 'next/link';
+import { cn, truncateString } from '@/lib/utils';
 
 const ProfileHoverCard = dynamic(() => import('./profile-hover-card'), {
   ssr: false,
@@ -27,15 +26,15 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
   const username = user?.username ? `@${user?.username}` : 'no username';
 
   const content = (
-    <Box>
-      <Text className='text-sm font-semibold'>{name}</Text>
+    <Flex direction='column' align='start' className='w-5'>
+      <Text className='text-sm font-semibold'>{truncateString(name!, 15)}</Text>
       <Text
         weight='medium'
         className='line-clamp-1 text-left text-xs text-muted-foreground'
       >
-        {username}
+        {truncateString(username!, 15)}
       </Text>
-    </Box>
+    </Flex>
   );
 
   const avatar = <UserAvatar name={name} image={image} />;
@@ -70,3 +69,4 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
 
 UserItem.displayName = 'UserItem';
 export default UserItem;
+

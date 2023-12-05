@@ -39,7 +39,18 @@ const ProfileData = ({
             <Skeleton className='mt-1.5 h-6 w-[200px]' />
           ) : (
             <Flex gap={2} align='center'>
-              <Text as='p'>@{user?.username}</Text>
+              {user.username ? (
+                <Text as='p'>@{user?.username}</Text>
+              ) : (
+                <Text
+                  as='p'
+                  size='xs'
+                  className='ml-1'
+                  color='muted-foreground'
+                >
+                  No username provided
+                </Text>
+              )}
               <Badge variant='secondary' className='capitalize'>
                 {user?.role}
               </Badge>
@@ -60,9 +71,20 @@ const ProfileData = ({
             <Heading as='h3' size='sm' color='muted-foreground' weight='medium'>
               Bio
             </Heading>
-            <Text as='p' size='sm'>
-              {user?.bio}
-            </Text>
+            {user?.bio ? (
+              <Text as='p' className='mt-1.5'>
+                {user?.bio}
+              </Text>
+            ) : (
+              <Text
+                as='p'
+                size='xs'
+                className='mt-1.5'
+                color='muted-foreground'
+              >
+                No bio provided
+              </Text>
+            )}
           </>
         )}
       </Box>

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { UserType } from '@/lib/type';
 import { buttonVariants } from '../ui/button';
@@ -8,8 +9,6 @@ import FollowButton from './follow/follow-button';
 import { Text } from '@/components/typography/text';
 import UserAvatar from '@/components/shared/user-avatar';
 import { cn, truncateString } from '@/lib/utils';
-import { Box } from '../layout/box';
-import Link from 'next/link';
 
 const ProfileHoverCard = dynamic(() => import('./profile-hover-card'), {
   ssr: false,
@@ -70,3 +69,4 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
 
 UserItem.displayName = 'UserItem';
 export default UserItem;
+

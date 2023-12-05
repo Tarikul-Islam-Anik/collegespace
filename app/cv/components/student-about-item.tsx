@@ -62,12 +62,12 @@ const StudentAboutInfoItem = ({
             </a>
           )}
           {school && (
-            <>
+            <Flex align='center' className='gap-1.5'>
               <GraduationCap size='16' />
-              <Text as='p' size='sm'>
+              <Text as='p' size='sm' className='line-clamp-1'>
                 {school}
               </Text>
-            </>
+            </Flex>
           )}
           {jobType && (
             <Badge variant='outline' className='capitalize'>

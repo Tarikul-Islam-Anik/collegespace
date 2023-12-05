@@ -10,13 +10,11 @@ export async function GET(
     select: {
       posts: {
         select: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-              image: true,
-            },
-          },
+          id: true,
+          type: true,
+          content: true,
+          createdAt: true,
+          user: { select: { name: true, email: true, image: true } },
           _count: { select: { likes: true, replies: true, reposts: true } },
         },
         orderBy: { createdAt: 'desc' },

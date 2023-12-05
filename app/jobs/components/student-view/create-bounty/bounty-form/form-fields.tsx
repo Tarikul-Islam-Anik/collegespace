@@ -22,7 +22,7 @@ const FormFields = ({ form }: { form: UseFormReturn<BountyFormValues> }) => {
           <FormItem>
             <FormLabel className='capitalize'>{field.name}</FormLabel>
             <FormControl>
-              <Input maxLength={101} {...field} />
+              <Input maxLength={50} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

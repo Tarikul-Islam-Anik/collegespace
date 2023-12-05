@@ -2,13 +2,13 @@
 
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import FormFields from './form-fields';
 import { zodResolver } from '@hookform/resolvers/zod';
-import useJobs from '@/hooks/useJobs';
+import useCompany from '@/hooks/useCompany';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import FormFields from './form-fields';
-import { JobFormValue, jobFormSchema } from './schema';
 import { Flex } from '@/components/layout/flex';
+import { JobFormValue, jobFormSchema } from './schema';
 
 const JobForm = ({
   companyId,
@@ -17,7 +17,7 @@ const JobForm = ({
   companyId: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { mutate } = useJobs(companyId);
+  const { mutate } = useCompany();
   const defaultValues: Partial<JobFormValue> = {
     title: '',
     description: '',

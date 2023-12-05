@@ -53,12 +53,13 @@ const StudentAboutInfoItem = ({
       >
         <Flex align='center' className='gap-1.5'>
           {link && (
-            <Link
+            <a
               href={link}
+              target='_blank'
               className={buttonVariants({ variant: 'outline', size: 'sm' })}
             >
               View Project
-            </Link>
+            </a>
           )}
           {school && (
             <>

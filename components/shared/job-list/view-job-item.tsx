@@ -29,11 +29,8 @@ const ViewJobItem = ({
   const details: { [key: string]: any } = {};
   const showApply = !job.company.isOwner;
   const { user } = useUser();
-  const canApply =
-    user &&
-    user.studentDetails &&
-    user.studentDetails.educations.length > 0 &&
-    user.studentDetails.about;
+  // TODO: Implement canApply logic. For now, it's always true.
+  const canApply = true;
 
   if (job) {
     for (const [key, value] of Object.entries(job)) {
@@ -43,7 +40,9 @@ const ViewJobItem = ({
         key === 'createdAt' ||
         key === 'updatedAt' ||
         key === 'title' ||
-        key === 'company'
+        key === 'company' ||
+        key === 'company_ownerId' ||
+        key === 'company_name'
       ) {
         continue;
       }

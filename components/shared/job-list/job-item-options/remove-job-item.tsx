@@ -10,13 +10,13 @@ import {
   DialogClose,
 } from '@/components/ui/dialog';
 
-const RemoveJobItem = ({
-  jobId,
-  companyId,
-}: {
+interface RemoveJobItemProps {
   jobId: string;
   companyId: string;
-}) => {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const RemoveJobItem = ({ jobId, companyId, setOpen }: RemoveJobItemProps) => {
   const { mutate } = useJobs(companyId);
   function handleDelete() {
     toast.promise(
@@ -27,6 +27,7 @@ const RemoveJobItem = ({
         loading: 'Deleting...',
         success: () => {
           mutate();
+          setOpen(false);
           return 'Job deleted';
         },
         error: 'Error deleting job',
@@ -47,7 +48,9 @@ const RemoveJobItem = ({
         <DialogClose asChild>
           <Button variant='ghost'>Cancel</Button>
         </DialogClose>
-        <Button onClick={handleDelete} variant='destructive'>Delete</Button>
+        <Button onClick={handleDelete} variant='destructive'>
+          Delete
+        </Button>
       </DialogFooter>
     </DialogContent>
   );

@@ -1,6 +1,8 @@
 import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   const bounties = await prisma.$queryRaw`
   SELECT 

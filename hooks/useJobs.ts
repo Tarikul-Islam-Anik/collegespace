@@ -5,7 +5,7 @@ import fetcher from '@/lib/fetcher';
 const useJobs = (reference?: string) => {
   const endPoint = reference
     ? `/api/company/jobs/${reference}`
-    : '/api/company/jobs/all';
+    : '/api/company/jobs';
 
   const { data, error, isLoading, mutate } = useSWR<{ jobs: JobType[] }>(
     endPoint,

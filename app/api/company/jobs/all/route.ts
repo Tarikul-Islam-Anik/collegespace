@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const jobs = await prisma.$queryRaw`
+  const data = await prisma.$queryRaw`
   SELECT 
     J.*, 
     C.name AS company_name, 
@@ -14,5 +14,7 @@ export async function GET(request: NextRequest) {
   ORDER BY
     J.createdAt DESC;`;
 
-  return NextResponse.json({ jobs: jobs }, { status: 200 });
+  const jobs = { jobs: data };
+
+  return NextResponse.json(jobs, { status: 200 });
 }

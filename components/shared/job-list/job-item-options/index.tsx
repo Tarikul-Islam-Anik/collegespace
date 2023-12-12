@@ -18,7 +18,7 @@ const ViewJobItem = dynamic(() => import('../view-job-item'), {
   ssr: false,
 });
 
-const RemoveJobItem = dynamic(() => import('../remove-job-item'), {
+const RemoveJobItem = dynamic(() => import('./remove-job-item'), {
   ssr: false,
 });
 
@@ -61,9 +61,13 @@ const JobItemOptions = ({ job }: { job: JobType }) => {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      {content === 'View' && <ViewJobItem job={job} setOpen={setOpen}/>}
+      {content === 'View' && <ViewJobItem job={job} setOpen={setOpen} />}
       {content === 'Delete' && (
-        <RemoveJobItem jobId={job.id} companyId={job.companyId} />
+        <RemoveJobItem
+          jobId={job.id}
+          companyId={job.companyId}
+          setOpen={setOpen}
+        />
       )}
       {content === 'Applicants' && (
         <ViewApplicants referenceId={job.id} applicantsFrom='jobs' />

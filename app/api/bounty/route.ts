@@ -5,9 +5,12 @@ export async function GET(request: NextRequest) {
   const bounties = await prisma.$queryRaw`
   SELECT 
     B.*, 
-    U.name AS user_name, 
-    U.username AS user_username, 
-    U.image AS user_image
+    U.name AS creator_name, 
+    U.email AS creator_email,
+    U.bio AS creator_bio,
+    U.createdAt AS creator_createdAt,
+    U.username AS creator_username, 
+    U.image AS creator_image
   FROM
     collegespace.Bounty AS B
   INNER JOIN

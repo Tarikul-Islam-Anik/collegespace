@@ -12,5 +12,12 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  return NextResponse.json(user?.bounties, { status: 200 });
+  const bounties = user?.bounties.map((bounty) => {
+    return {
+      ...bounty,
+      creator_email: currentUser.email,
+    };
+  });
+
+  return NextResponse.json(bounties, { status: 200 });
 }

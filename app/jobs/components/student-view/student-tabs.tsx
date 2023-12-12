@@ -1,13 +1,24 @@
 'use client';
+import { JobType } from '@/lib/type';
 import useJobs from '@/hooks/useJobs';
 import Loader from '@/components/shared/loader';
 import JobList from '@/components/shared/job-list';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CreateBounty from './create-bounty';
 import BountyList from '@/components/shared/bounty-list';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const StudentTabs = () => {
   const { data, isLoading } = useJobs();
+
+  const jobs = data?.jobs.map((job) => {
+    return {
+      ...job,
+      company: {
+        name: job.company_name,
+        isOwner: false,
+      },
+    };
+  });
 
   return (
     <Tabs defaultValue='jobs' className='mx-auto mt-4'>
@@ -17,7 +28,7 @@ const StudentTabs = () => {
         <TabsTrigger value='add-bounty'>Add Bounty</TabsTrigger>
       </TabsList>
       <TabsContent value='jobs'>
-        {isLoading ? <Loader /> : data && <JobList jobs={data.jobs} />}
+        {isLoading ? <Loader /> : data && <JobList jobs={jobs as JobType[]} />}
       </TabsContent>
       <TabsContent value='bounties'>
         <BountyList />

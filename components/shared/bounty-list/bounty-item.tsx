@@ -46,15 +46,22 @@ const BountyItem = ({ bounty }: { bounty: BountyType }) => {
               {format(new Date(bounty.deadline), 'MMM dd, yyyy')}
             </time>
           </Text>
-          {bounty?.user && (
+          {bounty?.creator_name && (
             <>
               <Text size='xs' className='mx-1.5'>
                 &bull;
               </Text>
-              <ProfileHoverCard {...bounty.user}>
+              <ProfileHoverCard
+                username={bounty.creator_name!}
+                name={bounty.creator_name!}
+                image={bounty.creator_image!}
+                createdAt={bounty.creator_createdAt!}
+                bio={bounty.creator_bio!}
+                email={bounty.creator_email!}
+              >
                 <Text as='p' className='inline-flex items-center'>
                   <User className='mr-1 h-4 w-4' />
-                  {truncateString(bounty.user.name!, 18)}
+                  {truncateString(bounty.creator_name!, 18)}
                 </Text>
               </ProfileHoverCard>
             </>

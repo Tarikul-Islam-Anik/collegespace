@@ -44,6 +44,8 @@ export interface CompanyType extends Company {
 }
 
 export interface JobType extends Job {
+  company_name?: string;
+  company_ownerId?: string;
   company: {
     name: string;
     isOwner: boolean;
@@ -51,7 +53,12 @@ export interface JobType extends Job {
 }
 
 export interface BountyType extends Bounty {
-  user: Partial<User>;
+  creator_name?: string;
+  creator_email?: string;
+  creator_bio?: string;
+  creator_createdAt?: Date;
+  creator_username?: string;
+  creator_image?: string;
 }
 
 export interface UserType extends User {

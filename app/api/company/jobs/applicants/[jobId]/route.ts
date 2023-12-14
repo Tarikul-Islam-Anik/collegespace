@@ -1,6 +1,8 @@
 import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const revalidate = 1;
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { jobId: string } }

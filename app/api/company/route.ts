@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import authStatus from '@/lib/auth-status';
+import authStatus from '@/lib/auth-status'; 
 
 export async function GET(request: NextRequest) {
   const { currentUser } = await authStatus();

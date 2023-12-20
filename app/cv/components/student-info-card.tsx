@@ -25,7 +25,7 @@ const StudentInfoCard = ({
               </dt>
               {key === 'email' ? (
                 <a href={`mailto:${value}`}>
-                  <dd className='w-36 truncate text-right font-medium lowercase'>
+                  <dd className='lg:w-36 truncate text-right font-medium lowercase'>
                     {value as string}
                   </dd>
                 </a>

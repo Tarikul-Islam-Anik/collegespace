@@ -4,7 +4,6 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { JobType } from '@/lib/type';
-import useUser from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
 import {
   DialogContent,
@@ -28,8 +27,7 @@ const ViewJobItem = ({
 }) => {
   const details: { [key: string]: any } = {};
   const showApply = !job.company.isOwner;
-  const { user } = useUser();
-  // TODO: Implement canApply logic. For now, it's always true.
+  // TODO: add logic here
   const canApply = true;
 
   if (job) {

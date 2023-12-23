@@ -22,7 +22,7 @@ const PostOptions = ({
   userId: string;
 }) => {
   const { data: session } = useSession();
-  
+
   // @ts-ignore
   const currentUserId = session?.user?.id!;
 
@@ -39,7 +39,7 @@ const PostOptions = ({
       <DropdownMenuContent>
         {showUnfollow && (
           <DropdownMenuItem>
-            <FollowButton asChild userId={userId} isFollowing='Unfollow' />
+            <FollowButton asChild userId={userId} isFollowing />
           </DropdownMenuItem>
         )}
         <HandlePostCopy postId={postId} />

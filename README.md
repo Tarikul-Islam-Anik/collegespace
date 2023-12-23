@@ -4,6 +4,16 @@ CollegeSpace is a vibrant social media platform that acts as a nexus connecting 
 
 > tl;dr: It was my CSE370: Database Systems course project at Brac University.
 
+<details>
+<summary>Here are two demo account for you to try out the app.</summary>
+
+|           Username           |           Password           |   Role    |
+| :--------------------------: | :--------------------------: | :-------: |
+|    `mike.adams@email.com`    |    `mike.adams@email.com`    | Recruiter |
+| `lucas.thompson@example.com` | `lucas.thompson@example.com` |  Student  |
+
+</details>
+
 ## Features
 
 ### New Actions

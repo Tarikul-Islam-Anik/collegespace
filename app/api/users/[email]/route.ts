@@ -27,10 +27,29 @@ export async function GET(
     },
   });
 
+  const isFollowedByCurrentUser = await prisma.user.findUnique({
+    where: {
+      id: currentUser?.id,
+    },
+    select: {
+      follows: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
+  const isFollowing = isFollowedByCurrentUser?.follows.some(
+    (following) => following.id === user?.id
+  );
+
+  const userWithFollowings = { ...user, isFollowing };
+
   if (!user)
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
 
-  return NextResponse.json(user);
+  return NextResponse.json(userWithFollowings);
 }
 
 export async function PATCH(

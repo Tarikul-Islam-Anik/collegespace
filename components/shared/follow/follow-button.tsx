@@ -10,7 +10,7 @@ import usePosts from '@/hooks/usePosts';
 interface FollowButtonProps extends VariantProps<typeof buttonVariants> {
   userId: string;
   className?: string;
-  defaultLabel?: string;
+  isFollowing?: boolean;
   asChild?: boolean;
 }
 
@@ -18,11 +18,11 @@ const FollowButton = ({
   userId,
   variant = 'outline',
   className,
-  defaultLabel,
+  isFollowing,
   asChild,
 }: FollowButtonProps) => {
   const [loading, setLoading] = useState(false);
-  const [label, setLabel] = useState(defaultLabel || 'Follow');
+  const [label, setLabel] = useState(isFollowing ? 'Unfollow' : 'Follow');
   const { mutate } = usePosts();
   function handleFollow() {
     setLoading(true);

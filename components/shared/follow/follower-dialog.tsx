@@ -54,7 +54,7 @@ const FollowerDialog = ({ id, children }: FollowerDialogProps) => {
                       tab.content.map((item, index) => (
                         <li key={item.id}>
                           {index > 0 && <Separator className='my-2' />}
-                          <UserItem user={item} />
+                          <UserItem user={item} followButton />
                         </li>
                       ))
                     ) : (

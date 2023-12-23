@@ -1,8 +1,6 @@
 import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const revalidate = 1;
-
 export async function GET(request: NextRequest) {
   const jobs = await prisma.job.findMany({
     orderBy: {
@@ -18,5 +16,5 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  return NextResponse.json(jobs, { status: 200 });
+  return NextResponse.json({ jobs: jobs }, { status: 200 });
 }

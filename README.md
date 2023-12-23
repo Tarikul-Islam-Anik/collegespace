@@ -2,6 +2,8 @@
 
 CollegeSpace is a vibrant social media platform that acts as a nexus connecting students and startups. It's designed to facilitate seamless interactions, allowing students to share thoughts, display their work, and engage with budding startups, creating a conducive environment for learning, collaboration, and recruitment.
 
+> tl;dr: It was my CSE370: Database Systems course project at Brac University.
+
 ## Features
 
 ### New Actions

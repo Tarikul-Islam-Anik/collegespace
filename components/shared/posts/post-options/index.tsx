@@ -39,7 +39,7 @@ const PostOptions = ({
       <DropdownMenuContent>
         {showUnfollow && (
           <DropdownMenuItem>
-            <FollowButton asChild userId={userId} defaultLabel='Unfollow' />
+            <FollowButton asChild userId={userId} isFollowing='Unfollow' />
           </DropdownMenuItem>
         )}
         <HandlePostCopy postId={postId} />

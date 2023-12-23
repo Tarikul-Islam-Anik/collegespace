@@ -3,6 +3,21 @@ import authStatus from '@/lib/auth-status';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
+  const { currentUser } = await authStatus();
+
+  const followings = await prisma.user.findUnique({
+    where: {
+      id: currentUser?.id,
+    },
+    select: {
+      follows: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
   const users = await prisma.user.findMany({
     orderBy: {
       createdAt: 'desc',
@@ -19,7 +34,14 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  return NextResponse.json(users, { status: 200 });
+  const usersWithFollowings = users.map((user) => {
+    const isFollowing = followings?.follows.some(
+      (following) => following.id === user.id
+    );
+    return { ...user, isFollowing };
+  });
+
+  return NextResponse.json(usersWithFollowings, { status: 200 });
 }
 
 export async function DELETE(request: NextRequest) {

@@ -123,7 +123,12 @@ const ProfileData = ({
           Edit Profile
         </Link>
       ) : (
-        <FollowButton className='w-full' variant='default' userId={user?.id} />
+        <FollowButton
+          className='w-full'
+          variant={!user.isFollowing ? 'default' : 'outline'}
+          userId={user?.id}
+          isFollowing={user.isFollowing}
+        />
       )}
     </>
   );

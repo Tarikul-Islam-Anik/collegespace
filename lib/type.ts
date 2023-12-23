@@ -71,6 +71,7 @@ export interface UserType extends User {
     followers: number;
     follows: number;
   };
+  isFollowing?: boolean;
 }
 
 export type {

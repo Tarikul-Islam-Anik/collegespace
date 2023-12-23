@@ -62,11 +62,12 @@ const UserItem = ({ user, profileHover, followButton }: UserItemProps) => {
           {card}
         </Flex>
       </Flex>
-      {followButton && <FollowButton userId={user?.id!} />}
+      {followButton && (
+        <FollowButton userId={user?.id!} isFollowing={user.isFollowing} />
+      )}
     </Flex>
   );
 };
 
 UserItem.displayName = 'UserItem';
 export default UserItem;
-
